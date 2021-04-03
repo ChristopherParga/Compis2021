@@ -2,9 +2,9 @@ import ply.lex as lex
 #Lista de Tokens para el lenguaje
 tokens = [
     #palabras reservadas
-    'PROGRAM','VOID','MAIN','ID','COMMENT',
-    'WRITE','READ','RETURN','IF','ELSE','WHILE',
-    'VAR', 'MODULE', 'DO', 'FOR', 'TO',
+    'PROGRAMA','VOID','PRINCIPAL','ID','COMMENT',
+    'ESCRIBE','LEE','REGRESA','SI','ENTONCES','SINO','MIENTRAS',
+    'VARIABLES', 'FUNCION', 'HACER', 'DESDE', 'HASTA',
     #tipos de datos
     'INT_TYPE','FLOAT_TYPE','CHAR_TYPE',
     #asignacion
@@ -18,9 +18,6 @@ tokens = [
     'LPAREN','RPAREN','LBRACK','RBRACK','LCURLY','RCURLY',
     #operadores especiales
     'COMMA','SEMIC','COLON',
-    #funciones especiales
-    'LINE','POINT','CIRCLE','ARC','PENUP',
-    'PENDOWN','COLOR','SIZE','CLEAR',
     #constantes
     'FLOAT_CTE','INT_CTE','CHAR_CTE','STRING_CTE',
     'NEW_LINE'
@@ -80,56 +77,40 @@ def t_NEW_LINE(t):
 
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
-    if t.value == 'program':
-        t.type = 'PROGRAM'
+    if t.value == 'programa':
+        t.type = 'PROGRAMA'
     elif t.value == 'void':
         t.type = 'VOID'
-    elif t.value == 'main':
-        t.type = 'MAIN'
-    elif t.value == 'func':
-        t.type = 'FUNC'
-    elif t.value == 'write':
-        t.type = 'WRITE'
-    elif t.value == 'read':
-        t.type = 'READ'
-    elif t.value == 'if':
-        t.type = 'IF'
-    elif t.value == 'else':
-        t.type = 'ELSE'
-    elif t.value == 'while':
-        t.type = 'WHILE'
-    elif t.value == 'do':
-        t.type = 'DO'
-    elif t.value == 'for':
-        t.type = 'FOR'
-    elif t.value == 'to':
-        t.type = 'TO'
-    elif t.value == 'int':
+    elif t.value == 'principal':
+        t.type = 'PRINCIPAL'
+    elif t.value == 'funcion':
+        t.type = 'FUNCION'
+    elif t.value == 'escribe':
+        t.type = 'ESCRIBE'
+    elif t.value == 'lee':
+        t.type = 'LEE'
+    elif t.value == 'si':
+        t.type = 'SI'
+    elif t.value == 'entonces':
+        t.type = 'ENTONCES'
+    elif t.value == 'sino':
+        t.type = 'SINO'    
+    elif t.value == 'mientras':
+        t.type = 'MIENTRAS'
+    elif t.value == 'hacer':
+        t.type = 'HACER'
+    elif t.value == 'desde':
+        t.type = 'DESDE'
+    elif t.value == 'hasta':
+        t.type = 'HASTA'
+    elif t.value == 'entero':
         t.type = 'INT_TYPE'
-    elif t.value == 'float':
+    elif t.value == 'flotante':
         t.type = 'FLOAT_TYPE'
     elif t.value == 'char':
         t.type = 'CHAR_TYPE'
-    elif t.value == 'var':
-        t.type = 'VAR'
-    elif t.value == 'line':
-        t.type = 'LINE'
-    elif t.value == 'point':
-        t.type = 'POINT'
-    elif t.value == 'circle':
-        t.type = 'CIRCLE'
-    elif t.value == 'arc':
-        t.type = 'ARC'
-    elif t.value == 'penup':
-        t.type = 'PENUP'
-    elif t.value == 'pendown':
-        t.type = 'PENDOWN'
-    elif t.value == 'color':
-        t.type = 'COLOR'
-    elif t.value == 'size':
-        t.type = 'SIZE'
-    elif t.value == 'clear':
-        t.type = 'CLEAR'
+    elif t.value == 'variables':
+        t.type = 'VARIABLES'
     else:
         t.type = 'ID'
     return t
