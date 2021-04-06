@@ -45,17 +45,19 @@ def p_var_aux3(p):
              | COLON tipo SEMIC
     '''
 
+# DECLARACION DE ARREGLOS
 def p_arreglo(p):
     '''
     arreglo : LBRACKET INT_CTE arreglo_aux RBRACK p_var_aux3
     '''
 
-def p_arreglo(p):
+def p_arreglo_aux(p):
     '''
     arreglo_aux : COMMA INT_CTE p_arreglo
                 | empty
     '''
 
+# TIPOS DE VARIABLE Y FUNCIONES
 def p_tipo(p):
     '''
     tipo : INT
@@ -70,30 +72,154 @@ def p_tipo_func(p):
               | tipo
     '''
 
+# FUNCIONES
 def p_funciones(p):
     '''
-    funciones : tipo_func  FUNCION ID LPAREN var_aux3 RPAREN SEMIC p_var_aux BLOQUE
+    funciones : tipo_func FUNCION ID LPAREN var_aux3 RPAREN SEMIC p_var_aux BLOQUE
               | empty
 
     '''
 
+# BLOQUE
 def p_bloque(p):
     '''
     bloque : LCURLY estatuto RCURLY
     '''
 
+# ESTATUTO
 def p_estatuto(p):
     '''
-    estatuto : asignacion
-             | condicion
-             | loop
-             | llamada_funcion
-             | escritura
-             | lectura
-             | llamada_funcion_void
+    estatuto : asignacion SEMIC
+             | condicion SEMIC
+             | loop SEMIC
+             | llamada_funcion SEMIC
+             | escritura SEMIC
+             | lectura SEMIC
+             | llamada_funcion_void SEMIC
              | empty
     '''
 
+# ASIGNACION
+def p_asignacion(p):
+    '''
+    asignacion : ID arreglo_aux_assign ASSIGN asignacion_aux
+    '''
+
+def p_asignacion_aux(p):
+    '''
+    asignacion_aux : llamada_funcion asignacion_aux2
+                   | expresion asignacion_aux2
+    '''
+
+def p_asignacion_aux2(p):
+    '''
+    asignacion_aux2 : expresion asignacion_aux
+                    | empty
+    '''
+
+# --- Arreglos igual a los de arriba pero con m-exp en lugar de CTE_INT
+def p_arreglo_assign_aux(p):
+    '''
+    arreglo_aux_assign : LBRACK m-exp arreglo_aux_assign2 RBRACK
+                       | empty
+    '''
+def p_arreglo_assign_aux2(p):
+    '''
+    arreglo_aux_assign2 : COMMA m-exp
+                        | empty
+    '''
+
+# IF-ELSE
+def p_condicion(p):
+    '''
+    condicion : SI LPAREN expresion RPAREN ENTONCES BLOQUE sino_aux 
+    '''
+
+def p_sino_aux(p):
+    '''
+    sino_aux : SINO bloque
+             | empty
+    '''
+
+# --- INT_TYPE en lugar de CTE_INT porque puede cambiar(?)
+# --- Igual, arreglo_aux_assign porque puede ir una expresion(?)
+def p_mientras(p):
+    '''
+    mientras : MIENTRAS LPAREN expresion RPAREN HACER bloque mientras_aux
+             | DESDE ID arreglo_aux_assign ASSIGN INT_TYPE HASTA INT_TYPE HACER bloque desde_aux
+    '''
+# LOOP
+def p_mientras_aux(p):
+    '''
+    mientras_aux : LPAREN expresion RPAREN HACER bloque mientras_aux
+                 | empty
+    '''
+
+def p_desde_aux(p):
+    '''
+    desde_aux : INT_TYPE HASTA INT_TYPE HACER bloque desde_aux
+              | empty
+    '''
+
+# PARAMETROS
+def p_parametros(p):
+    '''
+    parametros : LPAREN parametros_aux RPAREN
+    '''
+
+# --- No estoy seguro si esta la hice bien. Hasta donde sé, da error... pero no se si sea algo que se maneje con los puntos neurargicos.
+# --- Lo digo porque segun yo acepta una funcion con un parametro y una coma -> funcion(int 1, ) y no deberia de pasar eso.
+def p_parametros_aux(p):
+    '''
+    parametros_aux : expresion parametros_aux2
+                   | empty
+    '''
+
+def p_parametros_aux2(p) :
+    '''
+    parametros_aux2 : COMMA parametrox_aux
+                    | empty
+    ''' 
+
+# LLAMADA FUNCION
+def p_llamada_funcion(p) :
+    '''
+    llamada_funcion : ID parametros
+    '''
+# LLMADA FUNCION VOID
+def p_llamada_void(p) :
+    '''
+    llamada_void : ID parametros
+    '''
+
+# ESCRITURA
+def p_escritura(p) :
+    '''
+    escritura : ESCRIBE LPAREN escritura_aux RPAREN
+    '''
+def p_escritura_aux(p) :
+    '''
+    escritura_aux : STRING_CTE escritura_aux2
+                  | expresion escritura_aux2
+    '''
+
+def p_escritura_aux2(p) :
+    '''
+    escritura_aux2 : COMMA escritura_aux
+                   | empty
+    '''
+
+# LECTURA
+def p_lectura(p) : 
+    '''
+    lectura: LEE LPAREN ASSIGN lectura_aux RPAREN
+    '''
+
+def p_lectura_aux(p) :
+    '''
+    lectura_aux : COMMA ASSIGN lectura_aux
+                | empty
+    '''
 
 parser = yacc.yacc()
 
