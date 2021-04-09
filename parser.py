@@ -120,12 +120,12 @@ def p_asignacion_aux2(p):
 # --- Arreglos igual a los de arriba pero con m-exp en lugar de CTE_INT
 def p_arreglo_assign_aux(p):
     '''
-    arreglo_aux_assign : LBRACK m-exp arreglo_aux_assign2 RBRACK
+    arreglo_aux_assign : LBRACK m_exp arreglo_aux_assign2 RBRACK
                        | empty
     '''
 def p_arreglo_assign_aux2(p):
     '''
-    arreglo_aux_assign2 : COMMA m-exp
+    arreglo_aux_assign2 : COMMA m_exp
                         | empty
     '''
 
@@ -219,6 +219,82 @@ def p_lectura_aux(p) :
     '''
     lectura_aux : COMMA ASSIGN lectura_aux
                 | empty
+    '''
+
+# EXPRESIONES
+def p_expresion(p) :
+    '''
+    expresion : t_exp exp_aux
+    '''
+
+def p_exp_aux(p) :
+    '''
+    exp_aux : OR_LOG expresion
+            | empty
+    '''
+
+def p_t_exp(p) :
+    '''
+    t_exp : g_exp t_exp_aux
+    '''
+
+def p_t_exp_aux(p) :
+    '''
+    t_exp_aux : AND_LOG t_exp
+              | empty
+    '''
+
+def p_g_exp(p) :
+    '''
+    g_exp : m_exp g_exp_aux
+    '''
+
+def p_g_exp_aux(p) :
+    '''
+    g_exp_aux : LT_LOG m_exp
+              | GT_LOG m_exp
+              | EQUAL_LOG m_exp
+              | NE_LOG m_exp
+              | empty
+    ''' 
+
+def p_m_exp(p) : 
+    '''
+    m_exp : termino m_exp_aux
+    ''' 
+
+def p_m_exp_aux(p) :
+    '''
+    m_exp_aux : PLUS_OP m_exp
+              | MINUS_OP m_exp
+              | empty
+    ''' 
+
+def p_termino(p) :
+    '''
+    termino : factor termino_aux
+    '''
+
+def p_termino_aux(p) :
+    '''
+    termino_aux : MULT_OP termino
+                | DIV_OP termino
+                | empty
+    '''
+
+def p_factor(p) :
+    '''
+    factor : LPAREN expresion RPAREN
+           | p_factor_aux 
+           | variables
+           | llamada_funcion
+    '''
+
+def p_factor_aux(p) :
+    '''
+    p_factor_aux : INT_CTE
+                 | FLOAT_CTE
+                 | STRING_CTE
     '''
 
 parser = yacc.yacc()
