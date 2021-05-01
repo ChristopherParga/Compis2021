@@ -4,6 +4,150 @@ import codecs
 import re
 from lex import tokens
 from sys import stdin
+from DirFunc import *
+from CuboSemantico import *
+
+############## FUNCIONES DE LAS PILAS ################
+
+#Te regresa el ultimo elemento de la pila de operandos
+def popOperandos():
+    global pOperandos
+    pop = pOperandos.pop()
+    print("--------------------> POP Operandos")
+    print("Pop Operandos= ", pop)
+    return pop
+
+#Te regresa el ultimo elemento de la pila de operadores
+def popOperadores():
+    global pOper
+    pop = pOper.pop()
+    print("--------------------> POP POper")
+    print("Pop Poper= ", pop)
+    return pop
+
+#Te regresa el ultimo elemento de la pila de tipos
+def popTipos():
+    global pTipos
+    pop = pTipos.pop()
+    print("--------------------> POP Tipos")
+    print("Pop Tipos = ", pop)
+    return pop
+
+#Mete a la pila operandos el nuevo operando
+def pushOperando(operando):
+    global pOperandos
+    pOperandos.append(operando)
+    print("------> pushOperando : ", operando)
+    print("POperandos : ", pOperandos)
+
+#Mete a la pila operador el nuevo operador
+def pushOperador(operador):
+    global pOper
+    pOper.append(operador)
+    print("------> pushOperador : ", operador)
+    print("POper : ", pOper)
+    
+
+#Mete a la pila tipos el nuevo tipo
+def pushTipo(tipo):
+    global pTipos
+    pTipos.append(tipo)
+    print("------>pushTipo : ", tipo)
+    print("pTipos : ", pTipos)
+
+#obtiene el ultimo operando ingresado a la pila de operandos
+def topOperador():
+    global pOper
+    last = len(pOper) - 1
+    if (last < 0):
+        return 'empty'
+    return pOper[last]
+
+#Ultimo tipo ingresado a la pila de tipos
+def topTipo():
+    global pTipos
+    last = len(pTipos) - 1
+    if(last < 0):
+        return 'empty'
+    return pTipos[last]
+
+#Regresa el ultimo elemento de la pila de Saltos
+def popSaltos():
+    global pSaltos
+
+    return pSaltos.pop()
+
+#Agrega el nuevo salto a la pila de Saltos.
+def pushSaltos(salto):
+    global pSaltos
+    #print("PUSH SALTO: ", salto)
+    pSaltos.append(salto)
+
+#Obtiene el indice del siguiente cuadruplo del arreglo de cuadruplos
+def nextQuad():
+    global cuadruplos
+    return len(cuadruplos)
+
+#Regresa el ultimo cuadruplo
+def popQuad():
+    global cuadruplos
+    return cuadruplos.pop()
+
+#Agrega un nuevo cuadruplo al arreglo de cuadruplos
+def pushQuad(quad):
+    global cuadruplos
+    cuadruplos.append(quad)
+
+#Objetos
+directorioFunciones = DirFunc()
+tablaVariables = TablaVars()
+cuboSem = CuboSemantico()
+
+### Pilas para generacion de cuadruplos ####
+pOperandos = [] #Pila de operandos pendientes (PilaO)
+pOper = [] #Pila de operadores pendientes (POper)
+pTipos = [] #Pila de tipos
+pSaltos = [] #Pila de saltos para condiciones y ciclos
+pFunciones = [] #Pila de funciones
+pArgumentos = [] #Pila de agumentos de una funcion
+pMemorias = [] # Pila de direcciones de memoria
+pDim = [] #Pila de Arreglos
+
+#Arreglo donde se almacenaran todos los cuadruplos que se vayan generando
+cuadruplos = []
+
+#Diccionarios de constantes que cuardan la direccion de memoria de constantes
+d_ints = {}
+d_floats = {}
+d_strs = {}
+d_ch = {}
+d_df = {}
+
+##Constantes
+GBL = 'global'
+OP_SUMARESTA = ['+', '-']
+OP_MULTDIV = ['*', '/']
+OP_REL = ['>', '<', '<=', '>=', '==', '!=']
+OP_LOGICOS = ['&', '|']
+OP_ASIG = ['=']
+OP_SECUENCIALES = ['lee', 'escribe', 'regresa']
+ESPACIO_MEMORIA = 1000 #Tamano del espacio de memoria
+
+##Variables globales
+currentFunc = GBL
+currentType = "void"
+varName = ""
+currentVarName = ""
+currentCantParams = 0
+currentCantVars = 0
+avail = 0
+constanteNegativa = False
+forBool = False
+varFor = ''
+negativo = False
+returnBool = False #sirve para saber si una funcion debe regresar algun valor (si es void o no)
+boolDataf = False #Sirve para saber cuando una variable dataframe esta siendo declarada
+
 
 #SE PRIORIDAD DE OPERADORES
 precedencia = (
