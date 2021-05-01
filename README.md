@@ -7,5 +7,5 @@ Implementacion de las estructuras que seran:
 - El cubo semantico.
 
 Avance 01-05-21
-Implementacion de las pilas junto con sus metodos, variables y banderas para puntos neuralgicos, ajustes a la gramatica y correcion de errores.
+Implementacion de las pilas junto con sus metodos, variables, banderas y metodos para la generacion de cuadruplos (todavia no utilizadas por el parser), ajuste de diagramas para puntos neuralgicos (no implementados todavia) ,ajustes a la gramatica y correcion de errores.
 
