@@ -20,41 +20,39 @@ precedencia = (
 
 #INICIO
 def p_programa(p):
-    'programa : PROGRAMA ID SEMIC variables funciones bloque'
+    'programa : PROGRAMA ID SEMIC dec_variables dec_funciones bloque'
+
+def p_dec_variables(p):
+    '''
+    dec_variables : VARIABLES variables
+    '''
 
 def p_variables(p):
     '''
-    variables : var_aux
-              | empty
+    variables : var_simple var_aux COLON tipo
+              | var_comp var_aux COLON tipo
     '''
 
 def p_var_aux(p):
     '''
-    var_aux : VARIABLES var_aux2 
+    var_aux : empty 
+            | COMMA variables
     '''
 
-def p_var_aux2(p):
+def p_var_simple(p):
     '''
-    var_aux2 : ID arreglo var_aux3
+    var_simple : ID
+    '''
+
+def p_var_comp(p):
+    '''
+    var_comp : ID LBRACK INT comp_aux RBRACK
+    '''
+
+def p_comp_aux(p)
+    '''
+    comp_aux : COMMA INT
              | empty
-    '''
-
-def p_var_aux3(p):
-    '''
-    var_aux3 : COMMA var_aux2
-             | COLON tipo SEMIC
-    '''
-
-# DECLARACION DE ARREGLOS
-def p_arreglo(p):
-    '''
-    arreglo : LBRACKET INT_CTE arreglo_aux RBRACK p_var_aux3
-    '''
-
-def p_arreglo_aux(p):
-    '''
-    arreglo_aux : COMMA INT_CTE p_arreglo
-                | empty
     '''
 
 # TIPOS DE VARIABLE Y FUNCIONES
@@ -67,24 +65,54 @@ def p_tipo(p):
 
 def p_tipo_func(p):
     '''
-    tipo_func : VOID
-              | PRINCIPAL
-              | tipo
+    tipo_func : INT
+              | CHAR
+              | FLOAT
+              | VOID
     '''
 
 # FUNCIONES
-def p_funciones(p):
+def p_dec_funciones(p):
     '''
-    funciones : tipo_func FUNCION ID LPAREN var_aux3 RPAREN SEMIC p_var_aux BLOQUE
-              | empty
+    dec_funciones : tipo_func FUNCION ID LPAREN dec_func_aux RPAREN SEMIC dec_variables bloque
+    '''
 
+def p_dec_func_aux(p):
+    '''
+    dec_func_aux : parametros
+                 | empty  
     '''
 
 # BLOQUE
 def p_bloque(p):
     '''
-    bloque : LCURLY estatuto RCURLY
+    bloque : LCURLY bloque_aux RCURLY
     '''
+
+def p_bloque_aux(p):
+    '''
+    bloque_aux : estatuto bloque_aux2
+               | empty
+    '''
+
+def p_bloque_aux2(p):
+    '''
+    bloque_aux2 : empty
+                | bloque_aux
+    '''
+
+
+def p_bloque_funcion(p):
+    '''
+    bloque_funcion : LCURLY bloque_aux bloque_func_aux RCURLY
+    '''
+
+def p_bloque_func_aux(p):
+    '''
+    blonque_func_aux : REGRESA expresion
+                     | empty
+    '''
+
 
 # ESTATUTO
 def p_estatuto(p):
@@ -95,39 +123,31 @@ def p_estatuto(p):
              | llamada_funcion SEMIC
              | escritura SEMIC
              | lectura SEMIC
-             | llamada_funcion_void SEMIC
              | empty
     '''
 
 # ASIGNACION
 def p_asignacion(p):
     '''
-    asignacion : ID arreglo_aux_assign ASSIGN asignacion_aux
+    asignacion : asignacion_aux ASSIGN asignacion_aux2
     '''
 
 def p_asignacion_aux(p):
     '''
-    asignacion_aux : llamada_funcion asignacion_aux2
-                   | expresion asignacion_aux2
+    asignacion_aux : var_simple
+                   | var_comp
     '''
 
-def p_asignacion_aux2(p):
+def p_asignacion_aux(p):
     '''
-    asignacion_aux2 : expresion asignacion_aux
-                    | empty
+    asignacion_aux : llamada_funcion
+                   | expresion
     '''
 
-# --- Arreglos igual a los de arriba pero con m-exp en lugar de CTE_INT
-def p_arreglo_assign_aux(p):
-    '''
-    arreglo_aux_assign : LBRACK m_exp arreglo_aux_assign2 RBRACK
-                       | empty
-    '''
-def p_arreglo_assign_aux2(p):
-    '''
-    arreglo_aux_assign2 : COMMA m_exp
-                        | empty
-    '''
+
+# !!!
+# Le moví de aqui para ARRIBA + lo de parametros que está abajo 1-MAYO 
+# !!!
 
 # IF-ELSE
 def p_condicion(p):
@@ -161,25 +181,18 @@ def p_desde_aux(p):
               | empty
     '''
 
-# PARAMETROS
 def p_parametros(p):
     '''
-    parametros : LPAREN parametros_aux RPAREN
+    parametros : var_simple COLON tipo parametros_aux
+               : var_comp COLON tipo parametros_aux
     '''
 
-# --- No estoy seguro si esta la hice bien. Hasta donde sé, da error... pero no se si sea algo que se maneje con los puntos neurargicos.
-# --- Lo digo porque segun yo acepta una funcion con un parametro y una coma -> funcion(int 1, ) y no deberia de pasar eso.
 def p_parametros_aux(p):
     '''
-    parametros_aux : expresion parametros_aux2
+    parametros_aux : COMMA parametros
                    | empty
     '''
 
-def p_parametros_aux2(p) :
-    '''
-    parametros_aux2 : COMMA parametrox_aux
-                    | empty
-    ''' 
 
 # LLAMADA FUNCION
 def p_llamada_funcion(p) :
