@@ -5,3 +5,7 @@ Implementacion de las estructuras que seran:
 - Tabla de variables.  
 - Directorio de funciones.
 - El cubo semantico.
+
+Avance 01-05-21
+Implementacion de las pilas junto con sus metodos, variables y banderas para puntos neuralgicos, ajustes a la gramatica y correcion de errores.
+
