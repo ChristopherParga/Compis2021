@@ -1,0 +1,9 @@
+programa Team_pp;
+variables
+i, j : entero;
+k, z : flotante;
+
+principal ()
+{
+    lee(j);
+}

@@ -1,0 +1,3125 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    COMMENT
+    NEW_LINE
+
+Grammar
+
+Rule 0     S' -> programa
+Rule 1     programa -> PROGRAMA ID SEMIC dec_variables dec_funciones principal
+Rule 2     dec_variables -> VARIABLES dec_variables2
+Rule 3     dec_variables -> empty
+Rule 4     dec_variables2 -> lista_ids COLON tipo pn_AddVariable SEMIC dec_variables3
+Rule 5     dec_variables3 -> dec_variables2
+Rule 6     dec_variables3 -> empty
+Rule 7     lista_ids -> ID pn_SaveID DecVarDim lista_ids2
+Rule 8     lista_ids2 -> COMMA lista_ids
+Rule 9     lista_ids2 -> empty
+Rule 10    DecVarDim -> DecVarDim2
+Rule 11    DecVarDim -> empty
+Rule 12    DecVarDim2 -> LBRACK INT_CTE DecVarDim3 RBRACK
+Rule 13    DecVarDim3 -> COMMA INT_CTE
+Rule 14    DecVarDim3 -> empty
+Rule 15    tipo -> INT_TYPE pn_SetCurrentType
+Rule 16    tipo -> CHAR_TYPE pn_SetCurrentType
+Rule 17    tipo -> FLOAT_TYPE pn_SetCurrentType
+Rule 18    dec_funciones -> dec_funciones2 dec_funciones
+Rule 19    dec_funciones -> empty
+Rule 20    dec_funciones2 -> tipo dec_funciones3
+Rule 21    dec_funciones2 -> VOID pn_SetCurrentType dec_funciones3
+Rule 22    dec_funciones3 -> FUNCION ID pn_AddFunc LPAREN dec_funcion_param RPAREN dec_variables bloque
+Rule 23    dec_funcion_param -> lista_parametros
+Rule 24    dec_funcion_param -> empty
+Rule 25    lista_parametros -> ID parDim COLON tipo lista_parametros2
+Rule 26    lista_parametros2 -> COMMA lista_parametros
+Rule 27    lista_parametros2 -> empty
+Rule 28    parDim -> LBRACK expresion parDim2 RBRACK
+Rule 29    parDim -> empty
+Rule 30    parDim2 -> COMMA expresion
+Rule 31    parDim2 -> empty
+Rule 32    principal -> PRINCIPAL LPAREN RPAREN bloque
+Rule 33    bloque -> LCURLY estatutos RCURLY
+Rule 34    estatutos -> estatuto estatutos
+Rule 35    estatutos -> empty
+Rule 36    estatuto -> asignacion
+Rule 37    estatuto -> condicion
+Rule 38    estatuto -> regresa
+Rule 39    estatuto -> loop_condicional
+Rule 40    estatuto -> loop_no_condicional
+Rule 41    estatuto -> llamada_funcion
+Rule 42    estatuto -> escritura
+Rule 43    estatuto -> lectura
+Rule 44    asignacion -> variable ASSIGN expresion SEMIC
+Rule 45    ctes -> INT_CTE
+Rule 46    ctes -> FLOAT_CTE
+Rule 47    ctes -> CHAR_CTE
+Rule 48    variable -> ID varDim
+Rule 49    varDim -> LBRACK expresion varDim2 RBRACK
+Rule 50    varDim -> empty
+Rule 51    varDim2 -> COMMA expresion
+Rule 52    varDim2 -> empty
+Rule 53    condicion -> SI LPAREN expresion RPAREN ENTONCES bloque else
+Rule 54    else -> SINO bloque
+Rule 55    else -> empty
+Rule 56    loop_condicional -> MIENTRAS LPAREN expresion RPAREN HACER bloque
+Rule 57    loop_no_condicional -> DESDE variable ASSIGN expresion HASTA expresion HACER bloque
+Rule 58    llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC
+Rule 59    escritura -> ESCRIBE LPAREN escritura2 RPAREN SEMIC
+Rule 60    escritura2 -> STRING_CTE escritura3
+Rule 61    escritura2 -> expresion escritura3
+Rule 62    escritura3 -> COMMA escritura2
+Rule 63    escritura3 -> empty
+Rule 64    lectura -> LEE LPAREN lista_ids RPAREN SEMIC
+Rule 65    regresa -> REGRESA LPAREN variable RPAREN SEMIC
+Rule 66    expresion -> mega_exp expresion1
+Rule 67    expresion1 -> ASSIGN expresion
+Rule 68    expresion1 -> empty
+Rule 69    mega_exp -> super_exp meg
+Rule 70    meg -> op_l mega_exp
+Rule 71    meg -> empty
+Rule 72    op_l -> AND_LOG
+Rule 73    op_l -> OR_LOG
+Rule 74    super_exp -> exp sp
+Rule 75    sp -> op_r exp
+Rule 76    sp -> empty
+Rule 77    op_r -> LT_LOG
+Rule 78    op_r -> GT_LOG
+Rule 79    op_r -> LTE_LOG
+Rule 80    op_r -> GTE_LOG
+Rule 81    op_r -> NE_LOG
+Rule 82    op_r -> EQUAL_LOG
+Rule 83    exp -> termino exp1
+Rule 84    exp1 -> op_a exp
+Rule 85    exp1 -> empty
+Rule 86    op_a -> PLUS_OP
+Rule 87    op_a -> MINUS_OP
+Rule 88    termino -> factor term
+Rule 89    term -> op_a1 termino
+Rule 90    term -> empty
+Rule 91    op_a1 -> MULT_OP
+Rule 92    op_a1 -> DIV_OP
+Rule 93    factor -> ctes
+Rule 94    factor -> LPAREN exp RPAREN
+Rule 95    factor -> variable
+Rule 96    factor -> llamada_funcion
+Rule 97    empty -> <empty>
+Rule 98    pn_SetCurrentType -> <empty>
+Rule 99    pn_AddVariable -> <empty>
+Rule 100   pn_SaveID -> <empty>
+Rule 101   pn_AddFunc -> <empty>
+
+Terminals, with rules where they appear
+
+AND_LOG              : 72
+ASSIGN               : 44 57 67
+CHAR_CTE             : 47
+CHAR_TYPE            : 16
+COLON                : 4 25
+COMMA                : 8 13 26 30 51 62
+COMMENT              : 
+DESDE                : 57
+DIV_OP               : 92
+ENTONCES             : 53
+EQUAL_LOG            : 82
+ESCRIBE              : 59
+FLOAT_CTE            : 46
+FLOAT_TYPE           : 17
+FUNCION              : 22
+GTE_LOG              : 80
+GT_LOG               : 78
+HACER                : 56 57
+HASTA                : 57
+ID                   : 1 7 22 25 48 58
+INT_CTE              : 12 13 45
+INT_TYPE             : 15
+LBRACK               : 12 28 49
+LCURLY               : 33
+LEE                  : 64
+LPAREN               : 22 32 53 56 58 59 64 65 94
+LTE_LOG              : 79
+LT_LOG               : 77
+MIENTRAS             : 56
+MINUS_OP             : 87
+MULT_OP              : 91
+NEW_LINE             : 
+NE_LOG               : 81
+OR_LOG               : 73
+PLUS_OP              : 86
+PRINCIPAL            : 32
+PROGRAMA             : 1
+RBRACK               : 12 28 49
+RCURLY               : 33
+REGRESA              : 65
+RPAREN               : 22 32 53 56 58 59 64 65 94
+SEMIC                : 1 4 44 58 59 64 65
+SI                   : 53
+SINO                 : 54
+STRING_CTE           : 60
+VARIABLES            : 2
+VOID                 : 21
+error                : 
+
+Nonterminals, with rules where they appear
+
+DecVarDim            : 7
+DecVarDim2           : 10
+DecVarDim3           : 12
+asignacion           : 36
+bloque               : 22 32 53 54 56 57
+condicion            : 37
+ctes                 : 93
+dec_funcion_param    : 22
+dec_funciones        : 1 18
+dec_funciones2       : 18
+dec_funciones3       : 20 21
+dec_variables        : 1 22
+dec_variables2       : 2 5
+dec_variables3       : 4
+else                 : 53
+empty                : 3 6 9 11 14 19 24 27 29 31 35 50 52 55 63 68 71 76 85 90
+escritura            : 42
+escritura2           : 59 62
+escritura3           : 60 61
+estatuto             : 34
+estatutos            : 33 34
+exp                  : 74 75 84 94
+exp1                 : 83
+expresion            : 28 30 44 49 51 53 56 57 57 61 67
+expresion1           : 66
+factor               : 88
+lectura              : 43
+lista_ids            : 4 8 58 64
+lista_ids2           : 7
+lista_parametros     : 23 26
+lista_parametros2    : 25
+llamada_funcion      : 41 96
+loop_condicional     : 39
+loop_no_condicional  : 40
+meg                  : 69
+mega_exp             : 66 70
+op_a                 : 84
+op_a1                : 89
+op_l                 : 70
+op_r                 : 75
+parDim               : 25
+parDim2              : 28
+pn_AddFunc           : 22
+pn_AddVariable       : 4
+pn_SaveID            : 7
+pn_SetCurrentType    : 15 16 17 21
+principal            : 1
+programa             : 0
+regresa              : 38
+sp                   : 74
+super_exp            : 69
+term                 : 88
+termino              : 83 89
+tipo                 : 4 20 25
+varDim               : 48
+varDim2              : 49
+variable             : 44 57 65 95
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programa
+    (1) programa -> . PROGRAMA ID SEMIC dec_variables dec_funciones principal
+
+    PROGRAMA        shift and go to state 2
+
+    programa                       shift and go to state 1
+
+state 1
+
+    (0) S' -> programa .
+
+
+
+state 2
+
+    (1) programa -> PROGRAMA . ID SEMIC dec_variables dec_funciones principal
+
+    ID              shift and go to state 3
+
+
+state 3
+
+    (1) programa -> PROGRAMA ID . SEMIC dec_variables dec_funciones principal
+
+    SEMIC           shift and go to state 4
+
+
+state 4
+
+    (1) programa -> PROGRAMA ID SEMIC . dec_variables dec_funciones principal
+    (2) dec_variables -> . VARIABLES dec_variables2
+    (3) dec_variables -> . empty
+    (97) empty -> .
+
+    VARIABLES       shift and go to state 6
+    VOID            reduce using rule 97 (empty -> .)
+    INT_TYPE        reduce using rule 97 (empty -> .)
+    CHAR_TYPE       reduce using rule 97 (empty -> .)
+    FLOAT_TYPE      reduce using rule 97 (empty -> .)
+    PRINCIPAL       reduce using rule 97 (empty -> .)
+
+    dec_variables                  shift and go to state 5
+    empty                          shift and go to state 7
+
+state 5
+
+    (1) programa -> PROGRAMA ID SEMIC dec_variables . dec_funciones principal
+    (18) dec_funciones -> . dec_funciones2 dec_funciones
+    (19) dec_funciones -> . empty
+    (20) dec_funciones2 -> . tipo dec_funciones3
+    (21) dec_funciones2 -> . VOID pn_SetCurrentType dec_funciones3
+    (97) empty -> .
+    (15) tipo -> . INT_TYPE pn_SetCurrentType
+    (16) tipo -> . CHAR_TYPE pn_SetCurrentType
+    (17) tipo -> . FLOAT_TYPE pn_SetCurrentType
+
+    VOID            shift and go to state 12
+    PRINCIPAL       reduce using rule 97 (empty -> .)
+    INT_TYPE        shift and go to state 13
+    CHAR_TYPE       shift and go to state 14
+    FLOAT_TYPE      shift and go to state 15
+
+    dec_funciones                  shift and go to state 8
+    dec_funciones2                 shift and go to state 9
+    empty                          shift and go to state 10
+    tipo                           shift and go to state 11
+
+state 6
+
+    (2) dec_variables -> VARIABLES . dec_variables2
+    (4) dec_variables2 -> . lista_ids COLON tipo pn_AddVariable SEMIC dec_variables3
+    (7) lista_ids -> . ID pn_SaveID DecVarDim lista_ids2
+
+    ID              shift and go to state 18
+
+    dec_variables2                 shift and go to state 16
+    lista_ids                      shift and go to state 17
+
+state 7
+
+    (3) dec_variables -> empty .
+
+    VOID            reduce using rule 3 (dec_variables -> empty .)
+    INT_TYPE        reduce using rule 3 (dec_variables -> empty .)
+    CHAR_TYPE       reduce using rule 3 (dec_variables -> empty .)
+    FLOAT_TYPE      reduce using rule 3 (dec_variables -> empty .)
+    PRINCIPAL       reduce using rule 3 (dec_variables -> empty .)
+    LCURLY          reduce using rule 3 (dec_variables -> empty .)
+
+
+state 8
+
+    (1) programa -> PROGRAMA ID SEMIC dec_variables dec_funciones . principal
+    (32) principal -> . PRINCIPAL LPAREN RPAREN bloque
+
+    PRINCIPAL       shift and go to state 20
+
+    principal                      shift and go to state 19
+
+state 9
+
+    (18) dec_funciones -> dec_funciones2 . dec_funciones
+    (18) dec_funciones -> . dec_funciones2 dec_funciones
+    (19) dec_funciones -> . empty
+    (20) dec_funciones2 -> . tipo dec_funciones3
+    (21) dec_funciones2 -> . VOID pn_SetCurrentType dec_funciones3
+    (97) empty -> .
+    (15) tipo -> . INT_TYPE pn_SetCurrentType
+    (16) tipo -> . CHAR_TYPE pn_SetCurrentType
+    (17) tipo -> . FLOAT_TYPE pn_SetCurrentType
+
+    VOID            shift and go to state 12
+    PRINCIPAL       reduce using rule 97 (empty -> .)
+    INT_TYPE        shift and go to state 13
+    CHAR_TYPE       shift and go to state 14
+    FLOAT_TYPE      shift and go to state 15
+
+    dec_funciones2                 shift and go to state 9
+    dec_funciones                  shift and go to state 21
+    empty                          shift and go to state 10
+    tipo                           shift and go to state 11
+
+state 10
+
+    (19) dec_funciones -> empty .
+
+    PRINCIPAL       reduce using rule 19 (dec_funciones -> empty .)
+
+
+state 11
+
+    (20) dec_funciones2 -> tipo . dec_funciones3
+    (22) dec_funciones3 -> . FUNCION ID pn_AddFunc LPAREN dec_funcion_param RPAREN dec_variables bloque
+
+    FUNCION         shift and go to state 23
+
+    dec_funciones3                 shift and go to state 22
+
+state 12
+
+    (21) dec_funciones2 -> VOID . pn_SetCurrentType dec_funciones3
+    (98) pn_SetCurrentType -> .
+
+    FUNCION         reduce using rule 98 (pn_SetCurrentType -> .)
+
+    pn_SetCurrentType              shift and go to state 24
+
+state 13
+
+    (15) tipo -> INT_TYPE . pn_SetCurrentType
+    (98) pn_SetCurrentType -> .
+
+    FUNCION         reduce using rule 98 (pn_SetCurrentType -> .)
+    SEMIC           reduce using rule 98 (pn_SetCurrentType -> .)
+    COMMA           reduce using rule 98 (pn_SetCurrentType -> .)
+    RPAREN          reduce using rule 98 (pn_SetCurrentType -> .)
+
+    pn_SetCurrentType              shift and go to state 25
+
+state 14
+
+    (16) tipo -> CHAR_TYPE . pn_SetCurrentType
+    (98) pn_SetCurrentType -> .
+
+    FUNCION         reduce using rule 98 (pn_SetCurrentType -> .)
+    SEMIC           reduce using rule 98 (pn_SetCurrentType -> .)
+    COMMA           reduce using rule 98 (pn_SetCurrentType -> .)
+    RPAREN          reduce using rule 98 (pn_SetCurrentType -> .)
+
+    pn_SetCurrentType              shift and go to state 26
+
+state 15
+
+    (17) tipo -> FLOAT_TYPE . pn_SetCurrentType
+    (98) pn_SetCurrentType -> .
+
+    FUNCION         reduce using rule 98 (pn_SetCurrentType -> .)
+    SEMIC           reduce using rule 98 (pn_SetCurrentType -> .)
+    COMMA           reduce using rule 98 (pn_SetCurrentType -> .)
+    RPAREN          reduce using rule 98 (pn_SetCurrentType -> .)
+
+    pn_SetCurrentType              shift and go to state 27
+
+state 16
+
+    (2) dec_variables -> VARIABLES dec_variables2 .
+
+    VOID            reduce using rule 2 (dec_variables -> VARIABLES dec_variables2 .)
+    INT_TYPE        reduce using rule 2 (dec_variables -> VARIABLES dec_variables2 .)
+    CHAR_TYPE       reduce using rule 2 (dec_variables -> VARIABLES dec_variables2 .)
+    FLOAT_TYPE      reduce using rule 2 (dec_variables -> VARIABLES dec_variables2 .)
+    PRINCIPAL       reduce using rule 2 (dec_variables -> VARIABLES dec_variables2 .)
+    LCURLY          reduce using rule 2 (dec_variables -> VARIABLES dec_variables2 .)
+
+
+state 17
+
+    (4) dec_variables2 -> lista_ids . COLON tipo pn_AddVariable SEMIC dec_variables3
+
+    COLON           shift and go to state 28
+
+
+state 18
+
+    (7) lista_ids -> ID . pn_SaveID DecVarDim lista_ids2
+    (100) pn_SaveID -> .
+
+    LBRACK          reduce using rule 100 (pn_SaveID -> .)
+    COMMA           reduce using rule 100 (pn_SaveID -> .)
+    COLON           reduce using rule 100 (pn_SaveID -> .)
+    RPAREN          reduce using rule 100 (pn_SaveID -> .)
+
+    pn_SaveID                      shift and go to state 29
+
+state 19
+
+    (1) programa -> PROGRAMA ID SEMIC dec_variables dec_funciones principal .
+
+    $end            reduce using rule 1 (programa -> PROGRAMA ID SEMIC dec_variables dec_funciones principal .)
+
+
+state 20
+
+    (32) principal -> PRINCIPAL . LPAREN RPAREN bloque
+
+    LPAREN          shift and go to state 30
+
+
+state 21
+
+    (18) dec_funciones -> dec_funciones2 dec_funciones .
+
+    PRINCIPAL       reduce using rule 18 (dec_funciones -> dec_funciones2 dec_funciones .)
+
+
+state 22
+
+    (20) dec_funciones2 -> tipo dec_funciones3 .
+
+    VOID            reduce using rule 20 (dec_funciones2 -> tipo dec_funciones3 .)
+    INT_TYPE        reduce using rule 20 (dec_funciones2 -> tipo dec_funciones3 .)
+    CHAR_TYPE       reduce using rule 20 (dec_funciones2 -> tipo dec_funciones3 .)
+    FLOAT_TYPE      reduce using rule 20 (dec_funciones2 -> tipo dec_funciones3 .)
+    PRINCIPAL       reduce using rule 20 (dec_funciones2 -> tipo dec_funciones3 .)
+
+
+state 23
+
+    (22) dec_funciones3 -> FUNCION . ID pn_AddFunc LPAREN dec_funcion_param RPAREN dec_variables bloque
+
+    ID              shift and go to state 31
+
+
+state 24
+
+    (21) dec_funciones2 -> VOID pn_SetCurrentType . dec_funciones3
+    (22) dec_funciones3 -> . FUNCION ID pn_AddFunc LPAREN dec_funcion_param RPAREN dec_variables bloque
+
+    FUNCION         shift and go to state 23
+
+    dec_funciones3                 shift and go to state 32
+
+state 25
+
+    (15) tipo -> INT_TYPE pn_SetCurrentType .
+
+    FUNCION         reduce using rule 15 (tipo -> INT_TYPE pn_SetCurrentType .)
+    SEMIC           reduce using rule 15 (tipo -> INT_TYPE pn_SetCurrentType .)
+    COMMA           reduce using rule 15 (tipo -> INT_TYPE pn_SetCurrentType .)
+    RPAREN          reduce using rule 15 (tipo -> INT_TYPE pn_SetCurrentType .)
+
+
+state 26
+
+    (16) tipo -> CHAR_TYPE pn_SetCurrentType .
+
+    FUNCION         reduce using rule 16 (tipo -> CHAR_TYPE pn_SetCurrentType .)
+    SEMIC           reduce using rule 16 (tipo -> CHAR_TYPE pn_SetCurrentType .)
+    COMMA           reduce using rule 16 (tipo -> CHAR_TYPE pn_SetCurrentType .)
+    RPAREN          reduce using rule 16 (tipo -> CHAR_TYPE pn_SetCurrentType .)
+
+
+state 27
+
+    (17) tipo -> FLOAT_TYPE pn_SetCurrentType .
+
+    FUNCION         reduce using rule 17 (tipo -> FLOAT_TYPE pn_SetCurrentType .)
+    SEMIC           reduce using rule 17 (tipo -> FLOAT_TYPE pn_SetCurrentType .)
+    COMMA           reduce using rule 17 (tipo -> FLOAT_TYPE pn_SetCurrentType .)
+    RPAREN          reduce using rule 17 (tipo -> FLOAT_TYPE pn_SetCurrentType .)
+
+
+state 28
+
+    (4) dec_variables2 -> lista_ids COLON . tipo pn_AddVariable SEMIC dec_variables3
+    (15) tipo -> . INT_TYPE pn_SetCurrentType
+    (16) tipo -> . CHAR_TYPE pn_SetCurrentType
+    (17) tipo -> . FLOAT_TYPE pn_SetCurrentType
+
+    INT_TYPE        shift and go to state 13
+    CHAR_TYPE       shift and go to state 14
+    FLOAT_TYPE      shift and go to state 15
+
+    tipo                           shift and go to state 33
+
+state 29
+
+    (7) lista_ids -> ID pn_SaveID . DecVarDim lista_ids2
+    (10) DecVarDim -> . DecVarDim2
+    (11) DecVarDim -> . empty
+    (12) DecVarDim2 -> . LBRACK INT_CTE DecVarDim3 RBRACK
+    (97) empty -> .
+
+    LBRACK          shift and go to state 37
+    COMMA           reduce using rule 97 (empty -> .)
+    COLON           reduce using rule 97 (empty -> .)
+    RPAREN          reduce using rule 97 (empty -> .)
+
+    DecVarDim                      shift and go to state 34
+    DecVarDim2                     shift and go to state 35
+    empty                          shift and go to state 36
+
+state 30
+
+    (32) principal -> PRINCIPAL LPAREN . RPAREN bloque
+
+    RPAREN          shift and go to state 38
+
+
+state 31
+
+    (22) dec_funciones3 -> FUNCION ID . pn_AddFunc LPAREN dec_funcion_param RPAREN dec_variables bloque
+    (101) pn_AddFunc -> .
+
+    LPAREN          reduce using rule 101 (pn_AddFunc -> .)
+
+    pn_AddFunc                     shift and go to state 39
+
+state 32
+
+    (21) dec_funciones2 -> VOID pn_SetCurrentType dec_funciones3 .
+
+    VOID            reduce using rule 21 (dec_funciones2 -> VOID pn_SetCurrentType dec_funciones3 .)
+    INT_TYPE        reduce using rule 21 (dec_funciones2 -> VOID pn_SetCurrentType dec_funciones3 .)
+    CHAR_TYPE       reduce using rule 21 (dec_funciones2 -> VOID pn_SetCurrentType dec_funciones3 .)
+    FLOAT_TYPE      reduce using rule 21 (dec_funciones2 -> VOID pn_SetCurrentType dec_funciones3 .)
+    PRINCIPAL       reduce using rule 21 (dec_funciones2 -> VOID pn_SetCurrentType dec_funciones3 .)
+
+
+state 33
+
+    (4) dec_variables2 -> lista_ids COLON tipo . pn_AddVariable SEMIC dec_variables3
+    (99) pn_AddVariable -> .
+
+    SEMIC           reduce using rule 99 (pn_AddVariable -> .)
+
+    pn_AddVariable                 shift and go to state 40
+
+state 34
+
+    (7) lista_ids -> ID pn_SaveID DecVarDim . lista_ids2
+    (8) lista_ids2 -> . COMMA lista_ids
+    (9) lista_ids2 -> . empty
+    (97) empty -> .
+
+    COMMA           shift and go to state 42
+    COLON           reduce using rule 97 (empty -> .)
+    RPAREN          reduce using rule 97 (empty -> .)
+
+    lista_ids2                     shift and go to state 41
+    empty                          shift and go to state 43
+
+state 35
+
+    (10) DecVarDim -> DecVarDim2 .
+
+    COMMA           reduce using rule 10 (DecVarDim -> DecVarDim2 .)
+    COLON           reduce using rule 10 (DecVarDim -> DecVarDim2 .)
+    RPAREN          reduce using rule 10 (DecVarDim -> DecVarDim2 .)
+
+
+state 36
+
+    (11) DecVarDim -> empty .
+
+    COMMA           reduce using rule 11 (DecVarDim -> empty .)
+    COLON           reduce using rule 11 (DecVarDim -> empty .)
+    RPAREN          reduce using rule 11 (DecVarDim -> empty .)
+
+
+state 37
+
+    (12) DecVarDim2 -> LBRACK . INT_CTE DecVarDim3 RBRACK
+
+    INT_CTE         shift and go to state 44
+
+
+state 38
+
+    (32) principal -> PRINCIPAL LPAREN RPAREN . bloque
+    (33) bloque -> . LCURLY estatutos RCURLY
+
+    LCURLY          shift and go to state 46
+
+    bloque                         shift and go to state 45
+
+state 39
+
+    (22) dec_funciones3 -> FUNCION ID pn_AddFunc . LPAREN dec_funcion_param RPAREN dec_variables bloque
+
+    LPAREN          shift and go to state 47
+
+
+state 40
+
+    (4) dec_variables2 -> lista_ids COLON tipo pn_AddVariable . SEMIC dec_variables3
+
+    SEMIC           shift and go to state 48
+
+
+state 41
+
+    (7) lista_ids -> ID pn_SaveID DecVarDim lista_ids2 .
+
+    COLON           reduce using rule 7 (lista_ids -> ID pn_SaveID DecVarDim lista_ids2 .)
+    RPAREN          reduce using rule 7 (lista_ids -> ID pn_SaveID DecVarDim lista_ids2 .)
+
+
+state 42
+
+    (8) lista_ids2 -> COMMA . lista_ids
+    (7) lista_ids -> . ID pn_SaveID DecVarDim lista_ids2
+
+    ID              shift and go to state 18
+
+    lista_ids                      shift and go to state 49
+
+state 43
+
+    (9) lista_ids2 -> empty .
+
+    COLON           reduce using rule 9 (lista_ids2 -> empty .)
+    RPAREN          reduce using rule 9 (lista_ids2 -> empty .)
+
+
+state 44
+
+    (12) DecVarDim2 -> LBRACK INT_CTE . DecVarDim3 RBRACK
+    (13) DecVarDim3 -> . COMMA INT_CTE
+    (14) DecVarDim3 -> . empty
+    (97) empty -> .
+
+    COMMA           shift and go to state 51
+    RBRACK          reduce using rule 97 (empty -> .)
+
+    DecVarDim3                     shift and go to state 50
+    empty                          shift and go to state 52
+
+state 45
+
+    (32) principal -> PRINCIPAL LPAREN RPAREN bloque .
+
+    $end            reduce using rule 32 (principal -> PRINCIPAL LPAREN RPAREN bloque .)
+
+
+state 46
+
+    (33) bloque -> LCURLY . estatutos RCURLY
+    (34) estatutos -> . estatuto estatutos
+    (35) estatutos -> . empty
+    (36) estatuto -> . asignacion
+    (37) estatuto -> . condicion
+    (38) estatuto -> . regresa
+    (39) estatuto -> . loop_condicional
+    (40) estatuto -> . loop_no_condicional
+    (41) estatuto -> . llamada_funcion
+    (42) estatuto -> . escritura
+    (43) estatuto -> . lectura
+    (97) empty -> .
+    (44) asignacion -> . variable ASSIGN expresion SEMIC
+    (53) condicion -> . SI LPAREN expresion RPAREN ENTONCES bloque else
+    (65) regresa -> . REGRESA LPAREN variable RPAREN SEMIC
+    (56) loop_condicional -> . MIENTRAS LPAREN expresion RPAREN HACER bloque
+    (57) loop_no_condicional -> . DESDE variable ASSIGN expresion HASTA expresion HACER bloque
+    (58) llamada_funcion -> . ID LPAREN lista_ids RPAREN SEMIC
+    (59) escritura -> . ESCRIBE LPAREN escritura2 RPAREN SEMIC
+    (64) lectura -> . LEE LPAREN lista_ids RPAREN SEMIC
+    (48) variable -> . ID varDim
+
+    RCURLY          reduce using rule 97 (empty -> .)
+    SI              shift and go to state 65
+    REGRESA         shift and go to state 66
+    MIENTRAS        shift and go to state 67
+    DESDE           shift and go to state 68
+    ID              shift and go to state 69
+    ESCRIBE         shift and go to state 70
+    LEE             shift and go to state 71
+
+    estatutos                      shift and go to state 53
+    estatuto                       shift and go to state 54
+    empty                          shift and go to state 55
+    asignacion                     shift and go to state 56
+    condicion                      shift and go to state 57
+    regresa                        shift and go to state 58
+    loop_condicional               shift and go to state 59
+    loop_no_condicional            shift and go to state 60
+    llamada_funcion                shift and go to state 61
+    escritura                      shift and go to state 62
+    lectura                        shift and go to state 63
+    variable                       shift and go to state 64
+
+state 47
+
+    (22) dec_funciones3 -> FUNCION ID pn_AddFunc LPAREN . dec_funcion_param RPAREN dec_variables bloque
+    (23) dec_funcion_param -> . lista_parametros
+    (24) dec_funcion_param -> . empty
+    (25) lista_parametros -> . ID parDim COLON tipo lista_parametros2
+    (97) empty -> .
+
+    ID              shift and go to state 72
+    RPAREN          reduce using rule 97 (empty -> .)
+
+    dec_funcion_param              shift and go to state 73
+    lista_parametros               shift and go to state 74
+    empty                          shift and go to state 75
+
+state 48
+
+    (4) dec_variables2 -> lista_ids COLON tipo pn_AddVariable SEMIC . dec_variables3
+    (5) dec_variables3 -> . dec_variables2
+    (6) dec_variables3 -> . empty
+    (4) dec_variables2 -> . lista_ids COLON tipo pn_AddVariable SEMIC dec_variables3
+    (97) empty -> .
+    (7) lista_ids -> . ID pn_SaveID DecVarDim lista_ids2
+
+    VOID            reduce using rule 97 (empty -> .)
+    INT_TYPE        reduce using rule 97 (empty -> .)
+    CHAR_TYPE       reduce using rule 97 (empty -> .)
+    FLOAT_TYPE      reduce using rule 97 (empty -> .)
+    PRINCIPAL       reduce using rule 97 (empty -> .)
+    LCURLY          reduce using rule 97 (empty -> .)
+    ID              shift and go to state 18
+
+    lista_ids                      shift and go to state 17
+    dec_variables3                 shift and go to state 76
+    dec_variables2                 shift and go to state 77
+    empty                          shift and go to state 78
+
+state 49
+
+    (8) lista_ids2 -> COMMA lista_ids .
+
+    COLON           reduce using rule 8 (lista_ids2 -> COMMA lista_ids .)
+    RPAREN          reduce using rule 8 (lista_ids2 -> COMMA lista_ids .)
+
+
+state 50
+
+    (12) DecVarDim2 -> LBRACK INT_CTE DecVarDim3 . RBRACK
+
+    RBRACK          shift and go to state 79
+
+
+state 51
+
+    (13) DecVarDim3 -> COMMA . INT_CTE
+
+    INT_CTE         shift and go to state 80
+
+
+state 52
+
+    (14) DecVarDim3 -> empty .
+
+    RBRACK          reduce using rule 14 (DecVarDim3 -> empty .)
+
+
+state 53
+
+    (33) bloque -> LCURLY estatutos . RCURLY
+
+    RCURLY          shift and go to state 81
+
+
+state 54
+
+    (34) estatutos -> estatuto . estatutos
+    (34) estatutos -> . estatuto estatutos
+    (35) estatutos -> . empty
+    (36) estatuto -> . asignacion
+    (37) estatuto -> . condicion
+    (38) estatuto -> . regresa
+    (39) estatuto -> . loop_condicional
+    (40) estatuto -> . loop_no_condicional
+    (41) estatuto -> . llamada_funcion
+    (42) estatuto -> . escritura
+    (43) estatuto -> . lectura
+    (97) empty -> .
+    (44) asignacion -> . variable ASSIGN expresion SEMIC
+    (53) condicion -> . SI LPAREN expresion RPAREN ENTONCES bloque else
+    (65) regresa -> . REGRESA LPAREN variable RPAREN SEMIC
+    (56) loop_condicional -> . MIENTRAS LPAREN expresion RPAREN HACER bloque
+    (57) loop_no_condicional -> . DESDE variable ASSIGN expresion HASTA expresion HACER bloque
+    (58) llamada_funcion -> . ID LPAREN lista_ids RPAREN SEMIC
+    (59) escritura -> . ESCRIBE LPAREN escritura2 RPAREN SEMIC
+    (64) lectura -> . LEE LPAREN lista_ids RPAREN SEMIC
+    (48) variable -> . ID varDim
+
+    RCURLY          reduce using rule 97 (empty -> .)
+    SI              shift and go to state 65
+    REGRESA         shift and go to state 66
+    MIENTRAS        shift and go to state 67
+    DESDE           shift and go to state 68
+    ID              shift and go to state 69
+    ESCRIBE         shift and go to state 70
+    LEE             shift and go to state 71
+
+    estatuto                       shift and go to state 54
+    estatutos                      shift and go to state 82
+    empty                          shift and go to state 55
+    asignacion                     shift and go to state 56
+    condicion                      shift and go to state 57
+    regresa                        shift and go to state 58
+    loop_condicional               shift and go to state 59
+    loop_no_condicional            shift and go to state 60
+    llamada_funcion                shift and go to state 61
+    escritura                      shift and go to state 62
+    lectura                        shift and go to state 63
+    variable                       shift and go to state 64
+
+state 55
+
+    (35) estatutos -> empty .
+
+    RCURLY          reduce using rule 35 (estatutos -> empty .)
+
+
+state 56
+
+    (36) estatuto -> asignacion .
+
+    SI              reduce using rule 36 (estatuto -> asignacion .)
+    REGRESA         reduce using rule 36 (estatuto -> asignacion .)
+    MIENTRAS        reduce using rule 36 (estatuto -> asignacion .)
+    DESDE           reduce using rule 36 (estatuto -> asignacion .)
+    ID              reduce using rule 36 (estatuto -> asignacion .)
+    ESCRIBE         reduce using rule 36 (estatuto -> asignacion .)
+    LEE             reduce using rule 36 (estatuto -> asignacion .)
+    RCURLY          reduce using rule 36 (estatuto -> asignacion .)
+
+
+state 57
+
+    (37) estatuto -> condicion .
+
+    SI              reduce using rule 37 (estatuto -> condicion .)
+    REGRESA         reduce using rule 37 (estatuto -> condicion .)
+    MIENTRAS        reduce using rule 37 (estatuto -> condicion .)
+    DESDE           reduce using rule 37 (estatuto -> condicion .)
+    ID              reduce using rule 37 (estatuto -> condicion .)
+    ESCRIBE         reduce using rule 37 (estatuto -> condicion .)
+    LEE             reduce using rule 37 (estatuto -> condicion .)
+    RCURLY          reduce using rule 37 (estatuto -> condicion .)
+
+
+state 58
+
+    (38) estatuto -> regresa .
+
+    SI              reduce using rule 38 (estatuto -> regresa .)
+    REGRESA         reduce using rule 38 (estatuto -> regresa .)
+    MIENTRAS        reduce using rule 38 (estatuto -> regresa .)
+    DESDE           reduce using rule 38 (estatuto -> regresa .)
+    ID              reduce using rule 38 (estatuto -> regresa .)
+    ESCRIBE         reduce using rule 38 (estatuto -> regresa .)
+    LEE             reduce using rule 38 (estatuto -> regresa .)
+    RCURLY          reduce using rule 38 (estatuto -> regresa .)
+
+
+state 59
+
+    (39) estatuto -> loop_condicional .
+
+    SI              reduce using rule 39 (estatuto -> loop_condicional .)
+    REGRESA         reduce using rule 39 (estatuto -> loop_condicional .)
+    MIENTRAS        reduce using rule 39 (estatuto -> loop_condicional .)
+    DESDE           reduce using rule 39 (estatuto -> loop_condicional .)
+    ID              reduce using rule 39 (estatuto -> loop_condicional .)
+    ESCRIBE         reduce using rule 39 (estatuto -> loop_condicional .)
+    LEE             reduce using rule 39 (estatuto -> loop_condicional .)
+    RCURLY          reduce using rule 39 (estatuto -> loop_condicional .)
+
+
+state 60
+
+    (40) estatuto -> loop_no_condicional .
+
+    SI              reduce using rule 40 (estatuto -> loop_no_condicional .)
+    REGRESA         reduce using rule 40 (estatuto -> loop_no_condicional .)
+    MIENTRAS        reduce using rule 40 (estatuto -> loop_no_condicional .)
+    DESDE           reduce using rule 40 (estatuto -> loop_no_condicional .)
+    ID              reduce using rule 40 (estatuto -> loop_no_condicional .)
+    ESCRIBE         reduce using rule 40 (estatuto -> loop_no_condicional .)
+    LEE             reduce using rule 40 (estatuto -> loop_no_condicional .)
+    RCURLY          reduce using rule 40 (estatuto -> loop_no_condicional .)
+
+
+state 61
+
+    (41) estatuto -> llamada_funcion .
+
+    SI              reduce using rule 41 (estatuto -> llamada_funcion .)
+    REGRESA         reduce using rule 41 (estatuto -> llamada_funcion .)
+    MIENTRAS        reduce using rule 41 (estatuto -> llamada_funcion .)
+    DESDE           reduce using rule 41 (estatuto -> llamada_funcion .)
+    ID              reduce using rule 41 (estatuto -> llamada_funcion .)
+    ESCRIBE         reduce using rule 41 (estatuto -> llamada_funcion .)
+    LEE             reduce using rule 41 (estatuto -> llamada_funcion .)
+    RCURLY          reduce using rule 41 (estatuto -> llamada_funcion .)
+
+
+state 62
+
+    (42) estatuto -> escritura .
+
+    SI              reduce using rule 42 (estatuto -> escritura .)
+    REGRESA         reduce using rule 42 (estatuto -> escritura .)
+    MIENTRAS        reduce using rule 42 (estatuto -> escritura .)
+    DESDE           reduce using rule 42 (estatuto -> escritura .)
+    ID              reduce using rule 42 (estatuto -> escritura .)
+    ESCRIBE         reduce using rule 42 (estatuto -> escritura .)
+    LEE             reduce using rule 42 (estatuto -> escritura .)
+    RCURLY          reduce using rule 42 (estatuto -> escritura .)
+
+
+state 63
+
+    (43) estatuto -> lectura .
+
+    SI              reduce using rule 43 (estatuto -> lectura .)
+    REGRESA         reduce using rule 43 (estatuto -> lectura .)
+    MIENTRAS        reduce using rule 43 (estatuto -> lectura .)
+    DESDE           reduce using rule 43 (estatuto -> lectura .)
+    ID              reduce using rule 43 (estatuto -> lectura .)
+    ESCRIBE         reduce using rule 43 (estatuto -> lectura .)
+    LEE             reduce using rule 43 (estatuto -> lectura .)
+    RCURLY          reduce using rule 43 (estatuto -> lectura .)
+
+
+state 64
+
+    (44) asignacion -> variable . ASSIGN expresion SEMIC
+
+    ASSIGN          shift and go to state 83
+
+
+state 65
+
+    (53) condicion -> SI . LPAREN expresion RPAREN ENTONCES bloque else
+
+    LPAREN          shift and go to state 84
+
+
+state 66
+
+    (65) regresa -> REGRESA . LPAREN variable RPAREN SEMIC
+
+    LPAREN          shift and go to state 85
+
+
+state 67
+
+    (56) loop_condicional -> MIENTRAS . LPAREN expresion RPAREN HACER bloque
+
+    LPAREN          shift and go to state 86
+
+
+state 68
+
+    (57) loop_no_condicional -> DESDE . variable ASSIGN expresion HASTA expresion HACER bloque
+    (48) variable -> . ID varDim
+
+    ID              shift and go to state 88
+
+    variable                       shift and go to state 87
+
+state 69
+
+    (58) llamada_funcion -> ID . LPAREN lista_ids RPAREN SEMIC
+    (48) variable -> ID . varDim
+    (49) varDim -> . LBRACK expresion varDim2 RBRACK
+    (50) varDim -> . empty
+    (97) empty -> .
+
+    LPAREN          shift and go to state 89
+    LBRACK          shift and go to state 91
+    ASSIGN          reduce using rule 97 (empty -> .)
+
+    varDim                         shift and go to state 90
+    empty                          shift and go to state 92
+
+state 70
+
+    (59) escritura -> ESCRIBE . LPAREN escritura2 RPAREN SEMIC
+
+    LPAREN          shift and go to state 93
+
+
+state 71
+
+    (64) lectura -> LEE . LPAREN lista_ids RPAREN SEMIC
+
+    LPAREN          shift and go to state 94
+
+
+state 72
+
+    (25) lista_parametros -> ID . parDim COLON tipo lista_parametros2
+    (28) parDim -> . LBRACK expresion parDim2 RBRACK
+    (29) parDim -> . empty
+    (97) empty -> .
+
+    LBRACK          shift and go to state 96
+    COLON           reduce using rule 97 (empty -> .)
+
+    parDim                         shift and go to state 95
+    empty                          shift and go to state 97
+
+state 73
+
+    (22) dec_funciones3 -> FUNCION ID pn_AddFunc LPAREN dec_funcion_param . RPAREN dec_variables bloque
+
+    RPAREN          shift and go to state 98
+
+
+state 74
+
+    (23) dec_funcion_param -> lista_parametros .
+
+    RPAREN          reduce using rule 23 (dec_funcion_param -> lista_parametros .)
+
+
+state 75
+
+    (24) dec_funcion_param -> empty .
+
+    RPAREN          reduce using rule 24 (dec_funcion_param -> empty .)
+
+
+state 76
+
+    (4) dec_variables2 -> lista_ids COLON tipo pn_AddVariable SEMIC dec_variables3 .
+
+    VOID            reduce using rule 4 (dec_variables2 -> lista_ids COLON tipo pn_AddVariable SEMIC dec_variables3 .)
+    INT_TYPE        reduce using rule 4 (dec_variables2 -> lista_ids COLON tipo pn_AddVariable SEMIC dec_variables3 .)
+    CHAR_TYPE       reduce using rule 4 (dec_variables2 -> lista_ids COLON tipo pn_AddVariable SEMIC dec_variables3 .)
+    FLOAT_TYPE      reduce using rule 4 (dec_variables2 -> lista_ids COLON tipo pn_AddVariable SEMIC dec_variables3 .)
+    PRINCIPAL       reduce using rule 4 (dec_variables2 -> lista_ids COLON tipo pn_AddVariable SEMIC dec_variables3 .)
+    LCURLY          reduce using rule 4 (dec_variables2 -> lista_ids COLON tipo pn_AddVariable SEMIC dec_variables3 .)
+
+
+state 77
+
+    (5) dec_variables3 -> dec_variables2 .
+
+    VOID            reduce using rule 5 (dec_variables3 -> dec_variables2 .)
+    INT_TYPE        reduce using rule 5 (dec_variables3 -> dec_variables2 .)
+    CHAR_TYPE       reduce using rule 5 (dec_variables3 -> dec_variables2 .)
+    FLOAT_TYPE      reduce using rule 5 (dec_variables3 -> dec_variables2 .)
+    PRINCIPAL       reduce using rule 5 (dec_variables3 -> dec_variables2 .)
+    LCURLY          reduce using rule 5 (dec_variables3 -> dec_variables2 .)
+
+
+state 78
+
+    (6) dec_variables3 -> empty .
+
+    VOID            reduce using rule 6 (dec_variables3 -> empty .)
+    INT_TYPE        reduce using rule 6 (dec_variables3 -> empty .)
+    CHAR_TYPE       reduce using rule 6 (dec_variables3 -> empty .)
+    FLOAT_TYPE      reduce using rule 6 (dec_variables3 -> empty .)
+    PRINCIPAL       reduce using rule 6 (dec_variables3 -> empty .)
+    LCURLY          reduce using rule 6 (dec_variables3 -> empty .)
+
+
+state 79
+
+    (12) DecVarDim2 -> LBRACK INT_CTE DecVarDim3 RBRACK .
+
+    COMMA           reduce using rule 12 (DecVarDim2 -> LBRACK INT_CTE DecVarDim3 RBRACK .)
+    COLON           reduce using rule 12 (DecVarDim2 -> LBRACK INT_CTE DecVarDim3 RBRACK .)
+    RPAREN          reduce using rule 12 (DecVarDim2 -> LBRACK INT_CTE DecVarDim3 RBRACK .)
+
+
+state 80
+
+    (13) DecVarDim3 -> COMMA INT_CTE .
+
+    RBRACK          reduce using rule 13 (DecVarDim3 -> COMMA INT_CTE .)
+
+
+state 81
+
+    (33) bloque -> LCURLY estatutos RCURLY .
+
+    $end            reduce using rule 33 (bloque -> LCURLY estatutos RCURLY .)
+    VOID            reduce using rule 33 (bloque -> LCURLY estatutos RCURLY .)
+    INT_TYPE        reduce using rule 33 (bloque -> LCURLY estatutos RCURLY .)
+    CHAR_TYPE       reduce using rule 33 (bloque -> LCURLY estatutos RCURLY .)
+    FLOAT_TYPE      reduce using rule 33 (bloque -> LCURLY estatutos RCURLY .)
+    PRINCIPAL       reduce using rule 33 (bloque -> LCURLY estatutos RCURLY .)
+    SINO            reduce using rule 33 (bloque -> LCURLY estatutos RCURLY .)
+    SI              reduce using rule 33 (bloque -> LCURLY estatutos RCURLY .)
+    REGRESA         reduce using rule 33 (bloque -> LCURLY estatutos RCURLY .)
+    MIENTRAS        reduce using rule 33 (bloque -> LCURLY estatutos RCURLY .)
+    DESDE           reduce using rule 33 (bloque -> LCURLY estatutos RCURLY .)
+    ID              reduce using rule 33 (bloque -> LCURLY estatutos RCURLY .)
+    ESCRIBE         reduce using rule 33 (bloque -> LCURLY estatutos RCURLY .)
+    LEE             reduce using rule 33 (bloque -> LCURLY estatutos RCURLY .)
+    RCURLY          reduce using rule 33 (bloque -> LCURLY estatutos RCURLY .)
+
+
+state 82
+
+    (34) estatutos -> estatuto estatutos .
+
+    RCURLY          reduce using rule 34 (estatutos -> estatuto estatutos .)
+
+
+state 83
+
+    (44) asignacion -> variable ASSIGN . expresion SEMIC
+    (66) expresion -> . mega_exp expresion1
+    (69) mega_exp -> . super_exp meg
+    (74) super_exp -> . exp sp
+    (83) exp -> . termino exp1
+    (88) termino -> . factor term
+    (93) factor -> . ctes
+    (94) factor -> . LPAREN exp RPAREN
+    (95) factor -> . variable
+    (96) factor -> . llamada_funcion
+    (45) ctes -> . INT_CTE
+    (46) ctes -> . FLOAT_CTE
+    (47) ctes -> . CHAR_CTE
+    (48) variable -> . ID varDim
+    (58) llamada_funcion -> . ID LPAREN lista_ids RPAREN SEMIC
+
+    LPAREN          shift and go to state 107
+    INT_CTE         shift and go to state 109
+    FLOAT_CTE       shift and go to state 110
+    CHAR_CTE        shift and go to state 111
+    ID              shift and go to state 112
+
+    variable                       shift and go to state 99
+    expresion                      shift and go to state 100
+    mega_exp                       shift and go to state 101
+    super_exp                      shift and go to state 102
+    exp                            shift and go to state 103
+    termino                        shift and go to state 104
+    factor                         shift and go to state 105
+    ctes                           shift and go to state 106
+    llamada_funcion                shift and go to state 108
+
+state 84
+
+    (53) condicion -> SI LPAREN . expresion RPAREN ENTONCES bloque else
+    (66) expresion -> . mega_exp expresion1
+    (69) mega_exp -> . super_exp meg
+    (74) super_exp -> . exp sp
+    (83) exp -> . termino exp1
+    (88) termino -> . factor term
+    (93) factor -> . ctes
+    (94) factor -> . LPAREN exp RPAREN
+    (95) factor -> . variable
+    (96) factor -> . llamada_funcion
+    (45) ctes -> . INT_CTE
+    (46) ctes -> . FLOAT_CTE
+    (47) ctes -> . CHAR_CTE
+    (48) variable -> . ID varDim
+    (58) llamada_funcion -> . ID LPAREN lista_ids RPAREN SEMIC
+
+    LPAREN          shift and go to state 107
+    INT_CTE         shift and go to state 109
+    FLOAT_CTE       shift and go to state 110
+    CHAR_CTE        shift and go to state 111
+    ID              shift and go to state 112
+
+    expresion                      shift and go to state 113
+    mega_exp                       shift and go to state 101
+    super_exp                      shift and go to state 102
+    exp                            shift and go to state 103
+    termino                        shift and go to state 104
+    factor                         shift and go to state 105
+    ctes                           shift and go to state 106
+    variable                       shift and go to state 99
+    llamada_funcion                shift and go to state 108
+
+state 85
+
+    (65) regresa -> REGRESA LPAREN . variable RPAREN SEMIC
+    (48) variable -> . ID varDim
+
+    ID              shift and go to state 88
+
+    variable                       shift and go to state 114
+
+state 86
+
+    (56) loop_condicional -> MIENTRAS LPAREN . expresion RPAREN HACER bloque
+    (66) expresion -> . mega_exp expresion1
+    (69) mega_exp -> . super_exp meg
+    (74) super_exp -> . exp sp
+    (83) exp -> . termino exp1
+    (88) termino -> . factor term
+    (93) factor -> . ctes
+    (94) factor -> . LPAREN exp RPAREN
+    (95) factor -> . variable
+    (96) factor -> . llamada_funcion
+    (45) ctes -> . INT_CTE
+    (46) ctes -> . FLOAT_CTE
+    (47) ctes -> . CHAR_CTE
+    (48) variable -> . ID varDim
+    (58) llamada_funcion -> . ID LPAREN lista_ids RPAREN SEMIC
+
+    LPAREN          shift and go to state 107
+    INT_CTE         shift and go to state 109
+    FLOAT_CTE       shift and go to state 110
+    CHAR_CTE        shift and go to state 111
+    ID              shift and go to state 112
+
+    expresion                      shift and go to state 115
+    mega_exp                       shift and go to state 101
+    super_exp                      shift and go to state 102
+    exp                            shift and go to state 103
+    termino                        shift and go to state 104
+    factor                         shift and go to state 105
+    ctes                           shift and go to state 106
+    variable                       shift and go to state 99
+    llamada_funcion                shift and go to state 108
+
+state 87
+
+    (57) loop_no_condicional -> DESDE variable . ASSIGN expresion HASTA expresion HACER bloque
+
+    ASSIGN          shift and go to state 116
+
+
+state 88
+
+    (48) variable -> ID . varDim
+    (49) varDim -> . LBRACK expresion varDim2 RBRACK
+    (50) varDim -> . empty
+    (97) empty -> .
+
+    LBRACK          shift and go to state 91
+    ASSIGN          reduce using rule 97 (empty -> .)
+    RPAREN          reduce using rule 97 (empty -> .)
+
+    varDim                         shift and go to state 90
+    empty                          shift and go to state 92
+
+state 89
+
+    (58) llamada_funcion -> ID LPAREN . lista_ids RPAREN SEMIC
+    (7) lista_ids -> . ID pn_SaveID DecVarDim lista_ids2
+
+    ID              shift and go to state 18
+
+    lista_ids                      shift and go to state 117
+
+state 90
+
+    (48) variable -> ID varDim .
+
+    ASSIGN          reduce using rule 48 (variable -> ID varDim .)
+    MULT_OP         reduce using rule 48 (variable -> ID varDim .)
+    DIV_OP          reduce using rule 48 (variable -> ID varDim .)
+    PLUS_OP         reduce using rule 48 (variable -> ID varDim .)
+    MINUS_OP        reduce using rule 48 (variable -> ID varDim .)
+    LT_LOG          reduce using rule 48 (variable -> ID varDim .)
+    GT_LOG          reduce using rule 48 (variable -> ID varDim .)
+    LTE_LOG         reduce using rule 48 (variable -> ID varDim .)
+    GTE_LOG         reduce using rule 48 (variable -> ID varDim .)
+    NE_LOG          reduce using rule 48 (variable -> ID varDim .)
+    EQUAL_LOG       reduce using rule 48 (variable -> ID varDim .)
+    AND_LOG         reduce using rule 48 (variable -> ID varDim .)
+    OR_LOG          reduce using rule 48 (variable -> ID varDim .)
+    SEMIC           reduce using rule 48 (variable -> ID varDim .)
+    RPAREN          reduce using rule 48 (variable -> ID varDim .)
+    COMMA           reduce using rule 48 (variable -> ID varDim .)
+    RBRACK          reduce using rule 48 (variable -> ID varDim .)
+    HASTA           reduce using rule 48 (variable -> ID varDim .)
+    HACER           reduce using rule 48 (variable -> ID varDim .)
+
+
+state 91
+
+    (49) varDim -> LBRACK . expresion varDim2 RBRACK
+    (66) expresion -> . mega_exp expresion1
+    (69) mega_exp -> . super_exp meg
+    (74) super_exp -> . exp sp
+    (83) exp -> . termino exp1
+    (88) termino -> . factor term
+    (93) factor -> . ctes
+    (94) factor -> . LPAREN exp RPAREN
+    (95) factor -> . variable
+    (96) factor -> . llamada_funcion
+    (45) ctes -> . INT_CTE
+    (46) ctes -> . FLOAT_CTE
+    (47) ctes -> . CHAR_CTE
+    (48) variable -> . ID varDim
+    (58) llamada_funcion -> . ID LPAREN lista_ids RPAREN SEMIC
+
+    LPAREN          shift and go to state 107
+    INT_CTE         shift and go to state 109
+    FLOAT_CTE       shift and go to state 110
+    CHAR_CTE        shift and go to state 111
+    ID              shift and go to state 112
+
+    expresion                      shift and go to state 118
+    mega_exp                       shift and go to state 101
+    super_exp                      shift and go to state 102
+    exp                            shift and go to state 103
+    termino                        shift and go to state 104
+    factor                         shift and go to state 105
+    ctes                           shift and go to state 106
+    variable                       shift and go to state 99
+    llamada_funcion                shift and go to state 108
+
+state 92
+
+    (50) varDim -> empty .
+
+    ASSIGN          reduce using rule 50 (varDim -> empty .)
+    RPAREN          reduce using rule 50 (varDim -> empty .)
+    MULT_OP         reduce using rule 50 (varDim -> empty .)
+    DIV_OP          reduce using rule 50 (varDim -> empty .)
+    PLUS_OP         reduce using rule 50 (varDim -> empty .)
+    MINUS_OP        reduce using rule 50 (varDim -> empty .)
+    LT_LOG          reduce using rule 50 (varDim -> empty .)
+    GT_LOG          reduce using rule 50 (varDim -> empty .)
+    LTE_LOG         reduce using rule 50 (varDim -> empty .)
+    GTE_LOG         reduce using rule 50 (varDim -> empty .)
+    NE_LOG          reduce using rule 50 (varDim -> empty .)
+    EQUAL_LOG       reduce using rule 50 (varDim -> empty .)
+    AND_LOG         reduce using rule 50 (varDim -> empty .)
+    OR_LOG          reduce using rule 50 (varDim -> empty .)
+    SEMIC           reduce using rule 50 (varDim -> empty .)
+    COMMA           reduce using rule 50 (varDim -> empty .)
+    RBRACK          reduce using rule 50 (varDim -> empty .)
+    HASTA           reduce using rule 50 (varDim -> empty .)
+    HACER           reduce using rule 50 (varDim -> empty .)
+
+
+state 93
+
+    (59) escritura -> ESCRIBE LPAREN . escritura2 RPAREN SEMIC
+    (60) escritura2 -> . STRING_CTE escritura3
+    (61) escritura2 -> . expresion escritura3
+    (66) expresion -> . mega_exp expresion1
+    (69) mega_exp -> . super_exp meg
+    (74) super_exp -> . exp sp
+    (83) exp -> . termino exp1
+    (88) termino -> . factor term
+    (93) factor -> . ctes
+    (94) factor -> . LPAREN exp RPAREN
+    (95) factor -> . variable
+    (96) factor -> . llamada_funcion
+    (45) ctes -> . INT_CTE
+    (46) ctes -> . FLOAT_CTE
+    (47) ctes -> . CHAR_CTE
+    (48) variable -> . ID varDim
+    (58) llamada_funcion -> . ID LPAREN lista_ids RPAREN SEMIC
+
+    STRING_CTE      shift and go to state 120
+    LPAREN          shift and go to state 107
+    INT_CTE         shift and go to state 109
+    FLOAT_CTE       shift and go to state 110
+    CHAR_CTE        shift and go to state 111
+    ID              shift and go to state 112
+
+    escritura2                     shift and go to state 119
+    expresion                      shift and go to state 121
+    mega_exp                       shift and go to state 101
+    super_exp                      shift and go to state 102
+    exp                            shift and go to state 103
+    termino                        shift and go to state 104
+    factor                         shift and go to state 105
+    ctes                           shift and go to state 106
+    variable                       shift and go to state 99
+    llamada_funcion                shift and go to state 108
+
+state 94
+
+    (64) lectura -> LEE LPAREN . lista_ids RPAREN SEMIC
+    (7) lista_ids -> . ID pn_SaveID DecVarDim lista_ids2
+
+    ID              shift and go to state 18
+
+    lista_ids                      shift and go to state 122
+
+state 95
+
+    (25) lista_parametros -> ID parDim . COLON tipo lista_parametros2
+
+    COLON           shift and go to state 123
+
+
+state 96
+
+    (28) parDim -> LBRACK . expresion parDim2 RBRACK
+    (66) expresion -> . mega_exp expresion1
+    (69) mega_exp -> . super_exp meg
+    (74) super_exp -> . exp sp
+    (83) exp -> . termino exp1
+    (88) termino -> . factor term
+    (93) factor -> . ctes
+    (94) factor -> . LPAREN exp RPAREN
+    (95) factor -> . variable
+    (96) factor -> . llamada_funcion
+    (45) ctes -> . INT_CTE
+    (46) ctes -> . FLOAT_CTE
+    (47) ctes -> . CHAR_CTE
+    (48) variable -> . ID varDim
+    (58) llamada_funcion -> . ID LPAREN lista_ids RPAREN SEMIC
+
+    LPAREN          shift and go to state 107
+    INT_CTE         shift and go to state 109
+    FLOAT_CTE       shift and go to state 110
+    CHAR_CTE        shift and go to state 111
+    ID              shift and go to state 112
+
+    expresion                      shift and go to state 124
+    mega_exp                       shift and go to state 101
+    super_exp                      shift and go to state 102
+    exp                            shift and go to state 103
+    termino                        shift and go to state 104
+    factor                         shift and go to state 105
+    ctes                           shift and go to state 106
+    variable                       shift and go to state 99
+    llamada_funcion                shift and go to state 108
+
+state 97
+
+    (29) parDim -> empty .
+
+    COLON           reduce using rule 29 (parDim -> empty .)
+
+
+state 98
+
+    (22) dec_funciones3 -> FUNCION ID pn_AddFunc LPAREN dec_funcion_param RPAREN . dec_variables bloque
+    (2) dec_variables -> . VARIABLES dec_variables2
+    (3) dec_variables -> . empty
+    (97) empty -> .
+
+    VARIABLES       shift and go to state 6
+    LCURLY          reduce using rule 97 (empty -> .)
+
+    dec_variables                  shift and go to state 125
+    empty                          shift and go to state 7
+
+state 99
+
+    (95) factor -> variable .
+
+    MULT_OP         reduce using rule 95 (factor -> variable .)
+    DIV_OP          reduce using rule 95 (factor -> variable .)
+    PLUS_OP         reduce using rule 95 (factor -> variable .)
+    MINUS_OP        reduce using rule 95 (factor -> variable .)
+    LT_LOG          reduce using rule 95 (factor -> variable .)
+    GT_LOG          reduce using rule 95 (factor -> variable .)
+    LTE_LOG         reduce using rule 95 (factor -> variable .)
+    GTE_LOG         reduce using rule 95 (factor -> variable .)
+    NE_LOG          reduce using rule 95 (factor -> variable .)
+    EQUAL_LOG       reduce using rule 95 (factor -> variable .)
+    AND_LOG         reduce using rule 95 (factor -> variable .)
+    OR_LOG          reduce using rule 95 (factor -> variable .)
+    ASSIGN          reduce using rule 95 (factor -> variable .)
+    SEMIC           reduce using rule 95 (factor -> variable .)
+    RPAREN          reduce using rule 95 (factor -> variable .)
+    COMMA           reduce using rule 95 (factor -> variable .)
+    RBRACK          reduce using rule 95 (factor -> variable .)
+    HASTA           reduce using rule 95 (factor -> variable .)
+    HACER           reduce using rule 95 (factor -> variable .)
+
+
+state 100
+
+    (44) asignacion -> variable ASSIGN expresion . SEMIC
+
+    SEMIC           shift and go to state 126
+
+
+state 101
+
+    (66) expresion -> mega_exp . expresion1
+    (67) expresion1 -> . ASSIGN expresion
+    (68) expresion1 -> . empty
+    (97) empty -> .
+
+    ASSIGN          shift and go to state 128
+    SEMIC           reduce using rule 97 (empty -> .)
+    RPAREN          reduce using rule 97 (empty -> .)
+    COMMA           reduce using rule 97 (empty -> .)
+    RBRACK          reduce using rule 97 (empty -> .)
+    HASTA           reduce using rule 97 (empty -> .)
+    HACER           reduce using rule 97 (empty -> .)
+
+    expresion1                     shift and go to state 127
+    empty                          shift and go to state 129
+
+state 102
+
+    (69) mega_exp -> super_exp . meg
+    (70) meg -> . op_l mega_exp
+    (71) meg -> . empty
+    (72) op_l -> . AND_LOG
+    (73) op_l -> . OR_LOG
+    (97) empty -> .
+
+    AND_LOG         shift and go to state 133
+    OR_LOG          shift and go to state 134
+    ASSIGN          reduce using rule 97 (empty -> .)
+    SEMIC           reduce using rule 97 (empty -> .)
+    RPAREN          reduce using rule 97 (empty -> .)
+    COMMA           reduce using rule 97 (empty -> .)
+    RBRACK          reduce using rule 97 (empty -> .)
+    HASTA           reduce using rule 97 (empty -> .)
+    HACER           reduce using rule 97 (empty -> .)
+
+    meg                            shift and go to state 130
+    op_l                           shift and go to state 131
+    empty                          shift and go to state 132
+
+state 103
+
+    (74) super_exp -> exp . sp
+    (75) sp -> . op_r exp
+    (76) sp -> . empty
+    (77) op_r -> . LT_LOG
+    (78) op_r -> . GT_LOG
+    (79) op_r -> . LTE_LOG
+    (80) op_r -> . GTE_LOG
+    (81) op_r -> . NE_LOG
+    (82) op_r -> . EQUAL_LOG
+    (97) empty -> .
+
+    LT_LOG          shift and go to state 138
+    GT_LOG          shift and go to state 139
+    LTE_LOG         shift and go to state 140
+    GTE_LOG         shift and go to state 141
+    NE_LOG          shift and go to state 142
+    EQUAL_LOG       shift and go to state 143
+    AND_LOG         reduce using rule 97 (empty -> .)
+    OR_LOG          reduce using rule 97 (empty -> .)
+    ASSIGN          reduce using rule 97 (empty -> .)
+    SEMIC           reduce using rule 97 (empty -> .)
+    RPAREN          reduce using rule 97 (empty -> .)
+    COMMA           reduce using rule 97 (empty -> .)
+    RBRACK          reduce using rule 97 (empty -> .)
+    HASTA           reduce using rule 97 (empty -> .)
+    HACER           reduce using rule 97 (empty -> .)
+
+    sp                             shift and go to state 135
+    op_r                           shift and go to state 136
+    empty                          shift and go to state 137
+
+state 104
+
+    (83) exp -> termino . exp1
+    (84) exp1 -> . op_a exp
+    (85) exp1 -> . empty
+    (86) op_a -> . PLUS_OP
+    (87) op_a -> . MINUS_OP
+    (97) empty -> .
+
+    PLUS_OP         shift and go to state 147
+    MINUS_OP        shift and go to state 148
+    LT_LOG          reduce using rule 97 (empty -> .)
+    GT_LOG          reduce using rule 97 (empty -> .)
+    LTE_LOG         reduce using rule 97 (empty -> .)
+    GTE_LOG         reduce using rule 97 (empty -> .)
+    NE_LOG          reduce using rule 97 (empty -> .)
+    EQUAL_LOG       reduce using rule 97 (empty -> .)
+    AND_LOG         reduce using rule 97 (empty -> .)
+    OR_LOG          reduce using rule 97 (empty -> .)
+    ASSIGN          reduce using rule 97 (empty -> .)
+    SEMIC           reduce using rule 97 (empty -> .)
+    RPAREN          reduce using rule 97 (empty -> .)
+    COMMA           reduce using rule 97 (empty -> .)
+    RBRACK          reduce using rule 97 (empty -> .)
+    HASTA           reduce using rule 97 (empty -> .)
+    HACER           reduce using rule 97 (empty -> .)
+
+    exp1                           shift and go to state 144
+    op_a                           shift and go to state 145
+    empty                          shift and go to state 146
+
+state 105
+
+    (88) termino -> factor . term
+    (89) term -> . op_a1 termino
+    (90) term -> . empty
+    (91) op_a1 -> . MULT_OP
+    (92) op_a1 -> . DIV_OP
+    (97) empty -> .
+
+    MULT_OP         shift and go to state 152
+    DIV_OP          shift and go to state 153
+    PLUS_OP         reduce using rule 97 (empty -> .)
+    MINUS_OP        reduce using rule 97 (empty -> .)
+    LT_LOG          reduce using rule 97 (empty -> .)
+    GT_LOG          reduce using rule 97 (empty -> .)
+    LTE_LOG         reduce using rule 97 (empty -> .)
+    GTE_LOG         reduce using rule 97 (empty -> .)
+    NE_LOG          reduce using rule 97 (empty -> .)
+    EQUAL_LOG       reduce using rule 97 (empty -> .)
+    AND_LOG         reduce using rule 97 (empty -> .)
+    OR_LOG          reduce using rule 97 (empty -> .)
+    ASSIGN          reduce using rule 97 (empty -> .)
+    SEMIC           reduce using rule 97 (empty -> .)
+    RPAREN          reduce using rule 97 (empty -> .)
+    COMMA           reduce using rule 97 (empty -> .)
+    RBRACK          reduce using rule 97 (empty -> .)
+    HASTA           reduce using rule 97 (empty -> .)
+    HACER           reduce using rule 97 (empty -> .)
+
+    term                           shift and go to state 149
+    op_a1                          shift and go to state 150
+    empty                          shift and go to state 151
+
+state 106
+
+    (93) factor -> ctes .
+
+    MULT_OP         reduce using rule 93 (factor -> ctes .)
+    DIV_OP          reduce using rule 93 (factor -> ctes .)
+    PLUS_OP         reduce using rule 93 (factor -> ctes .)
+    MINUS_OP        reduce using rule 93 (factor -> ctes .)
+    LT_LOG          reduce using rule 93 (factor -> ctes .)
+    GT_LOG          reduce using rule 93 (factor -> ctes .)
+    LTE_LOG         reduce using rule 93 (factor -> ctes .)
+    GTE_LOG         reduce using rule 93 (factor -> ctes .)
+    NE_LOG          reduce using rule 93 (factor -> ctes .)
+    EQUAL_LOG       reduce using rule 93 (factor -> ctes .)
+    AND_LOG         reduce using rule 93 (factor -> ctes .)
+    OR_LOG          reduce using rule 93 (factor -> ctes .)
+    ASSIGN          reduce using rule 93 (factor -> ctes .)
+    SEMIC           reduce using rule 93 (factor -> ctes .)
+    RPAREN          reduce using rule 93 (factor -> ctes .)
+    COMMA           reduce using rule 93 (factor -> ctes .)
+    RBRACK          reduce using rule 93 (factor -> ctes .)
+    HASTA           reduce using rule 93 (factor -> ctes .)
+    HACER           reduce using rule 93 (factor -> ctes .)
+
+
+state 107
+
+    (94) factor -> LPAREN . exp RPAREN
+    (83) exp -> . termino exp1
+    (88) termino -> . factor term
+    (93) factor -> . ctes
+    (94) factor -> . LPAREN exp RPAREN
+    (95) factor -> . variable
+    (96) factor -> . llamada_funcion
+    (45) ctes -> . INT_CTE
+    (46) ctes -> . FLOAT_CTE
+    (47) ctes -> . CHAR_CTE
+    (48) variable -> . ID varDim
+    (58) llamada_funcion -> . ID LPAREN lista_ids RPAREN SEMIC
+
+    LPAREN          shift and go to state 107
+    INT_CTE         shift and go to state 109
+    FLOAT_CTE       shift and go to state 110
+    CHAR_CTE        shift and go to state 111
+    ID              shift and go to state 112
+
+    exp                            shift and go to state 154
+    termino                        shift and go to state 104
+    factor                         shift and go to state 105
+    ctes                           shift and go to state 106
+    variable                       shift and go to state 99
+    llamada_funcion                shift and go to state 108
+
+state 108
+
+    (96) factor -> llamada_funcion .
+
+    MULT_OP         reduce using rule 96 (factor -> llamada_funcion .)
+    DIV_OP          reduce using rule 96 (factor -> llamada_funcion .)
+    PLUS_OP         reduce using rule 96 (factor -> llamada_funcion .)
+    MINUS_OP        reduce using rule 96 (factor -> llamada_funcion .)
+    LT_LOG          reduce using rule 96 (factor -> llamada_funcion .)
+    GT_LOG          reduce using rule 96 (factor -> llamada_funcion .)
+    LTE_LOG         reduce using rule 96 (factor -> llamada_funcion .)
+    GTE_LOG         reduce using rule 96 (factor -> llamada_funcion .)
+    NE_LOG          reduce using rule 96 (factor -> llamada_funcion .)
+    EQUAL_LOG       reduce using rule 96 (factor -> llamada_funcion .)
+    AND_LOG         reduce using rule 96 (factor -> llamada_funcion .)
+    OR_LOG          reduce using rule 96 (factor -> llamada_funcion .)
+    ASSIGN          reduce using rule 96 (factor -> llamada_funcion .)
+    SEMIC           reduce using rule 96 (factor -> llamada_funcion .)
+    RPAREN          reduce using rule 96 (factor -> llamada_funcion .)
+    COMMA           reduce using rule 96 (factor -> llamada_funcion .)
+    RBRACK          reduce using rule 96 (factor -> llamada_funcion .)
+    HASTA           reduce using rule 96 (factor -> llamada_funcion .)
+    HACER           reduce using rule 96 (factor -> llamada_funcion .)
+
+
+state 109
+
+    (45) ctes -> INT_CTE .
+
+    MULT_OP         reduce using rule 45 (ctes -> INT_CTE .)
+    DIV_OP          reduce using rule 45 (ctes -> INT_CTE .)
+    PLUS_OP         reduce using rule 45 (ctes -> INT_CTE .)
+    MINUS_OP        reduce using rule 45 (ctes -> INT_CTE .)
+    LT_LOG          reduce using rule 45 (ctes -> INT_CTE .)
+    GT_LOG          reduce using rule 45 (ctes -> INT_CTE .)
+    LTE_LOG         reduce using rule 45 (ctes -> INT_CTE .)
+    GTE_LOG         reduce using rule 45 (ctes -> INT_CTE .)
+    NE_LOG          reduce using rule 45 (ctes -> INT_CTE .)
+    EQUAL_LOG       reduce using rule 45 (ctes -> INT_CTE .)
+    AND_LOG         reduce using rule 45 (ctes -> INT_CTE .)
+    OR_LOG          reduce using rule 45 (ctes -> INT_CTE .)
+    ASSIGN          reduce using rule 45 (ctes -> INT_CTE .)
+    SEMIC           reduce using rule 45 (ctes -> INT_CTE .)
+    RPAREN          reduce using rule 45 (ctes -> INT_CTE .)
+    COMMA           reduce using rule 45 (ctes -> INT_CTE .)
+    RBRACK          reduce using rule 45 (ctes -> INT_CTE .)
+    HASTA           reduce using rule 45 (ctes -> INT_CTE .)
+    HACER           reduce using rule 45 (ctes -> INT_CTE .)
+
+
+state 110
+
+    (46) ctes -> FLOAT_CTE .
+
+    MULT_OP         reduce using rule 46 (ctes -> FLOAT_CTE .)
+    DIV_OP          reduce using rule 46 (ctes -> FLOAT_CTE .)
+    PLUS_OP         reduce using rule 46 (ctes -> FLOAT_CTE .)
+    MINUS_OP        reduce using rule 46 (ctes -> FLOAT_CTE .)
+    LT_LOG          reduce using rule 46 (ctes -> FLOAT_CTE .)
+    GT_LOG          reduce using rule 46 (ctes -> FLOAT_CTE .)
+    LTE_LOG         reduce using rule 46 (ctes -> FLOAT_CTE .)
+    GTE_LOG         reduce using rule 46 (ctes -> FLOAT_CTE .)
+    NE_LOG          reduce using rule 46 (ctes -> FLOAT_CTE .)
+    EQUAL_LOG       reduce using rule 46 (ctes -> FLOAT_CTE .)
+    AND_LOG         reduce using rule 46 (ctes -> FLOAT_CTE .)
+    OR_LOG          reduce using rule 46 (ctes -> FLOAT_CTE .)
+    ASSIGN          reduce using rule 46 (ctes -> FLOAT_CTE .)
+    SEMIC           reduce using rule 46 (ctes -> FLOAT_CTE .)
+    RPAREN          reduce using rule 46 (ctes -> FLOAT_CTE .)
+    COMMA           reduce using rule 46 (ctes -> FLOAT_CTE .)
+    RBRACK          reduce using rule 46 (ctes -> FLOAT_CTE .)
+    HASTA           reduce using rule 46 (ctes -> FLOAT_CTE .)
+    HACER           reduce using rule 46 (ctes -> FLOAT_CTE .)
+
+
+state 111
+
+    (47) ctes -> CHAR_CTE .
+
+    MULT_OP         reduce using rule 47 (ctes -> CHAR_CTE .)
+    DIV_OP          reduce using rule 47 (ctes -> CHAR_CTE .)
+    PLUS_OP         reduce using rule 47 (ctes -> CHAR_CTE .)
+    MINUS_OP        reduce using rule 47 (ctes -> CHAR_CTE .)
+    LT_LOG          reduce using rule 47 (ctes -> CHAR_CTE .)
+    GT_LOG          reduce using rule 47 (ctes -> CHAR_CTE .)
+    LTE_LOG         reduce using rule 47 (ctes -> CHAR_CTE .)
+    GTE_LOG         reduce using rule 47 (ctes -> CHAR_CTE .)
+    NE_LOG          reduce using rule 47 (ctes -> CHAR_CTE .)
+    EQUAL_LOG       reduce using rule 47 (ctes -> CHAR_CTE .)
+    AND_LOG         reduce using rule 47 (ctes -> CHAR_CTE .)
+    OR_LOG          reduce using rule 47 (ctes -> CHAR_CTE .)
+    ASSIGN          reduce using rule 47 (ctes -> CHAR_CTE .)
+    SEMIC           reduce using rule 47 (ctes -> CHAR_CTE .)
+    RPAREN          reduce using rule 47 (ctes -> CHAR_CTE .)
+    COMMA           reduce using rule 47 (ctes -> CHAR_CTE .)
+    RBRACK          reduce using rule 47 (ctes -> CHAR_CTE .)
+    HASTA           reduce using rule 47 (ctes -> CHAR_CTE .)
+    HACER           reduce using rule 47 (ctes -> CHAR_CTE .)
+
+
+state 112
+
+    (48) variable -> ID . varDim
+    (58) llamada_funcion -> ID . LPAREN lista_ids RPAREN SEMIC
+    (49) varDim -> . LBRACK expresion varDim2 RBRACK
+    (50) varDim -> . empty
+    (97) empty -> .
+
+    LPAREN          shift and go to state 89
+    LBRACK          shift and go to state 91
+    MULT_OP         reduce using rule 97 (empty -> .)
+    DIV_OP          reduce using rule 97 (empty -> .)
+    PLUS_OP         reduce using rule 97 (empty -> .)
+    MINUS_OP        reduce using rule 97 (empty -> .)
+    LT_LOG          reduce using rule 97 (empty -> .)
+    GT_LOG          reduce using rule 97 (empty -> .)
+    LTE_LOG         reduce using rule 97 (empty -> .)
+    GTE_LOG         reduce using rule 97 (empty -> .)
+    NE_LOG          reduce using rule 97 (empty -> .)
+    EQUAL_LOG       reduce using rule 97 (empty -> .)
+    AND_LOG         reduce using rule 97 (empty -> .)
+    OR_LOG          reduce using rule 97 (empty -> .)
+    ASSIGN          reduce using rule 97 (empty -> .)
+    SEMIC           reduce using rule 97 (empty -> .)
+    RPAREN          reduce using rule 97 (empty -> .)
+    COMMA           reduce using rule 97 (empty -> .)
+    RBRACK          reduce using rule 97 (empty -> .)
+    HASTA           reduce using rule 97 (empty -> .)
+    HACER           reduce using rule 97 (empty -> .)
+
+    varDim                         shift and go to state 90
+    empty                          shift and go to state 92
+
+state 113
+
+    (53) condicion -> SI LPAREN expresion . RPAREN ENTONCES bloque else
+
+    RPAREN          shift and go to state 155
+
+
+state 114
+
+    (65) regresa -> REGRESA LPAREN variable . RPAREN SEMIC
+
+    RPAREN          shift and go to state 156
+
+
+state 115
+
+    (56) loop_condicional -> MIENTRAS LPAREN expresion . RPAREN HACER bloque
+
+    RPAREN          shift and go to state 157
+
+
+state 116
+
+    (57) loop_no_condicional -> DESDE variable ASSIGN . expresion HASTA expresion HACER bloque
+    (66) expresion -> . mega_exp expresion1
+    (69) mega_exp -> . super_exp meg
+    (74) super_exp -> . exp sp
+    (83) exp -> . termino exp1
+    (88) termino -> . factor term
+    (93) factor -> . ctes
+    (94) factor -> . LPAREN exp RPAREN
+    (95) factor -> . variable
+    (96) factor -> . llamada_funcion
+    (45) ctes -> . INT_CTE
+    (46) ctes -> . FLOAT_CTE
+    (47) ctes -> . CHAR_CTE
+    (48) variable -> . ID varDim
+    (58) llamada_funcion -> . ID LPAREN lista_ids RPAREN SEMIC
+
+    LPAREN          shift and go to state 107
+    INT_CTE         shift and go to state 109
+    FLOAT_CTE       shift and go to state 110
+    CHAR_CTE        shift and go to state 111
+    ID              shift and go to state 112
+
+    variable                       shift and go to state 99
+    expresion                      shift and go to state 158
+    mega_exp                       shift and go to state 101
+    super_exp                      shift and go to state 102
+    exp                            shift and go to state 103
+    termino                        shift and go to state 104
+    factor                         shift and go to state 105
+    ctes                           shift and go to state 106
+    llamada_funcion                shift and go to state 108
+
+state 117
+
+    (58) llamada_funcion -> ID LPAREN lista_ids . RPAREN SEMIC
+
+    RPAREN          shift and go to state 159
+
+
+state 118
+
+    (49) varDim -> LBRACK expresion . varDim2 RBRACK
+    (51) varDim2 -> . COMMA expresion
+    (52) varDim2 -> . empty
+    (97) empty -> .
+
+    COMMA           shift and go to state 161
+    RBRACK          reduce using rule 97 (empty -> .)
+
+    varDim2                        shift and go to state 160
+    empty                          shift and go to state 162
+
+state 119
+
+    (59) escritura -> ESCRIBE LPAREN escritura2 . RPAREN SEMIC
+
+    RPAREN          shift and go to state 163
+
+
+state 120
+
+    (60) escritura2 -> STRING_CTE . escritura3
+    (62) escritura3 -> . COMMA escritura2
+    (63) escritura3 -> . empty
+    (97) empty -> .
+
+    COMMA           shift and go to state 165
+    RPAREN          reduce using rule 97 (empty -> .)
+
+    escritura3                     shift and go to state 164
+    empty                          shift and go to state 166
+
+state 121
+
+    (61) escritura2 -> expresion . escritura3
+    (62) escritura3 -> . COMMA escritura2
+    (63) escritura3 -> . empty
+    (97) empty -> .
+
+    COMMA           shift and go to state 165
+    RPAREN          reduce using rule 97 (empty -> .)
+
+    escritura3                     shift and go to state 167
+    empty                          shift and go to state 166
+
+state 122
+
+    (64) lectura -> LEE LPAREN lista_ids . RPAREN SEMIC
+
+    RPAREN          shift and go to state 168
+
+
+state 123
+
+    (25) lista_parametros -> ID parDim COLON . tipo lista_parametros2
+    (15) tipo -> . INT_TYPE pn_SetCurrentType
+    (16) tipo -> . CHAR_TYPE pn_SetCurrentType
+    (17) tipo -> . FLOAT_TYPE pn_SetCurrentType
+
+    INT_TYPE        shift and go to state 13
+    CHAR_TYPE       shift and go to state 14
+    FLOAT_TYPE      shift and go to state 15
+
+    tipo                           shift and go to state 169
+
+state 124
+
+    (28) parDim -> LBRACK expresion . parDim2 RBRACK
+    (30) parDim2 -> . COMMA expresion
+    (31) parDim2 -> . empty
+    (97) empty -> .
+
+    COMMA           shift and go to state 171
+    RBRACK          reduce using rule 97 (empty -> .)
+
+    parDim2                        shift and go to state 170
+    empty                          shift and go to state 172
+
+state 125
+
+    (22) dec_funciones3 -> FUNCION ID pn_AddFunc LPAREN dec_funcion_param RPAREN dec_variables . bloque
+    (33) bloque -> . LCURLY estatutos RCURLY
+
+    LCURLY          shift and go to state 46
+
+    bloque                         shift and go to state 173
+
+state 126
+
+    (44) asignacion -> variable ASSIGN expresion SEMIC .
+
+    SI              reduce using rule 44 (asignacion -> variable ASSIGN expresion SEMIC .)
+    REGRESA         reduce using rule 44 (asignacion -> variable ASSIGN expresion SEMIC .)
+    MIENTRAS        reduce using rule 44 (asignacion -> variable ASSIGN expresion SEMIC .)
+    DESDE           reduce using rule 44 (asignacion -> variable ASSIGN expresion SEMIC .)
+    ID              reduce using rule 44 (asignacion -> variable ASSIGN expresion SEMIC .)
+    ESCRIBE         reduce using rule 44 (asignacion -> variable ASSIGN expresion SEMIC .)
+    LEE             reduce using rule 44 (asignacion -> variable ASSIGN expresion SEMIC .)
+    RCURLY          reduce using rule 44 (asignacion -> variable ASSIGN expresion SEMIC .)
+
+
+state 127
+
+    (66) expresion -> mega_exp expresion1 .
+
+    SEMIC           reduce using rule 66 (expresion -> mega_exp expresion1 .)
+    RPAREN          reduce using rule 66 (expresion -> mega_exp expresion1 .)
+    COMMA           reduce using rule 66 (expresion -> mega_exp expresion1 .)
+    RBRACK          reduce using rule 66 (expresion -> mega_exp expresion1 .)
+    HASTA           reduce using rule 66 (expresion -> mega_exp expresion1 .)
+    HACER           reduce using rule 66 (expresion -> mega_exp expresion1 .)
+
+
+state 128
+
+    (67) expresion1 -> ASSIGN . expresion
+    (66) expresion -> . mega_exp expresion1
+    (69) mega_exp -> . super_exp meg
+    (74) super_exp -> . exp sp
+    (83) exp -> . termino exp1
+    (88) termino -> . factor term
+    (93) factor -> . ctes
+    (94) factor -> . LPAREN exp RPAREN
+    (95) factor -> . variable
+    (96) factor -> . llamada_funcion
+    (45) ctes -> . INT_CTE
+    (46) ctes -> . FLOAT_CTE
+    (47) ctes -> . CHAR_CTE
+    (48) variable -> . ID varDim
+    (58) llamada_funcion -> . ID LPAREN lista_ids RPAREN SEMIC
+
+    LPAREN          shift and go to state 107
+    INT_CTE         shift and go to state 109
+    FLOAT_CTE       shift and go to state 110
+    CHAR_CTE        shift and go to state 111
+    ID              shift and go to state 112
+
+    expresion                      shift and go to state 174
+    mega_exp                       shift and go to state 101
+    super_exp                      shift and go to state 102
+    exp                            shift and go to state 103
+    termino                        shift and go to state 104
+    factor                         shift and go to state 105
+    ctes                           shift and go to state 106
+    variable                       shift and go to state 99
+    llamada_funcion                shift and go to state 108
+
+state 129
+
+    (68) expresion1 -> empty .
+
+    SEMIC           reduce using rule 68 (expresion1 -> empty .)
+    RPAREN          reduce using rule 68 (expresion1 -> empty .)
+    COMMA           reduce using rule 68 (expresion1 -> empty .)
+    RBRACK          reduce using rule 68 (expresion1 -> empty .)
+    HASTA           reduce using rule 68 (expresion1 -> empty .)
+    HACER           reduce using rule 68 (expresion1 -> empty .)
+
+
+state 130
+
+    (69) mega_exp -> super_exp meg .
+
+    ASSIGN          reduce using rule 69 (mega_exp -> super_exp meg .)
+    SEMIC           reduce using rule 69 (mega_exp -> super_exp meg .)
+    RPAREN          reduce using rule 69 (mega_exp -> super_exp meg .)
+    COMMA           reduce using rule 69 (mega_exp -> super_exp meg .)
+    RBRACK          reduce using rule 69 (mega_exp -> super_exp meg .)
+    HASTA           reduce using rule 69 (mega_exp -> super_exp meg .)
+    HACER           reduce using rule 69 (mega_exp -> super_exp meg .)
+
+
+state 131
+
+    (70) meg -> op_l . mega_exp
+    (69) mega_exp -> . super_exp meg
+    (74) super_exp -> . exp sp
+    (83) exp -> . termino exp1
+    (88) termino -> . factor term
+    (93) factor -> . ctes
+    (94) factor -> . LPAREN exp RPAREN
+    (95) factor -> . variable
+    (96) factor -> . llamada_funcion
+    (45) ctes -> . INT_CTE
+    (46) ctes -> . FLOAT_CTE
+    (47) ctes -> . CHAR_CTE
+    (48) variable -> . ID varDim
+    (58) llamada_funcion -> . ID LPAREN lista_ids RPAREN SEMIC
+
+    LPAREN          shift and go to state 107
+    INT_CTE         shift and go to state 109
+    FLOAT_CTE       shift and go to state 110
+    CHAR_CTE        shift and go to state 111
+    ID              shift and go to state 112
+
+    mega_exp                       shift and go to state 175
+    super_exp                      shift and go to state 102
+    exp                            shift and go to state 103
+    termino                        shift and go to state 104
+    factor                         shift and go to state 105
+    ctes                           shift and go to state 106
+    variable                       shift and go to state 99
+    llamada_funcion                shift and go to state 108
+
+state 132
+
+    (71) meg -> empty .
+
+    ASSIGN          reduce using rule 71 (meg -> empty .)
+    SEMIC           reduce using rule 71 (meg -> empty .)
+    RPAREN          reduce using rule 71 (meg -> empty .)
+    COMMA           reduce using rule 71 (meg -> empty .)
+    RBRACK          reduce using rule 71 (meg -> empty .)
+    HASTA           reduce using rule 71 (meg -> empty .)
+    HACER           reduce using rule 71 (meg -> empty .)
+
+
+state 133
+
+    (72) op_l -> AND_LOG .
+
+    LPAREN          reduce using rule 72 (op_l -> AND_LOG .)
+    INT_CTE         reduce using rule 72 (op_l -> AND_LOG .)
+    FLOAT_CTE       reduce using rule 72 (op_l -> AND_LOG .)
+    CHAR_CTE        reduce using rule 72 (op_l -> AND_LOG .)
+    ID              reduce using rule 72 (op_l -> AND_LOG .)
+
+
+state 134
+
+    (73) op_l -> OR_LOG .
+
+    LPAREN          reduce using rule 73 (op_l -> OR_LOG .)
+    INT_CTE         reduce using rule 73 (op_l -> OR_LOG .)
+    FLOAT_CTE       reduce using rule 73 (op_l -> OR_LOG .)
+    CHAR_CTE        reduce using rule 73 (op_l -> OR_LOG .)
+    ID              reduce using rule 73 (op_l -> OR_LOG .)
+
+
+state 135
+
+    (74) super_exp -> exp sp .
+
+    AND_LOG         reduce using rule 74 (super_exp -> exp sp .)
+    OR_LOG          reduce using rule 74 (super_exp -> exp sp .)
+    ASSIGN          reduce using rule 74 (super_exp -> exp sp .)
+    SEMIC           reduce using rule 74 (super_exp -> exp sp .)
+    RPAREN          reduce using rule 74 (super_exp -> exp sp .)
+    COMMA           reduce using rule 74 (super_exp -> exp sp .)
+    RBRACK          reduce using rule 74 (super_exp -> exp sp .)
+    HASTA           reduce using rule 74 (super_exp -> exp sp .)
+    HACER           reduce using rule 74 (super_exp -> exp sp .)
+
+
+state 136
+
+    (75) sp -> op_r . exp
+    (83) exp -> . termino exp1
+    (88) termino -> . factor term
+    (93) factor -> . ctes
+    (94) factor -> . LPAREN exp RPAREN
+    (95) factor -> . variable
+    (96) factor -> . llamada_funcion
+    (45) ctes -> . INT_CTE
+    (46) ctes -> . FLOAT_CTE
+    (47) ctes -> . CHAR_CTE
+    (48) variable -> . ID varDim
+    (58) llamada_funcion -> . ID LPAREN lista_ids RPAREN SEMIC
+
+    LPAREN          shift and go to state 107
+    INT_CTE         shift and go to state 109
+    FLOAT_CTE       shift and go to state 110
+    CHAR_CTE        shift and go to state 111
+    ID              shift and go to state 112
+
+    exp                            shift and go to state 176
+    termino                        shift and go to state 104
+    factor                         shift and go to state 105
+    ctes                           shift and go to state 106
+    variable                       shift and go to state 99
+    llamada_funcion                shift and go to state 108
+
+state 137
+
+    (76) sp -> empty .
+
+    AND_LOG         reduce using rule 76 (sp -> empty .)
+    OR_LOG          reduce using rule 76 (sp -> empty .)
+    ASSIGN          reduce using rule 76 (sp -> empty .)
+    SEMIC           reduce using rule 76 (sp -> empty .)
+    RPAREN          reduce using rule 76 (sp -> empty .)
+    COMMA           reduce using rule 76 (sp -> empty .)
+    RBRACK          reduce using rule 76 (sp -> empty .)
+    HASTA           reduce using rule 76 (sp -> empty .)
+    HACER           reduce using rule 76 (sp -> empty .)
+
+
+state 138
+
+    (77) op_r -> LT_LOG .
+
+    LPAREN          reduce using rule 77 (op_r -> LT_LOG .)
+    INT_CTE         reduce using rule 77 (op_r -> LT_LOG .)
+    FLOAT_CTE       reduce using rule 77 (op_r -> LT_LOG .)
+    CHAR_CTE        reduce using rule 77 (op_r -> LT_LOG .)
+    ID              reduce using rule 77 (op_r -> LT_LOG .)
+
+
+state 139
+
+    (78) op_r -> GT_LOG .
+
+    LPAREN          reduce using rule 78 (op_r -> GT_LOG .)
+    INT_CTE         reduce using rule 78 (op_r -> GT_LOG .)
+    FLOAT_CTE       reduce using rule 78 (op_r -> GT_LOG .)
+    CHAR_CTE        reduce using rule 78 (op_r -> GT_LOG .)
+    ID              reduce using rule 78 (op_r -> GT_LOG .)
+
+
+state 140
+
+    (79) op_r -> LTE_LOG .
+
+    LPAREN          reduce using rule 79 (op_r -> LTE_LOG .)
+    INT_CTE         reduce using rule 79 (op_r -> LTE_LOG .)
+    FLOAT_CTE       reduce using rule 79 (op_r -> LTE_LOG .)
+    CHAR_CTE        reduce using rule 79 (op_r -> LTE_LOG .)
+    ID              reduce using rule 79 (op_r -> LTE_LOG .)
+
+
+state 141
+
+    (80) op_r -> GTE_LOG .
+
+    LPAREN          reduce using rule 80 (op_r -> GTE_LOG .)
+    INT_CTE         reduce using rule 80 (op_r -> GTE_LOG .)
+    FLOAT_CTE       reduce using rule 80 (op_r -> GTE_LOG .)
+    CHAR_CTE        reduce using rule 80 (op_r -> GTE_LOG .)
+    ID              reduce using rule 80 (op_r -> GTE_LOG .)
+
+
+state 142
+
+    (81) op_r -> NE_LOG .
+
+    LPAREN          reduce using rule 81 (op_r -> NE_LOG .)
+    INT_CTE         reduce using rule 81 (op_r -> NE_LOG .)
+    FLOAT_CTE       reduce using rule 81 (op_r -> NE_LOG .)
+    CHAR_CTE        reduce using rule 81 (op_r -> NE_LOG .)
+    ID              reduce using rule 81 (op_r -> NE_LOG .)
+
+
+state 143
+
+    (82) op_r -> EQUAL_LOG .
+
+    LPAREN          reduce using rule 82 (op_r -> EQUAL_LOG .)
+    INT_CTE         reduce using rule 82 (op_r -> EQUAL_LOG .)
+    FLOAT_CTE       reduce using rule 82 (op_r -> EQUAL_LOG .)
+    CHAR_CTE        reduce using rule 82 (op_r -> EQUAL_LOG .)
+    ID              reduce using rule 82 (op_r -> EQUAL_LOG .)
+
+
+state 144
+
+    (83) exp -> termino exp1 .
+
+    LT_LOG          reduce using rule 83 (exp -> termino exp1 .)
+    GT_LOG          reduce using rule 83 (exp -> termino exp1 .)
+    LTE_LOG         reduce using rule 83 (exp -> termino exp1 .)
+    GTE_LOG         reduce using rule 83 (exp -> termino exp1 .)
+    NE_LOG          reduce using rule 83 (exp -> termino exp1 .)
+    EQUAL_LOG       reduce using rule 83 (exp -> termino exp1 .)
+    AND_LOG         reduce using rule 83 (exp -> termino exp1 .)
+    OR_LOG          reduce using rule 83 (exp -> termino exp1 .)
+    ASSIGN          reduce using rule 83 (exp -> termino exp1 .)
+    SEMIC           reduce using rule 83 (exp -> termino exp1 .)
+    RPAREN          reduce using rule 83 (exp -> termino exp1 .)
+    COMMA           reduce using rule 83 (exp -> termino exp1 .)
+    RBRACK          reduce using rule 83 (exp -> termino exp1 .)
+    HASTA           reduce using rule 83 (exp -> termino exp1 .)
+    HACER           reduce using rule 83 (exp -> termino exp1 .)
+
+
+state 145
+
+    (84) exp1 -> op_a . exp
+    (83) exp -> . termino exp1
+    (88) termino -> . factor term
+    (93) factor -> . ctes
+    (94) factor -> . LPAREN exp RPAREN
+    (95) factor -> . variable
+    (96) factor -> . llamada_funcion
+    (45) ctes -> . INT_CTE
+    (46) ctes -> . FLOAT_CTE
+    (47) ctes -> . CHAR_CTE
+    (48) variable -> . ID varDim
+    (58) llamada_funcion -> . ID LPAREN lista_ids RPAREN SEMIC
+
+    LPAREN          shift and go to state 107
+    INT_CTE         shift and go to state 109
+    FLOAT_CTE       shift and go to state 110
+    CHAR_CTE        shift and go to state 111
+    ID              shift and go to state 112
+
+    exp                            shift and go to state 177
+    termino                        shift and go to state 104
+    factor                         shift and go to state 105
+    ctes                           shift and go to state 106
+    variable                       shift and go to state 99
+    llamada_funcion                shift and go to state 108
+
+state 146
+
+    (85) exp1 -> empty .
+
+    LT_LOG          reduce using rule 85 (exp1 -> empty .)
+    GT_LOG          reduce using rule 85 (exp1 -> empty .)
+    LTE_LOG         reduce using rule 85 (exp1 -> empty .)
+    GTE_LOG         reduce using rule 85 (exp1 -> empty .)
+    NE_LOG          reduce using rule 85 (exp1 -> empty .)
+    EQUAL_LOG       reduce using rule 85 (exp1 -> empty .)
+    AND_LOG         reduce using rule 85 (exp1 -> empty .)
+    OR_LOG          reduce using rule 85 (exp1 -> empty .)
+    ASSIGN          reduce using rule 85 (exp1 -> empty .)
+    SEMIC           reduce using rule 85 (exp1 -> empty .)
+    RPAREN          reduce using rule 85 (exp1 -> empty .)
+    COMMA           reduce using rule 85 (exp1 -> empty .)
+    RBRACK          reduce using rule 85 (exp1 -> empty .)
+    HASTA           reduce using rule 85 (exp1 -> empty .)
+    HACER           reduce using rule 85 (exp1 -> empty .)
+
+
+state 147
+
+    (86) op_a -> PLUS_OP .
+
+    LPAREN          reduce using rule 86 (op_a -> PLUS_OP .)
+    INT_CTE         reduce using rule 86 (op_a -> PLUS_OP .)
+    FLOAT_CTE       reduce using rule 86 (op_a -> PLUS_OP .)
+    CHAR_CTE        reduce using rule 86 (op_a -> PLUS_OP .)
+    ID              reduce using rule 86 (op_a -> PLUS_OP .)
+
+
+state 148
+
+    (87) op_a -> MINUS_OP .
+
+    LPAREN          reduce using rule 87 (op_a -> MINUS_OP .)
+    INT_CTE         reduce using rule 87 (op_a -> MINUS_OP .)
+    FLOAT_CTE       reduce using rule 87 (op_a -> MINUS_OP .)
+    CHAR_CTE        reduce using rule 87 (op_a -> MINUS_OP .)
+    ID              reduce using rule 87 (op_a -> MINUS_OP .)
+
+
+state 149
+
+    (88) termino -> factor term .
+
+    PLUS_OP         reduce using rule 88 (termino -> factor term .)
+    MINUS_OP        reduce using rule 88 (termino -> factor term .)
+    LT_LOG          reduce using rule 88 (termino -> factor term .)
+    GT_LOG          reduce using rule 88 (termino -> factor term .)
+    LTE_LOG         reduce using rule 88 (termino -> factor term .)
+    GTE_LOG         reduce using rule 88 (termino -> factor term .)
+    NE_LOG          reduce using rule 88 (termino -> factor term .)
+    EQUAL_LOG       reduce using rule 88 (termino -> factor term .)
+    AND_LOG         reduce using rule 88 (termino -> factor term .)
+    OR_LOG          reduce using rule 88 (termino -> factor term .)
+    ASSIGN          reduce using rule 88 (termino -> factor term .)
+    SEMIC           reduce using rule 88 (termino -> factor term .)
+    RPAREN          reduce using rule 88 (termino -> factor term .)
+    COMMA           reduce using rule 88 (termino -> factor term .)
+    RBRACK          reduce using rule 88 (termino -> factor term .)
+    HASTA           reduce using rule 88 (termino -> factor term .)
+    HACER           reduce using rule 88 (termino -> factor term .)
+
+
+state 150
+
+    (89) term -> op_a1 . termino
+    (88) termino -> . factor term
+    (93) factor -> . ctes
+    (94) factor -> . LPAREN exp RPAREN
+    (95) factor -> . variable
+    (96) factor -> . llamada_funcion
+    (45) ctes -> . INT_CTE
+    (46) ctes -> . FLOAT_CTE
+    (47) ctes -> . CHAR_CTE
+    (48) variable -> . ID varDim
+    (58) llamada_funcion -> . ID LPAREN lista_ids RPAREN SEMIC
+
+    LPAREN          shift and go to state 107
+    INT_CTE         shift and go to state 109
+    FLOAT_CTE       shift and go to state 110
+    CHAR_CTE        shift and go to state 111
+    ID              shift and go to state 112
+
+    termino                        shift and go to state 178
+    factor                         shift and go to state 105
+    ctes                           shift and go to state 106
+    variable                       shift and go to state 99
+    llamada_funcion                shift and go to state 108
+
+state 151
+
+    (90) term -> empty .
+
+    PLUS_OP         reduce using rule 90 (term -> empty .)
+    MINUS_OP        reduce using rule 90 (term -> empty .)
+    LT_LOG          reduce using rule 90 (term -> empty .)
+    GT_LOG          reduce using rule 90 (term -> empty .)
+    LTE_LOG         reduce using rule 90 (term -> empty .)
+    GTE_LOG         reduce using rule 90 (term -> empty .)
+    NE_LOG          reduce using rule 90 (term -> empty .)
+    EQUAL_LOG       reduce using rule 90 (term -> empty .)
+    AND_LOG         reduce using rule 90 (term -> empty .)
+    OR_LOG          reduce using rule 90 (term -> empty .)
+    ASSIGN          reduce using rule 90 (term -> empty .)
+    SEMIC           reduce using rule 90 (term -> empty .)
+    RPAREN          reduce using rule 90 (term -> empty .)
+    COMMA           reduce using rule 90 (term -> empty .)
+    RBRACK          reduce using rule 90 (term -> empty .)
+    HASTA           reduce using rule 90 (term -> empty .)
+    HACER           reduce using rule 90 (term -> empty .)
+
+
+state 152
+
+    (91) op_a1 -> MULT_OP .
+
+    LPAREN          reduce using rule 91 (op_a1 -> MULT_OP .)
+    INT_CTE         reduce using rule 91 (op_a1 -> MULT_OP .)
+    FLOAT_CTE       reduce using rule 91 (op_a1 -> MULT_OP .)
+    CHAR_CTE        reduce using rule 91 (op_a1 -> MULT_OP .)
+    ID              reduce using rule 91 (op_a1 -> MULT_OP .)
+
+
+state 153
+
+    (92) op_a1 -> DIV_OP .
+
+    LPAREN          reduce using rule 92 (op_a1 -> DIV_OP .)
+    INT_CTE         reduce using rule 92 (op_a1 -> DIV_OP .)
+    FLOAT_CTE       reduce using rule 92 (op_a1 -> DIV_OP .)
+    CHAR_CTE        reduce using rule 92 (op_a1 -> DIV_OP .)
+    ID              reduce using rule 92 (op_a1 -> DIV_OP .)
+
+
+state 154
+
+    (94) factor -> LPAREN exp . RPAREN
+
+    RPAREN          shift and go to state 179
+
+
+state 155
+
+    (53) condicion -> SI LPAREN expresion RPAREN . ENTONCES bloque else
+
+    ENTONCES        shift and go to state 180
+
+
+state 156
+
+    (65) regresa -> REGRESA LPAREN variable RPAREN . SEMIC
+
+    SEMIC           shift and go to state 181
+
+
+state 157
+
+    (56) loop_condicional -> MIENTRAS LPAREN expresion RPAREN . HACER bloque
+
+    HACER           shift and go to state 182
+
+
+state 158
+
+    (57) loop_no_condicional -> DESDE variable ASSIGN expresion . HASTA expresion HACER bloque
+
+    HASTA           shift and go to state 183
+
+
+state 159
+
+    (58) llamada_funcion -> ID LPAREN lista_ids RPAREN . SEMIC
+
+    SEMIC           shift and go to state 184
+
+
+state 160
+
+    (49) varDim -> LBRACK expresion varDim2 . RBRACK
+
+    RBRACK          shift and go to state 185
+
+
+state 161
+
+    (51) varDim2 -> COMMA . expresion
+    (66) expresion -> . mega_exp expresion1
+    (69) mega_exp -> . super_exp meg
+    (74) super_exp -> . exp sp
+    (83) exp -> . termino exp1
+    (88) termino -> . factor term
+    (93) factor -> . ctes
+    (94) factor -> . LPAREN exp RPAREN
+    (95) factor -> . variable
+    (96) factor -> . llamada_funcion
+    (45) ctes -> . INT_CTE
+    (46) ctes -> . FLOAT_CTE
+    (47) ctes -> . CHAR_CTE
+    (48) variable -> . ID varDim
+    (58) llamada_funcion -> . ID LPAREN lista_ids RPAREN SEMIC
+
+    LPAREN          shift and go to state 107
+    INT_CTE         shift and go to state 109
+    FLOAT_CTE       shift and go to state 110
+    CHAR_CTE        shift and go to state 111
+    ID              shift and go to state 112
+
+    expresion                      shift and go to state 186
+    mega_exp                       shift and go to state 101
+    super_exp                      shift and go to state 102
+    exp                            shift and go to state 103
+    termino                        shift and go to state 104
+    factor                         shift and go to state 105
+    ctes                           shift and go to state 106
+    variable                       shift and go to state 99
+    llamada_funcion                shift and go to state 108
+
+state 162
+
+    (52) varDim2 -> empty .
+
+    RBRACK          reduce using rule 52 (varDim2 -> empty .)
+
+
+state 163
+
+    (59) escritura -> ESCRIBE LPAREN escritura2 RPAREN . SEMIC
+
+    SEMIC           shift and go to state 187
+
+
+state 164
+
+    (60) escritura2 -> STRING_CTE escritura3 .
+
+    RPAREN          reduce using rule 60 (escritura2 -> STRING_CTE escritura3 .)
+
+
+state 165
+
+    (62) escritura3 -> COMMA . escritura2
+    (60) escritura2 -> . STRING_CTE escritura3
+    (61) escritura2 -> . expresion escritura3
+    (66) expresion -> . mega_exp expresion1
+    (69) mega_exp -> . super_exp meg
+    (74) super_exp -> . exp sp
+    (83) exp -> . termino exp1
+    (88) termino -> . factor term
+    (93) factor -> . ctes
+    (94) factor -> . LPAREN exp RPAREN
+    (95) factor -> . variable
+    (96) factor -> . llamada_funcion
+    (45) ctes -> . INT_CTE
+    (46) ctes -> . FLOAT_CTE
+    (47) ctes -> . CHAR_CTE
+    (48) variable -> . ID varDim
+    (58) llamada_funcion -> . ID LPAREN lista_ids RPAREN SEMIC
+
+    STRING_CTE      shift and go to state 120
+    LPAREN          shift and go to state 107
+    INT_CTE         shift and go to state 109
+    FLOAT_CTE       shift and go to state 110
+    CHAR_CTE        shift and go to state 111
+    ID              shift and go to state 112
+
+    escritura2                     shift and go to state 188
+    expresion                      shift and go to state 121
+    mega_exp                       shift and go to state 101
+    super_exp                      shift and go to state 102
+    exp                            shift and go to state 103
+    termino                        shift and go to state 104
+    factor                         shift and go to state 105
+    ctes                           shift and go to state 106
+    variable                       shift and go to state 99
+    llamada_funcion                shift and go to state 108
+
+state 166
+
+    (63) escritura3 -> empty .
+
+    RPAREN          reduce using rule 63 (escritura3 -> empty .)
+
+
+state 167
+
+    (61) escritura2 -> expresion escritura3 .
+
+    RPAREN          reduce using rule 61 (escritura2 -> expresion escritura3 .)
+
+
+state 168
+
+    (64) lectura -> LEE LPAREN lista_ids RPAREN . SEMIC
+
+    SEMIC           shift and go to state 189
+
+
+state 169
+
+    (25) lista_parametros -> ID parDim COLON tipo . lista_parametros2
+    (26) lista_parametros2 -> . COMMA lista_parametros
+    (27) lista_parametros2 -> . empty
+    (97) empty -> .
+
+    COMMA           shift and go to state 191
+    RPAREN          reduce using rule 97 (empty -> .)
+
+    lista_parametros2              shift and go to state 190
+    empty                          shift and go to state 192
+
+state 170
+
+    (28) parDim -> LBRACK expresion parDim2 . RBRACK
+
+    RBRACK          shift and go to state 193
+
+
+state 171
+
+    (30) parDim2 -> COMMA . expresion
+    (66) expresion -> . mega_exp expresion1
+    (69) mega_exp -> . super_exp meg
+    (74) super_exp -> . exp sp
+    (83) exp -> . termino exp1
+    (88) termino -> . factor term
+    (93) factor -> . ctes
+    (94) factor -> . LPAREN exp RPAREN
+    (95) factor -> . variable
+    (96) factor -> . llamada_funcion
+    (45) ctes -> . INT_CTE
+    (46) ctes -> . FLOAT_CTE
+    (47) ctes -> . CHAR_CTE
+    (48) variable -> . ID varDim
+    (58) llamada_funcion -> . ID LPAREN lista_ids RPAREN SEMIC
+
+    LPAREN          shift and go to state 107
+    INT_CTE         shift and go to state 109
+    FLOAT_CTE       shift and go to state 110
+    CHAR_CTE        shift and go to state 111
+    ID              shift and go to state 112
+
+    expresion                      shift and go to state 194
+    mega_exp                       shift and go to state 101
+    super_exp                      shift and go to state 102
+    exp                            shift and go to state 103
+    termino                        shift and go to state 104
+    factor                         shift and go to state 105
+    ctes                           shift and go to state 106
+    variable                       shift and go to state 99
+    llamada_funcion                shift and go to state 108
+
+state 172
+
+    (31) parDim2 -> empty .
+
+    RBRACK          reduce using rule 31 (parDim2 -> empty .)
+
+
+state 173
+
+    (22) dec_funciones3 -> FUNCION ID pn_AddFunc LPAREN dec_funcion_param RPAREN dec_variables bloque .
+
+    VOID            reduce using rule 22 (dec_funciones3 -> FUNCION ID pn_AddFunc LPAREN dec_funcion_param RPAREN dec_variables bloque .)
+    INT_TYPE        reduce using rule 22 (dec_funciones3 -> FUNCION ID pn_AddFunc LPAREN dec_funcion_param RPAREN dec_variables bloque .)
+    CHAR_TYPE       reduce using rule 22 (dec_funciones3 -> FUNCION ID pn_AddFunc LPAREN dec_funcion_param RPAREN dec_variables bloque .)
+    FLOAT_TYPE      reduce using rule 22 (dec_funciones3 -> FUNCION ID pn_AddFunc LPAREN dec_funcion_param RPAREN dec_variables bloque .)
+    PRINCIPAL       reduce using rule 22 (dec_funciones3 -> FUNCION ID pn_AddFunc LPAREN dec_funcion_param RPAREN dec_variables bloque .)
+
+
+state 174
+
+    (67) expresion1 -> ASSIGN expresion .
+
+    SEMIC           reduce using rule 67 (expresion1 -> ASSIGN expresion .)
+    RPAREN          reduce using rule 67 (expresion1 -> ASSIGN expresion .)
+    COMMA           reduce using rule 67 (expresion1 -> ASSIGN expresion .)
+    RBRACK          reduce using rule 67 (expresion1 -> ASSIGN expresion .)
+    HASTA           reduce using rule 67 (expresion1 -> ASSIGN expresion .)
+    HACER           reduce using rule 67 (expresion1 -> ASSIGN expresion .)
+
+
+state 175
+
+    (70) meg -> op_l mega_exp .
+
+    ASSIGN          reduce using rule 70 (meg -> op_l mega_exp .)
+    SEMIC           reduce using rule 70 (meg -> op_l mega_exp .)
+    RPAREN          reduce using rule 70 (meg -> op_l mega_exp .)
+    COMMA           reduce using rule 70 (meg -> op_l mega_exp .)
+    RBRACK          reduce using rule 70 (meg -> op_l mega_exp .)
+    HASTA           reduce using rule 70 (meg -> op_l mega_exp .)
+    HACER           reduce using rule 70 (meg -> op_l mega_exp .)
+
+
+state 176
+
+    (75) sp -> op_r exp .
+
+    AND_LOG         reduce using rule 75 (sp -> op_r exp .)
+    OR_LOG          reduce using rule 75 (sp -> op_r exp .)
+    ASSIGN          reduce using rule 75 (sp -> op_r exp .)
+    SEMIC           reduce using rule 75 (sp -> op_r exp .)
+    RPAREN          reduce using rule 75 (sp -> op_r exp .)
+    COMMA           reduce using rule 75 (sp -> op_r exp .)
+    RBRACK          reduce using rule 75 (sp -> op_r exp .)
+    HASTA           reduce using rule 75 (sp -> op_r exp .)
+    HACER           reduce using rule 75 (sp -> op_r exp .)
+
+
+state 177
+
+    (84) exp1 -> op_a exp .
+
+    LT_LOG          reduce using rule 84 (exp1 -> op_a exp .)
+    GT_LOG          reduce using rule 84 (exp1 -> op_a exp .)
+    LTE_LOG         reduce using rule 84 (exp1 -> op_a exp .)
+    GTE_LOG         reduce using rule 84 (exp1 -> op_a exp .)
+    NE_LOG          reduce using rule 84 (exp1 -> op_a exp .)
+    EQUAL_LOG       reduce using rule 84 (exp1 -> op_a exp .)
+    AND_LOG         reduce using rule 84 (exp1 -> op_a exp .)
+    OR_LOG          reduce using rule 84 (exp1 -> op_a exp .)
+    ASSIGN          reduce using rule 84 (exp1 -> op_a exp .)
+    SEMIC           reduce using rule 84 (exp1 -> op_a exp .)
+    RPAREN          reduce using rule 84 (exp1 -> op_a exp .)
+    COMMA           reduce using rule 84 (exp1 -> op_a exp .)
+    RBRACK          reduce using rule 84 (exp1 -> op_a exp .)
+    HASTA           reduce using rule 84 (exp1 -> op_a exp .)
+    HACER           reduce using rule 84 (exp1 -> op_a exp .)
+
+
+state 178
+
+    (89) term -> op_a1 termino .
+
+    PLUS_OP         reduce using rule 89 (term -> op_a1 termino .)
+    MINUS_OP        reduce using rule 89 (term -> op_a1 termino .)
+    LT_LOG          reduce using rule 89 (term -> op_a1 termino .)
+    GT_LOG          reduce using rule 89 (term -> op_a1 termino .)
+    LTE_LOG         reduce using rule 89 (term -> op_a1 termino .)
+    GTE_LOG         reduce using rule 89 (term -> op_a1 termino .)
+    NE_LOG          reduce using rule 89 (term -> op_a1 termino .)
+    EQUAL_LOG       reduce using rule 89 (term -> op_a1 termino .)
+    AND_LOG         reduce using rule 89 (term -> op_a1 termino .)
+    OR_LOG          reduce using rule 89 (term -> op_a1 termino .)
+    ASSIGN          reduce using rule 89 (term -> op_a1 termino .)
+    SEMIC           reduce using rule 89 (term -> op_a1 termino .)
+    RPAREN          reduce using rule 89 (term -> op_a1 termino .)
+    COMMA           reduce using rule 89 (term -> op_a1 termino .)
+    RBRACK          reduce using rule 89 (term -> op_a1 termino .)
+    HASTA           reduce using rule 89 (term -> op_a1 termino .)
+    HACER           reduce using rule 89 (term -> op_a1 termino .)
+
+
+state 179
+
+    (94) factor -> LPAREN exp RPAREN .
+
+    MULT_OP         reduce using rule 94 (factor -> LPAREN exp RPAREN .)
+    DIV_OP          reduce using rule 94 (factor -> LPAREN exp RPAREN .)
+    PLUS_OP         reduce using rule 94 (factor -> LPAREN exp RPAREN .)
+    MINUS_OP        reduce using rule 94 (factor -> LPAREN exp RPAREN .)
+    LT_LOG          reduce using rule 94 (factor -> LPAREN exp RPAREN .)
+    GT_LOG          reduce using rule 94 (factor -> LPAREN exp RPAREN .)
+    LTE_LOG         reduce using rule 94 (factor -> LPAREN exp RPAREN .)
+    GTE_LOG         reduce using rule 94 (factor -> LPAREN exp RPAREN .)
+    NE_LOG          reduce using rule 94 (factor -> LPAREN exp RPAREN .)
+    EQUAL_LOG       reduce using rule 94 (factor -> LPAREN exp RPAREN .)
+    AND_LOG         reduce using rule 94 (factor -> LPAREN exp RPAREN .)
+    OR_LOG          reduce using rule 94 (factor -> LPAREN exp RPAREN .)
+    ASSIGN          reduce using rule 94 (factor -> LPAREN exp RPAREN .)
+    SEMIC           reduce using rule 94 (factor -> LPAREN exp RPAREN .)
+    RPAREN          reduce using rule 94 (factor -> LPAREN exp RPAREN .)
+    COMMA           reduce using rule 94 (factor -> LPAREN exp RPAREN .)
+    RBRACK          reduce using rule 94 (factor -> LPAREN exp RPAREN .)
+    HASTA           reduce using rule 94 (factor -> LPAREN exp RPAREN .)
+    HACER           reduce using rule 94 (factor -> LPAREN exp RPAREN .)
+
+
+state 180
+
+    (53) condicion -> SI LPAREN expresion RPAREN ENTONCES . bloque else
+    (33) bloque -> . LCURLY estatutos RCURLY
+
+    LCURLY          shift and go to state 46
+
+    bloque                         shift and go to state 195
+
+state 181
+
+    (65) regresa -> REGRESA LPAREN variable RPAREN SEMIC .
+
+    SI              reduce using rule 65 (regresa -> REGRESA LPAREN variable RPAREN SEMIC .)
+    REGRESA         reduce using rule 65 (regresa -> REGRESA LPAREN variable RPAREN SEMIC .)
+    MIENTRAS        reduce using rule 65 (regresa -> REGRESA LPAREN variable RPAREN SEMIC .)
+    DESDE           reduce using rule 65 (regresa -> REGRESA LPAREN variable RPAREN SEMIC .)
+    ID              reduce using rule 65 (regresa -> REGRESA LPAREN variable RPAREN SEMIC .)
+    ESCRIBE         reduce using rule 65 (regresa -> REGRESA LPAREN variable RPAREN SEMIC .)
+    LEE             reduce using rule 65 (regresa -> REGRESA LPAREN variable RPAREN SEMIC .)
+    RCURLY          reduce using rule 65 (regresa -> REGRESA LPAREN variable RPAREN SEMIC .)
+
+
+state 182
+
+    (56) loop_condicional -> MIENTRAS LPAREN expresion RPAREN HACER . bloque
+    (33) bloque -> . LCURLY estatutos RCURLY
+
+    LCURLY          shift and go to state 46
+
+    bloque                         shift and go to state 196
+
+state 183
+
+    (57) loop_no_condicional -> DESDE variable ASSIGN expresion HASTA . expresion HACER bloque
+    (66) expresion -> . mega_exp expresion1
+    (69) mega_exp -> . super_exp meg
+    (74) super_exp -> . exp sp
+    (83) exp -> . termino exp1
+    (88) termino -> . factor term
+    (93) factor -> . ctes
+    (94) factor -> . LPAREN exp RPAREN
+    (95) factor -> . variable
+    (96) factor -> . llamada_funcion
+    (45) ctes -> . INT_CTE
+    (46) ctes -> . FLOAT_CTE
+    (47) ctes -> . CHAR_CTE
+    (48) variable -> . ID varDim
+    (58) llamada_funcion -> . ID LPAREN lista_ids RPAREN SEMIC
+
+    LPAREN          shift and go to state 107
+    INT_CTE         shift and go to state 109
+    FLOAT_CTE       shift and go to state 110
+    CHAR_CTE        shift and go to state 111
+    ID              shift and go to state 112
+
+    variable                       shift and go to state 99
+    expresion                      shift and go to state 197
+    mega_exp                       shift and go to state 101
+    super_exp                      shift and go to state 102
+    exp                            shift and go to state 103
+    termino                        shift and go to state 104
+    factor                         shift and go to state 105
+    ctes                           shift and go to state 106
+    llamada_funcion                shift and go to state 108
+
+state 184
+
+    (58) llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .
+
+    SI              reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    REGRESA         reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    MIENTRAS        reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    DESDE           reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    ID              reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    ESCRIBE         reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    LEE             reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    RCURLY          reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    MULT_OP         reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    DIV_OP          reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    PLUS_OP         reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    MINUS_OP        reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    LT_LOG          reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    GT_LOG          reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    LTE_LOG         reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    GTE_LOG         reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    NE_LOG          reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    EQUAL_LOG       reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    AND_LOG         reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    OR_LOG          reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    ASSIGN          reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    SEMIC           reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    RPAREN          reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    COMMA           reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    RBRACK          reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    HASTA           reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+    HACER           reduce using rule 58 (llamada_funcion -> ID LPAREN lista_ids RPAREN SEMIC .)
+
+
+state 185
+
+    (49) varDim -> LBRACK expresion varDim2 RBRACK .
+
+    ASSIGN          reduce using rule 49 (varDim -> LBRACK expresion varDim2 RBRACK .)
+    RPAREN          reduce using rule 49 (varDim -> LBRACK expresion varDim2 RBRACK .)
+    MULT_OP         reduce using rule 49 (varDim -> LBRACK expresion varDim2 RBRACK .)
+    DIV_OP          reduce using rule 49 (varDim -> LBRACK expresion varDim2 RBRACK .)
+    PLUS_OP         reduce using rule 49 (varDim -> LBRACK expresion varDim2 RBRACK .)
+    MINUS_OP        reduce using rule 49 (varDim -> LBRACK expresion varDim2 RBRACK .)
+    LT_LOG          reduce using rule 49 (varDim -> LBRACK expresion varDim2 RBRACK .)
+    GT_LOG          reduce using rule 49 (varDim -> LBRACK expresion varDim2 RBRACK .)
+    LTE_LOG         reduce using rule 49 (varDim -> LBRACK expresion varDim2 RBRACK .)
+    GTE_LOG         reduce using rule 49 (varDim -> LBRACK expresion varDim2 RBRACK .)
+    NE_LOG          reduce using rule 49 (varDim -> LBRACK expresion varDim2 RBRACK .)
+    EQUAL_LOG       reduce using rule 49 (varDim -> LBRACK expresion varDim2 RBRACK .)
+    AND_LOG         reduce using rule 49 (varDim -> LBRACK expresion varDim2 RBRACK .)
+    OR_LOG          reduce using rule 49 (varDim -> LBRACK expresion varDim2 RBRACK .)
+    SEMIC           reduce using rule 49 (varDim -> LBRACK expresion varDim2 RBRACK .)
+    COMMA           reduce using rule 49 (varDim -> LBRACK expresion varDim2 RBRACK .)
+    RBRACK          reduce using rule 49 (varDim -> LBRACK expresion varDim2 RBRACK .)
+    HASTA           reduce using rule 49 (varDim -> LBRACK expresion varDim2 RBRACK .)
+    HACER           reduce using rule 49 (varDim -> LBRACK expresion varDim2 RBRACK .)
+
+
+state 186
+
+    (51) varDim2 -> COMMA expresion .
+
+    RBRACK          reduce using rule 51 (varDim2 -> COMMA expresion .)
+
+
+state 187
+
+    (59) escritura -> ESCRIBE LPAREN escritura2 RPAREN SEMIC .
+
+    SI              reduce using rule 59 (escritura -> ESCRIBE LPAREN escritura2 RPAREN SEMIC .)
+    REGRESA         reduce using rule 59 (escritura -> ESCRIBE LPAREN escritura2 RPAREN SEMIC .)
+    MIENTRAS        reduce using rule 59 (escritura -> ESCRIBE LPAREN escritura2 RPAREN SEMIC .)
+    DESDE           reduce using rule 59 (escritura -> ESCRIBE LPAREN escritura2 RPAREN SEMIC .)
+    ID              reduce using rule 59 (escritura -> ESCRIBE LPAREN escritura2 RPAREN SEMIC .)
+    ESCRIBE         reduce using rule 59 (escritura -> ESCRIBE LPAREN escritura2 RPAREN SEMIC .)
+    LEE             reduce using rule 59 (escritura -> ESCRIBE LPAREN escritura2 RPAREN SEMIC .)
+    RCURLY          reduce using rule 59 (escritura -> ESCRIBE LPAREN escritura2 RPAREN SEMIC .)
+
+
+state 188
+
+    (62) escritura3 -> COMMA escritura2 .
+
+    RPAREN          reduce using rule 62 (escritura3 -> COMMA escritura2 .)
+
+
+state 189
+
+    (64) lectura -> LEE LPAREN lista_ids RPAREN SEMIC .
+
+    SI              reduce using rule 64 (lectura -> LEE LPAREN lista_ids RPAREN SEMIC .)
+    REGRESA         reduce using rule 64 (lectura -> LEE LPAREN lista_ids RPAREN SEMIC .)
+    MIENTRAS        reduce using rule 64 (lectura -> LEE LPAREN lista_ids RPAREN SEMIC .)
+    DESDE           reduce using rule 64 (lectura -> LEE LPAREN lista_ids RPAREN SEMIC .)
+    ID              reduce using rule 64 (lectura -> LEE LPAREN lista_ids RPAREN SEMIC .)
+    ESCRIBE         reduce using rule 64 (lectura -> LEE LPAREN lista_ids RPAREN SEMIC .)
+    LEE             reduce using rule 64 (lectura -> LEE LPAREN lista_ids RPAREN SEMIC .)
+    RCURLY          reduce using rule 64 (lectura -> LEE LPAREN lista_ids RPAREN SEMIC .)
+
+
+state 190
+
+    (25) lista_parametros -> ID parDim COLON tipo lista_parametros2 .
+
+    RPAREN          reduce using rule 25 (lista_parametros -> ID parDim COLON tipo lista_parametros2 .)
+
+
+state 191
+
+    (26) lista_parametros2 -> COMMA . lista_parametros
+    (25) lista_parametros -> . ID parDim COLON tipo lista_parametros2
+
+    ID              shift and go to state 72
+
+    lista_parametros               shift and go to state 198
+
+state 192
+
+    (27) lista_parametros2 -> empty .
+
+    RPAREN          reduce using rule 27 (lista_parametros2 -> empty .)
+
+
+state 193
+
+    (28) parDim -> LBRACK expresion parDim2 RBRACK .
+
+    COLON           reduce using rule 28 (parDim -> LBRACK expresion parDim2 RBRACK .)
+
+
+state 194
+
+    (30) parDim2 -> COMMA expresion .
+
+    RBRACK          reduce using rule 30 (parDim2 -> COMMA expresion .)
+
+
+state 195
+
+    (53) condicion -> SI LPAREN expresion RPAREN ENTONCES bloque . else
+    (54) else -> . SINO bloque
+    (55) else -> . empty
+    (97) empty -> .
+
+    SINO            shift and go to state 200
+    SI              reduce using rule 97 (empty -> .)
+    REGRESA         reduce using rule 97 (empty -> .)
+    MIENTRAS        reduce using rule 97 (empty -> .)
+    DESDE           reduce using rule 97 (empty -> .)
+    ID              reduce using rule 97 (empty -> .)
+    ESCRIBE         reduce using rule 97 (empty -> .)
+    LEE             reduce using rule 97 (empty -> .)
+    RCURLY          reduce using rule 97 (empty -> .)
+
+    else                           shift and go to state 199
+    empty                          shift and go to state 201
+
+state 196
+
+    (56) loop_condicional -> MIENTRAS LPAREN expresion RPAREN HACER bloque .
+
+    SI              reduce using rule 56 (loop_condicional -> MIENTRAS LPAREN expresion RPAREN HACER bloque .)
+    REGRESA         reduce using rule 56 (loop_condicional -> MIENTRAS LPAREN expresion RPAREN HACER bloque .)
+    MIENTRAS        reduce using rule 56 (loop_condicional -> MIENTRAS LPAREN expresion RPAREN HACER bloque .)
+    DESDE           reduce using rule 56 (loop_condicional -> MIENTRAS LPAREN expresion RPAREN HACER bloque .)
+    ID              reduce using rule 56 (loop_condicional -> MIENTRAS LPAREN expresion RPAREN HACER bloque .)
+    ESCRIBE         reduce using rule 56 (loop_condicional -> MIENTRAS LPAREN expresion RPAREN HACER bloque .)
+    LEE             reduce using rule 56 (loop_condicional -> MIENTRAS LPAREN expresion RPAREN HACER bloque .)
+    RCURLY          reduce using rule 56 (loop_condicional -> MIENTRAS LPAREN expresion RPAREN HACER bloque .)
+
+
+state 197
+
+    (57) loop_no_condicional -> DESDE variable ASSIGN expresion HASTA expresion . HACER bloque
+
+    HACER           shift and go to state 202
+
+
+state 198
+
+    (26) lista_parametros2 -> COMMA lista_parametros .
+
+    RPAREN          reduce using rule 26 (lista_parametros2 -> COMMA lista_parametros .)
+
+
+state 199
+
+    (53) condicion -> SI LPAREN expresion RPAREN ENTONCES bloque else .
+
+    SI              reduce using rule 53 (condicion -> SI LPAREN expresion RPAREN ENTONCES bloque else .)
+    REGRESA         reduce using rule 53 (condicion -> SI LPAREN expresion RPAREN ENTONCES bloque else .)
+    MIENTRAS        reduce using rule 53 (condicion -> SI LPAREN expresion RPAREN ENTONCES bloque else .)
+    DESDE           reduce using rule 53 (condicion -> SI LPAREN expresion RPAREN ENTONCES bloque else .)
+    ID              reduce using rule 53 (condicion -> SI LPAREN expresion RPAREN ENTONCES bloque else .)
+    ESCRIBE         reduce using rule 53 (condicion -> SI LPAREN expresion RPAREN ENTONCES bloque else .)
+    LEE             reduce using rule 53 (condicion -> SI LPAREN expresion RPAREN ENTONCES bloque else .)
+    RCURLY          reduce using rule 53 (condicion -> SI LPAREN expresion RPAREN ENTONCES bloque else .)
+
+
+state 200
+
+    (54) else -> SINO . bloque
+    (33) bloque -> . LCURLY estatutos RCURLY
+
+    LCURLY          shift and go to state 46
+
+    bloque                         shift and go to state 203
+
+state 201
+
+    (55) else -> empty .
+
+    SI              reduce using rule 55 (else -> empty .)
+    REGRESA         reduce using rule 55 (else -> empty .)
+    MIENTRAS        reduce using rule 55 (else -> empty .)
+    DESDE           reduce using rule 55 (else -> empty .)
+    ID              reduce using rule 55 (else -> empty .)
+    ESCRIBE         reduce using rule 55 (else -> empty .)
+    LEE             reduce using rule 55 (else -> empty .)
+    RCURLY          reduce using rule 55 (else -> empty .)
+
+
+state 202
+
+    (57) loop_no_condicional -> DESDE variable ASSIGN expresion HASTA expresion HACER . bloque
+    (33) bloque -> . LCURLY estatutos RCURLY
+
+    LCURLY          shift and go to state 46
+
+    bloque                         shift and go to state 204
+
+state 203
+
+    (54) else -> SINO bloque .
+
+    SI              reduce using rule 54 (else -> SINO bloque .)
+    REGRESA         reduce using rule 54 (else -> SINO bloque .)
+    MIENTRAS        reduce using rule 54 (else -> SINO bloque .)
+    DESDE           reduce using rule 54 (else -> SINO bloque .)
+    ID              reduce using rule 54 (else -> SINO bloque .)
+    ESCRIBE         reduce using rule 54 (else -> SINO bloque .)
+    LEE             reduce using rule 54 (else -> SINO bloque .)
+    RCURLY          reduce using rule 54 (else -> SINO bloque .)
+
+
+state 204
+
+    (57) loop_no_condicional -> DESDE variable ASSIGN expresion HASTA expresion HACER bloque .
+
+    SI              reduce using rule 57 (loop_no_condicional -> DESDE variable ASSIGN expresion HASTA expresion HACER bloque .)
+    REGRESA         reduce using rule 57 (loop_no_condicional -> DESDE variable ASSIGN expresion HASTA expresion HACER bloque .)
+    MIENTRAS        reduce using rule 57 (loop_no_condicional -> DESDE variable ASSIGN expresion HASTA expresion HACER bloque .)
+    DESDE           reduce using rule 57 (loop_no_condicional -> DESDE variable ASSIGN expresion HASTA expresion HACER bloque .)
+    ID              reduce using rule 57 (loop_no_condicional -> DESDE variable ASSIGN expresion HASTA expresion HACER bloque .)
+    ESCRIBE         reduce using rule 57 (loop_no_condicional -> DESDE variable ASSIGN expresion HASTA expresion HACER bloque .)
+    LEE             reduce using rule 57 (loop_no_condicional -> DESDE variable ASSIGN expresion HASTA expresion HACER bloque .)
+    RCURLY          reduce using rule 57 (loop_no_condicional -> DESDE variable ASSIGN expresion HASTA expresion HACER bloque .)
+

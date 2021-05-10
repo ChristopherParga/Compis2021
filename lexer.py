@@ -1,12 +1,7 @@
 import ply.lex as lex
+import re
 #Lista de Tokens para el lenguaje
 tokens = [
-    #palabras reservadas
-    'PROGRAMA','VOID','PRINCIPAL','ID','COMMENT',
-    'ESCRIBE','LEE','REGRESA','SI','ENTONCES','SINO','MIENTRAS',
-    'VARIABLES', 'FUNCION', 'HACER', 'DESDE', 'HASTA',
-    #tipos de datos
-    'INT_TYPE','FLOAT_TYPE','CHAR_TYPE',
     #asignacion
     'ASSIGN',
     #operadores aritmeticos
@@ -20,8 +15,34 @@ tokens = [
     'COMMA','SEMIC','COLON',
     #constantes
     'FLOAT_CTE','INT_CTE','CHAR_CTE','STRING_CTE',
-    'NEW_LINE'
+    'NEW_LINE','ID','COMMENT'
 ]
+
+#palabras reservadas
+keywords = {
+    'programa' : 'PROGRAMA',
+    'void' : 'VOID',
+    'principal' : 'PRINCIPAL',
+    'escribe' : 'ESCRIBE',
+    'lee' : 'LEE',
+    'regresa' : 'REGRESA',
+    'si' : 'SI',
+    'entonces' : 'ENTONCES',
+    'sino' : 'SINO',
+    'mientras' : 'MIENTRAS',
+    'variables' :'VARIABLES',
+    'funcion' : 'FUNCION',
+    'hacer' : 'HACER', 
+    'desde' : 'DESDE', 
+    'hasta' : 'HASTA',    
+    #tipos de datos
+    'entero' : 'INT_TYPE',
+    'flotante' : 'FLOAT_TYPE',
+    'char' : 'CHAR_TYPE'
+
+}
+
+tokens = tokens + list(keywords.values())
 
 #Expresiones Regulares para tokens
 t_PLUS_OP = r'\+'
@@ -46,7 +67,7 @@ t_RCURLY = r'\}'
 t_COMMA = r'\,'
 t_SEMIC = r'\;'
 t_COLON = r'\:'
-t_ignore = ' \t\n'
+t_ignore = ' \t'
 
 
 
@@ -60,8 +81,13 @@ def t_INT_CTE(t):
     t.value = int(t.value)
     return t
 
+def t_STRING_CTE(t):
+    r"(\"([^\\\"]|\\.)+\")|(\'([^\\\']|\\.)+\')"
+    t.value = str(t.value)
+    return t
+
 def t_CHAR_CTE(t):
-    r'(\"([^\\\"]|\\.)+\")|(\'([^\\\']|\\.)+\')'
+    r"'[a-zA-Z]'"
     t.value = str(t.value)
     return t
 
@@ -69,60 +95,30 @@ def t_COMMENT(t):
     r'\%\%'
     pass
 
-
 def t_NEW_LINE(t):
-    r'\n'
+    r'\n+'
     t.lexer.lineno += 1
     pass
 
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
-    if t.value == 'programa':
-        t.type = 'PROGRAMA'
-    elif t.value == 'void':
-        t.type = 'VOID'
-    elif t.value == 'principal':
-        t.type = 'PRINCIPAL'
-    elif t.value == 'funcion':
-        t.type = 'FUNCION'
-    elif t.value == 'escribe':
-        t.type = 'ESCRIBE'
-    elif t.value == 'lee':
-        t.type = 'LEE'
-    elif t.value == 'si':
-        t.type = 'SI'
-    elif t.value == 'entonces':
-        t.type = 'ENTONCES'
-    elif t.value == 'sino':
-        t.type = 'SINO'    
-    elif t.value == 'mientras':
-        t.type = 'MIENTRAS'
-    elif t.value == 'hacer':
-        t.type = 'HACER'
-    elif t.value == 'desde':
-        t.type = 'DESDE'
-    elif t.value == 'hasta':
-        t.type = 'HASTA'
-    elif t.value == 'entero':
-        t.type = 'INT_TYPE'
-    elif t.value == 'flotante':
-        t.type = 'FLOAT_TYPE'
-    elif t.value == 'char':
-        t.type = 'CHAR_TYPE'
-    elif t.value == 'variables':
-        t.type = 'VARIABLES'
-    else:
-        t.type = 'ID'
+    t.type = keywords.get(t.value, 'ID')
     return t
 
 #Error generico
 def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
-    print(t.token)
-    t.lexer.skip(1)
+    if t:
+        print("Illegal character '{}' at: {}".format(t.value[0], t.lexer.lineno))
+        t.lexer.skip(1)
+    else:
+        print ("Error from lex")
+lexer = lex.lex()
 
-
-while True:
-    tok = lexer.token()
-    if not tok : break
-    print(tok)
+def lex_test(data):
+    lexer.input(data)
+    while True:
+        tok = lexer.token()
+        if not tok :
+            break
+        else:
+            print(tok)

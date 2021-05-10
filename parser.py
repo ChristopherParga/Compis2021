@@ -2,7 +2,7 @@ import ply.yacc as yacc
 import os
 import codecs
 import re
-from lex import tokens
+from lexer import tokens, lex_test
 from sys import stdin
 from DirFunc import *
 from CuboSemantico import *
@@ -32,6 +32,21 @@ def popTipos():
     print("--------------------> POP Tipos")
     print("Pop Tipos = ", pop)
     return pop
+
+#Te regresa el ultimo elemento de la pila de IDs
+def popIDs():
+    global pIDs
+    pop = pIDs.pop()
+    print("--------------------> POP IDs")
+    print("Pop IDs = ", pop)
+    return pop
+
+#Mete a la pila operandos el nuevo ID
+def pushIDs(ID):
+    global pIDs
+    pIDs.append(ID)
+    print("------> pushID : ", ID)
+    print("PIDs : ", pIDs)
 
 #Mete a la pila operandos el nuevo operando
 def pushOperando(operando):
@@ -112,6 +127,7 @@ pFunciones = [] #Pila de funciones
 pArgumentos = [] #Pila de agumentos de una funcion
 pMemorias = [] # Pila de direcciones de memoria
 pDim = [] #Pila de Arreglos
+pIDs = [] #Pila de IDs para declaracion
 
 #Arreglo donde se almacenaran todos los cuadruplos que se vayan generando
 cuadruplos = []
@@ -154,7 +170,7 @@ precedencia = (
     ('nonassoc','SEMIC'),
     ('right','ASSIGN'),
     ('left','NE_LOG'),
-    ('nonassoc', 'LT_LOG','LTE_LOG','GTE_LOG','GTE_LOG'),
+    ('nonassoc', 'LT_LOG','LTE_LOG','GT_LOG','GTE_LOG'),
     ('left', 'PLUS_OP','MINUS_OP'),
     ('left', 'MULT_OP', 'DIV_OP'),
     ('left', 'LPAREN','RPAREN'),
@@ -164,306 +180,420 @@ precedencia = (
 
 #INICIO
 def p_programa(p):
-    'programa : PROGRAMA ID SEMIC dec_variables dec_funciones bloque'
+    '''
+    programa : PROGRAMA ID SEMIC dec_variables dec_funciones principal
+    '''
+    print("PROGRAMA \"", p[2], "\" terminado.")
 
+
+#Declaracion de Variables
 def p_dec_variables(p):
     '''
-    dec_variables : VARIABLES variables
+    dec_variables : VARIABLES dec_variables2
+                  | empty
     '''
 
-def p_variables(p):
+def p_dec_variables2(p):
     '''
-    variables : var_simple var_aux COLON tipo
-              | var_comp var_aux COLON tipo
-    '''
-
-def p_var_aux(p):
-    '''
-    var_aux : empty 
-            | COMMA variables
+    dec_variables2 : lista_ids COLON tipo pn_AddVariable SEMIC dec_variables3
     '''
 
-def p_var_simple(p):
+def p_dec_variables3(p):
     '''
-    var_simple : ID
-    '''
-
-def p_var_comp(p):
-    '''
-    var_comp : ID LBRACK INT comp_aux RBRACK
+    dec_variables3 : dec_variables2
+                   | empty
     '''
 
-def p_comp_aux(p)
+def p_lista_ids(p):
     '''
-    comp_aux : COMMA INT
-             | empty
+    lista_ids : ID pn_SaveID DecVarDim lista_ids2
     '''
 
-# TIPOS DE VARIABLE Y FUNCIONES
+
+def p_lista_ids2(p):
+    '''
+    lista_ids2 : COMMA lista_ids
+               | empty
+    '''
+
+#Dimensiones
+def p_DecVarDim(p):
+    '''
+    DecVarDim : DecVarDim2
+              | empty
+    '''
+
+def p_DecVarDim2(p):
+    '''
+    DecVarDim2 : LBRACK INT_CTE DecVarDim3 RBRACK
+    '''
+
+def p_DecVarDim3(p):
+    '''
+    DecVarDim3 : COMMA INT_CTE
+               | empty
+    '''
+
+# TIPOS DE VARIABLE
 def p_tipo(p):
     '''
-    tipo : INT
-         | CHAR
-         | FLOAT
+    tipo : INT_TYPE pn_SetCurrentType
+         | CHAR_TYPE pn_SetCurrentType
+         | FLOAT_TYPE pn_SetCurrentType
     '''
+    
 
-def p_tipo_func(p):
-    '''
-    tipo_func : INT
-              | CHAR
-              | FLOAT
-              | VOID
-    '''
-
-# FUNCIONES
+# Declaracion Funciones
 def p_dec_funciones(p):
     '''
-    dec_funciones : tipo_func FUNCION ID LPAREN dec_func_aux RPAREN SEMIC dec_variables bloque
+    dec_funciones : dec_funciones2 dec_funciones
+                  | empty
     '''
 
-def p_dec_func_aux(p):
+def p_dec_funciones2(p):
     '''
-    dec_func_aux : parametros
-                 | empty  
+    dec_funciones2 : tipo dec_funciones3
+                   | VOID pn_SetCurrentType dec_funciones3
     '''
+
+def p_dec_funciones3(p):
+    '''
+    dec_funciones3 : FUNCION ID pn_AddFunc LPAREN dec_funcion_param RPAREN dec_variables bloque
+    '''
+
+def p_dec_funcion_param(p):
+    '''
+    dec_funcion_param : lista_parametros
+                      | empty  
+    '''
+
+def p_lista_parametros(p):
+    '''
+    lista_parametros : ID parDim COLON tipo lista_parametros2
+    '''
+
+def p_lista_parametros2(p):
+    '''
+    lista_parametros2 : COMMA lista_parametros
+                      | empty 
+    '''
+
+def p_parDim(p):
+    '''
+    parDim : LBRACK expresion parDim2 RBRACK
+           | empty 
+    '''
+
+def p_parDim2(p):
+    '''
+    parDim2 : COMMA expresion
+            | empty
+    '''
+
+def p_principal(p):
+    '''
+    principal : PRINCIPAL LPAREN RPAREN bloque
+    '''
+    global directorioFunciones
+    directorioFunciones.func_print('global')
 
 # BLOQUE
 def p_bloque(p):
     '''
-    bloque : LCURLY bloque_aux RCURLY
+    bloque : LCURLY estatutos RCURLY
     '''
 
-def p_bloque_aux(p):
+# ESTATUTOS
+
+def p_estatutos(p):
     '''
-    bloque_aux : estatuto bloque_aux2
-               | empty
+    estatutos : estatuto estatutos
+              | empty
     '''
 
-def p_bloque_aux2(p):
-    '''
-    bloque_aux2 : empty
-                | bloque_aux
-    '''
-
-
-def p_bloque_funcion(p):
-    '''
-    bloque_funcion : LCURLY bloque_aux bloque_func_aux RCURLY
-    '''
-
-def p_bloque_func_aux(p):
-    '''
-    blonque_func_aux : REGRESA expresion
-                     | empty
-    '''
-
-
-# ESTATUTO
 def p_estatuto(p):
     '''
-    estatuto : asignacion SEMIC
-             | condicion SEMIC
-             | loop SEMIC
-             | llamada_funcion SEMIC
-             | escritura SEMIC
-             | lectura SEMIC
-             | empty
+    estatuto : asignacion
+             | condicion
+             | regresa
+             | loop_condicional
+             | loop_no_condicional
+             | llamada_funcion
+             | escritura
+             | lectura
     '''
 
 # ASIGNACION
 def p_asignacion(p):
     '''
-    asignacion : asignacion_aux ASSIGN asignacion_aux2
+    asignacion : variable ASSIGN expresion SEMIC
     '''
 
-def p_asignacion_aux(p):
+def p_ctes(p):
     '''
-    asignacion_aux : var_simple
-                   | var_comp
-    '''
-
-def p_asignacion_aux(p):
-    '''
-    asignacion_aux : llamada_funcion
-                   | expresion
+    ctes : INT_CTE
+         | FLOAT_CTE
+         | CHAR_CTE
     '''
 
+def p_variable(p):
+    '''
+    variable : ID varDim
+    '''
 
-# !!!
-# Le moví de aqui para ARRIBA + lo de parametros que está abajo 1-MAYO 
-# !!!
+def p_varDim(p):
+    '''
+    varDim : LBRACK expresion varDim2 RBRACK
+           | empty
+    '''
+
+def p_varDim2(p):
+    '''
+    varDim2 : COMMA expresion
+            | empty
+    '''
 
 # IF-ELSE
 def p_condicion(p):
     '''
-    condicion : SI LPAREN expresion RPAREN ENTONCES BLOQUE sino_aux 
+    condicion : SI LPAREN expresion RPAREN ENTONCES bloque else 
     '''
 
-def p_sino_aux(p):
+def p_else(p):
     '''
-    sino_aux : SINO bloque
-             | empty
-    '''
-
-# --- INT_TYPE en lugar de CTE_INT porque puede cambiar(?)
-# --- Igual, arreglo_aux_assign porque puede ir una expresion(?)
-def p_mientras(p):
-    '''
-    mientras : MIENTRAS LPAREN expresion RPAREN HACER bloque mientras_aux
-             | DESDE ID arreglo_aux_assign ASSIGN INT_TYPE HASTA INT_TYPE HACER bloque desde_aux
-    '''
-# LOOP
-def p_mientras_aux(p):
-    '''
-    mientras_aux : LPAREN expresion RPAREN HACER bloque mientras_aux
-                 | empty
+    else : SINO bloque
+         | empty
     '''
 
-def p_desde_aux(p):
+# LOOP CONDICIONAL
+def p_loop_condicional(p):
     '''
-    desde_aux : INT_TYPE HASTA INT_TYPE HACER bloque desde_aux
-              | empty
-    '''
-
-def p_parametros(p):
-    '''
-    parametros : var_simple COLON tipo parametros_aux
-               : var_comp COLON tipo parametros_aux
+    loop_condicional : MIENTRAS LPAREN expresion RPAREN HACER bloque
     '''
 
-def p_parametros_aux(p):
+# LOOP NO CONDICIONAL
+def p_loop_no_condicional(p):
     '''
-    parametros_aux : COMMA parametros
-                   | empty
+    loop_no_condicional : DESDE variable ASSIGN expresion HASTA expresion HACER bloque
     '''
-
 
 # LLAMADA FUNCION
 def p_llamada_funcion(p) :
     '''
-    llamada_funcion : ID parametros
-    '''
-# LLMADA FUNCION VOID
-def p_llamada_void(p) :
-    '''
-    llamada_void : ID parametros
+    llamada_funcion : ID LPAREN lista_ids RPAREN SEMIC
     '''
 
 # ESCRITURA
 def p_escritura(p) :
     '''
-    escritura : ESCRIBE LPAREN escritura_aux RPAREN
+    escritura : ESCRIBE LPAREN escritura2 RPAREN SEMIC
     '''
-def p_escritura_aux(p) :
+def p_escritura2(p) :
     '''
-    escritura_aux : STRING_CTE escritura_aux2
-                  | expresion escritura_aux2
+    escritura2 : STRING_CTE escritura3
+               | expresion escritura3
     '''
 
-def p_escritura_aux2(p) :
+def p_escritura3(p) :
     '''
-    escritura_aux2 : COMMA escritura_aux
-                   | empty
+    escritura3 : COMMA escritura2
+               | empty
     '''
 
 # LECTURA
 def p_lectura(p) : 
     '''
-    lectura: LEE LPAREN ASSIGN lectura_aux RPAREN
+    lectura : LEE LPAREN lista_ids RPAREN SEMIC
     '''
 
-def p_lectura_aux(p) :
+def p_regresa(p):
     '''
-    lectura_aux : COMMA ASSIGN lectura_aux
-                | empty
+    regresa : REGRESA LPAREN variable RPAREN SEMIC
     '''
 
 # EXPRESIONES
-def p_expresion(p) :
+def p_expresion(p):
+    'expresion : mega_exp expresion1'
+
+def p_expresion1(p):
     '''
-    expresion : t_exp exp_aux
+    expresion1 : ASSIGN expresion
+               | empty
     '''
 
-def p_exp_aux(p) :
+def p_mega_exp(p):
+    'mega_exp : super_exp meg'
+
+def p_meg(p):
     '''
-    exp_aux : OR_LOG expresion
-            | empty
+    meg : op_l mega_exp
+        | empty
+    '''
+def p_op_l(p):
+    '''
+    op_l : AND_LOG
+         | OR_LOG
     '''
 
-def p_t_exp(p) :
+def p_super_exp(p):
+    'super_exp : exp sp'
+
+def p_sp(p):
     '''
-    t_exp : g_exp t_exp_aux
+    sp : op_r  exp
+       | empty
+    '''
+def p_op_r(p):
+    '''
+    op_r : LT_LOG
+         | GT_LOG
+         | LTE_LOG
+         | GTE_LOG
+         | NE_LOG
+         | EQUAL_LOG
     '''
 
-def p_t_exp_aux(p) :
+def p_exp(p):
     '''
-    t_exp_aux : AND_LOG t_exp
-              | empty
-    '''
-
-def p_g_exp(p) :
-    '''
-    g_exp : m_exp g_exp_aux
+    exp : termino exp1
     '''
 
-def p_g_exp_aux(p) :
+def p_exp1(p):
     '''
-    g_exp_aux : LT_LOG m_exp
-              | GT_LOG m_exp
-              | EQUAL_LOG m_exp
-              | NE_LOG m_exp
-              | empty
-    ''' 
-
-def p_m_exp(p) : 
+    exp1 : op_a exp
+         | empty
     '''
-    m_exp : termino m_exp_aux
-    ''' 
-
-def p_m_exp_aux(p) :
+def p_op_a(p):
     '''
-    m_exp_aux : PLUS_OP m_exp
-              | MINUS_OP m_exp
-              | empty
-    ''' 
-
-def p_termino(p) :
-    '''
-    termino : factor termino_aux
+    op_a : PLUS_OP
+         | MINUS_OP
     '''
 
-def p_termino_aux(p) :
+def p_termino(p):
     '''
-    termino_aux : MULT_OP termino
-                | DIV_OP termino
-                | empty
+    termino : factor term
     '''
 
-def p_factor(p) :
+def p_term(p):
     '''
-    factor : LPAREN expresion RPAREN
-           | p_factor_aux 
-           | variables
+    term : op_a1 termino
+         | empty
+    '''
+def p_op_a1(p):
+    '''
+    op_a1 : MULT_OP
+          | DIV_OP
+    '''
+
+def p_factor(p):
+    '''
+    factor : ctes
+           | LPAREN exp RPAREN
+           | variable
            | llamada_funcion
     '''
 
-def p_factor_aux(p) :
+def p_empty(p):
+    '''empty :'''
+    pass
+    # print("nulo")
+
+def p_error(p):
+    if p:
+        print("Error de sintaxis ",p.type, p.value)
+        print("Error en la linea "+ str(p.lineno))
+        print()
+        parser.errok()
+    else:
+        print("Syntax error at EOF")
+
+############## PUNTOS NEURALGICOS ################
+'''
+Establecer el tipo actual
+'''
+
+def p_pn_SetCurrentType(p):
     '''
-    p_factor_aux : INT_CTE
-                 | FLOAT_CTE
-                 | STRING_CTE
+    pn_SetCurrentType :
     '''
+    global currentType
+    currentType = p [-1]
+    print(currentType)
+
+'''
+Agregar la nueva variable a la tabla de variables
+'''
+
+def p_pn_AddVariable(p):
+    '''
+    pn_AddVariable :
+    '''
+    global currentFunc
+    global varName
+    global currentType
+    global currentVarName
+    global currentCantVars
+    global pIDs
+
+    for x in range(currentCantVars): 
+        varName = popIDs()
+        currentVarName = varName
+        directorioFunciones.func_addVar(currentFunc, varName, currentType, 0, 0, 0)
+    currentCantVars = 0
+
+'''
+Guardar los IDs declarados para cuando se tenga 
+el tipo insertarlos a tabla de variables
+'''
+
+def p_pn_SaveID(p):
+    '''
+    pn_SaveID :
+    '''
+    global pIDs
+    global currentCantVars
+    currentCantVars += 1
+    pushIDs(p[-1])
+
+'''
+Agregar nueva funcion al Directorio de Funciones
+'''
+def p_pn_AddFunc(p):
+    '''
+    pn_AddFunc :
+    '''
+    global currentFunc
+    global currentType
+    global returnBool
+
+    currentCantVars = 0
+    currentFunc = p[-1]
+    print("CAMBIO DE CONTEXTO CURRENTFUNC = ", currentFunc)
+    print('\n')
+    directorioFunciones.func_add(currentFunc, currentType,0,0)
+
+    if directorioFunciones.directorio_funciones[currentFunc]['tipo'] == 'void':
+        returnBool = False
+    else:
+        returnBool = True
+    print("Return Bool: ", returnBool)
+    print('\n')
+
 
 parser = yacc.yacc()
-
 def main():
+    script_dir = os.path.dirname(__file__)
     name = input('File name: ')
     name = "pruebas/" + name + ".txt" 
-    print(name)
+    path = os.path.join(script_dir,name)
+    print(path)
     try:
-        f = open(name,'r', encoding='utf-8')
-        result = parser.parse(f.read())
+        f = open(path,'r', encoding='utf-8')
+        code = f.read()
         f.close()
+        print(code)
+        lex_test(code)
+        result = parser.parse(code)
     except EOFError:
         print (EOFError)
 main()

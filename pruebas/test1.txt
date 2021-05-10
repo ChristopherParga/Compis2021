@@ -1,0 +1,36 @@
+programa Team_pp;
+variables
+i, j, p : entero;
+x[1,2] , y : flotante;
+z : char;
+
+entero funcion fact(j : entero)
+variables
+i : entero;
+{
+    i = j + (p - j * 2 + j);
+    si (j == 1) entonces {
+        regresa(j);
+    } sino {
+        regresa (j * fact(j-1));
+    }
+}
+
+void funcion pelos (y: entero)
+variables
+x : entero;
+{
+    leer(x);
+    y = x;
+    mientras(x<10) hacer {
+        escribir(x);
+        x = x + 1;
+    }
+}
+
+principal (){
+    leer(p);
+    j = p * 2;
+    i = fact(p);
+    pelos(p);
+}
