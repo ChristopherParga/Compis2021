@@ -813,7 +813,6 @@ def p_pn_AddVariable(p):
     global currentVarName
     global currentCantVars
     varName = p[-1]
-    print(varName)
     currentVarName = varName
     directorioFunciones.func_addVar(currentFunc, varName, currentType, 0, 0, 0)
     currentCantVars += 1
