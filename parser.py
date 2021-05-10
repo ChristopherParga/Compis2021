@@ -98,6 +98,232 @@ def pushQuad(quad):
     global cuadruplos
     cuadruplos.append(quad)
 
+#Impresion de nuevo cuadruplo
+def QuadGenerate(operator, leftOperand, rightOperand, result):
+    QuadTemporal = (operator, leftOperand, rightOperand, result)
+    pushQuad(QuadTemporal)
+    NumQuad = nextQuad() - 1
+    print(">> Quad {}: ('{}','{}','{}','{}')".format(NumQuad, operator, leftOperand, rightOperand, result))
+    
+    print("\n")
+
+#Impresion de lista de cuadruplos
+def QuadGenerateList():
+    
+    print(directorioFunciones.func_print(GBL))
+    print("-------Lista de Cuadruplos: ")
+
+    contador = 0
+    # Opción de leer tuplas directamente - TODO: Arreglar
+    file = open("obj.txt", "w+")
+    for quad in cuadruplos:
+        print("{}.\t{},\t{},\t{},\t{}".format(contador,quad[0],quad[1],quad[2],quad[3]))
+        contador = contador + 1
+
+        file.write(str(quad) + '\n')
+    print("{}.\t{},\t{},\t{},\t{}".format(contador,'FINPROGRAMA','','',''))
+    file.write("('FINPROGRAMA', '', '', '')")
+    file.close()
+
+#Funcion que muestra menssaje de error cuando los tipos no coinciden
+def errorTypeMismatch():
+    sys.exit('Error: Type Mismatch')
+    
+
+#Funcion para mostrar un mensaje de error cuando se llena los maximos posibles valores temporales
+def errorOutOfBounds(tipoMemoria,tipoDato):
+    sys.exit("Error: Memoria llena; Muchas {} de tipo {}.".format(tipoMemoria,tipoDato))
+    
+
+def errorReturnTipo():
+    sys.exit("Error: el tipo que intenta retornar no es correcto")
+
+################ Funciones de manejo de memoria##############
+
+'''
+Regresa el siguiente temporal disponible, dependiendo el tipo
+'''
+def nextAvailTemp(tipo):
+    global cont_IntTemporales
+    global cont_FloatTemporales
+    global cont_BoolTemporales
+    global avail
+    
+    if tipo == 'int':
+        if cont_IntTemporales < limite_intTemporales:
+            avail = cont_IntTemporales
+            cont_IntTemporales += 1
+        else:
+            errorOutOfBounds('temporales','Enteras')
+    elif tipo == 'float':
+        
+        if cont_FloatTemporales < limite_floatTemporales:
+            avail = cont_FloatTemporales
+            cont_FloatTemporales += 1
+        else:
+            errorOutOfBounds('temporales','Flotantes')
+
+    elif tipo == 'bool':
+        if cont_BoolTemporales < limite_boolTemporales:
+            avail = cont_BoolTemporales
+            cont_BoolTemporales = cont_BoolTemporales + 1
+        else:
+           errorOutOfBounds('temporales','Boleanas')
+    else:
+        avail = -1
+        print("Error: Tipo de variable no existente")
+    return avail
+
+'''
+Regresa el siguiente espacio de memoria disponible
+'''
+def nextAvailMemory(contexto, tipo):
+    global cont_IntGlobales
+    global cont_IntLocales
+    global cont_FloatGlobales
+    global cont_FloatLocales
+    global cont_StringGlobales
+    global cont_StringLocales
+    global cont_CharGlobales
+    global cont_CharLocales
+
+    posMem = -1
+    
+    #Global
+    if contexto == GBL:
+
+        if tipo == 'int':
+            if cont_IntGlobales < limite_intGlobales:
+                posMem = cont_IntGlobales
+                cont_IntGlobales += 1
+            else:
+                errorOutOfBounds(GBL, 'Enteras')
+        
+
+        elif tipo == 'float':
+            if cont_FloatGlobales < limite_floatGlobales:
+                posMem = cont_FloatGlobales
+                cont_FloatGlobales += 1
+            else:
+                errorOutOfBounds(GBL, 'Floats')
+
+        elif tipo == 'string':
+            if cont_StringGlobales < limite_stringsGlobales:
+                posMem = cont_StringGlobales
+                cont_StringGlobales += 1
+            else:
+                errorOutOfBounds(GBL, 'Strings')
+
+        elif tipo == 'char':
+            if cont_CharGlobales < limite_charGlobales:
+                posMem = cont_CharGlobales
+                cont_CharGlobales += 1
+            else:
+                errorOutOfBounds(GBL, 'Chars')
+    #Locales
+    else:
+        if tipo == 'int':
+            if cont_IntLocales < limite_intLocales:
+                posMem = cont_IntLocales
+                cont_IntLocales += 1
+            else:
+                errorOutOfBounds('Locales', 'Enteras')
+        
+
+        elif tipo == 'float':
+            if cont_FloatLocales < limite_floatLocales:
+                posMem = cont_FloatLocales
+                cont_FloatLocales += 1
+            else:
+                errorOutOfBounds('Locales', 'Floats')
+
+        elif tipo == 'string':
+            if cont_StringLocales < limite_stringsLocales:
+                posMem = cont_StringLocales
+                cont_StringLocales += 1
+            else:
+                errorOutOfBounds('Locales', 'Strings')
+
+        elif tipo == 'char':
+            if cont_CharLocales < limite_charLocales:
+                posMem = cont_CharLocales
+                cont_CharLocales += 1
+            else:
+                errorOutOfBounds('Locales', 'Chars')
+    return posMem
+
+
+
+'''
+Modificador de memoria
+'''
+def update_pointer(contexto, tipo, cont):
+    global cont_IntGlobales
+    global cont_IntLocales
+    global cont_FloatGlobales
+    global cont_FloatLocales
+    global cont_StringGlobales
+    global cont_StringLocales
+    global cont_CharGlobales
+    global cont_CharLocales
+    
+
+    if contexto == GBL:
+
+        if tipo == 'int':
+            cont_IntGlobales += cont
+            if cont_IntGlobales > limite_intGlobales:
+                sys.exit('Error: Overflow Enteras Globales')
+        
+        if tipo == 'float':
+            cont_FloatGlobales += cont
+            if cont_FloatGlobales > limite_floatGlobales:
+                sys.exit('Error: Overflow Flotantes Globales')
+        
+        if tipo == 'string':
+            cont_StringGlobales += cont
+            if cont_StringGlobales > limite_stringsGlobales:
+                sys.exit('Error: Overflow Strings Globales')
+        
+        if tipo == 'char':
+            cont_CharGlobales += cont
+            if cont_CharGlobales > limite_charGlobales:
+                sys.exit('Error: Overflow Chars Globales')
+    else:
+        if tipo == 'int':
+            cont_IntLocales += cont
+            if cont_IntLocales > limite_intLocales:
+                sys.exit('Error: Overflow Enteras Locales')
+        
+        if tipo == 'float':
+            cont_FloatLocales += cont
+            if cont_FloatLocales > limite_floatLocales:
+                sys.exit('Error: Overflow Flotantes Locales')
+        
+        if tipo == 'string':
+            cont_StringLocales += cont
+            if cont_StringLocales > limite_stringsLocales:
+                sys.exit('Error: Overflow Strings Locales')
+        
+        if tipo == 'char':
+            cont_CharLocales += cont
+            if cont_CharLocales > limite_charLocales:
+                sys.exit('Error: Overflow Chars Locales')
+
+        
+def popMemoria():
+    global pMemorias
+    pop = pMemorias.pop()
+    print("--------------------> POP Memorias")
+    print("Pop Memoria = ", pop)
+    return pop
+
+def pushMemoria(memoria):
+    global pMemorias
+    pMemorias.append(memoria)
+    print("------>pushMemoria : ", memoria)
+    print("pMemoria : ", pMemorias)
+
 #Objetos
 directorioFunciones = DirFunc()
 tablaVariables = TablaVars()
@@ -148,6 +374,63 @@ negativo = False
 returnBool = False #sirve para saber si una funcion debe regresar algun valor (si es void o no)
 boolDataf = False #Sirve para saber cuando una variable dataframe esta siendo declarada
 
+#Variables para Arreglos y matrices
+isArray = False
+isMatrix = False
+numRenglones = 0
+numColumnas = 0
+R = 1 #m0
+dirBase = 0 #Direccion base
+currentConstArrays = []
+
+#Declaracion de espacio de memoria por tipo de memoria
+limite_intGlobales = ESPACIO_MEMORIA
+limite_floatGlobales = limite_intGlobales + ESPACIO_MEMORIA
+limite_stringsGlobales = limite_floatGlobales + ESPACIO_MEMORIA
+limite_charGlobales = limite_stringsGlobales + ESPACIO_MEMORIA
+
+limite_intLocales = limite_charGlobales + ESPACIO_MEMORIA
+limite_floatLocales = limite_intLocales + ESPACIO_MEMORIA
+limite_stringsLocales = limite_floatLocales + ESPACIO_MEMORIA
+limite_charLocales = limite_stringsLocales + ESPACIO_MEMORIA
+
+limite_intTemporales = limite_charLocales + ESPACIO_MEMORIA
+limite_floatTemporales = limite_intTemporales + ESPACIO_MEMORIA
+limite_stringsTemporales = limite_floatTemporales + ESPACIO_MEMORIA
+limite_charTemporales = limite_stringsTemporales + ESPACIO_MEMORIA
+limite_boolTemporales = limite_charTemporales + ESPACIO_MEMORIA
+
+limite_intConstantes = limite_boolTemporales + ESPACIO_MEMORIA
+limite_floatConstantes = limite_intConstantes + ESPACIO_MEMORIA
+limite_stringsConstantes = limite_floatConstantes + ESPACIO_MEMORIA
+limite_charConstantes = limite_stringsConstantes + ESPACIO_MEMORIA
+
+
+#Inicio de memoria para Globales
+cont_IntGlobales = 0
+cont_FloatGlobales = limite_intGlobales
+cont_StringGlobales = limite_floatGlobales
+cont_CharGlobales = limite_stringsGlobales
+
+#Inicio de memoria para Locales
+cont_IntLocales = limite_charGlobales
+cont_FloatLocales = limite_intLocales
+cont_StringLocales = limite_floatLocales
+cont_CharLocales = limite_stringsLocales
+
+#Inicio de memoria para Temporales
+cont_IntTemporales = limite_charLocales
+cont_FloatTemporales = limite_intTemporales
+cont_StringTemporales = limite_floatTemporales
+cont_CharTemporales = limite_stringsTemporales
+cont_BoolTemporales = limite_charTemporales
+
+
+#Inicio de memoria para Constatnes
+cont_IntConstantes = limite_boolTemporales
+cont_FloatConstantes = limite_intConstantes
+cont_StringConstantes = limite_floatConstantes
+cont_CharConstantes = limite_stringsConstantes
 
 #SE PRIORIDAD DE OPERADORES
 precedencia = (
