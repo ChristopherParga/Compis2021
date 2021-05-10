@@ -12,3 +12,6 @@ Implementacion de las pilas junto con sus metodos, variables, banderas y metodos
 Avance 09-05-21
 Correcion de la gramatica de acuerdo a los diagramas en lucidchart, punto neuralgicos para insertar variables dentro de la tabla de variables ya sea en contexto global o funcion, corregir que despues de regresar en la funcion marca como error de sintaxis
 
+Avance 10-05-21
+Cambio de sintaxis de declaracion de variables a tipo: lista_ids;
+

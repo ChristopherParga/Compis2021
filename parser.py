@@ -195,7 +195,7 @@ def p_dec_variables(p):
 
 def p_dec_variables2(p):
     '''
-    dec_variables2 : lista_ids COLON tipo pn_AddVariable SEMIC dec_variables3
+    dec_variables2 : tipo COLON lista_ids SEMIC dec_variables3
     '''
 
 def p_dec_variables3(p):
@@ -206,7 +206,7 @@ def p_dec_variables3(p):
 
 def p_lista_ids(p):
     '''
-    lista_ids : ID pn_SaveID DecVarDim lista_ids2
+    lista_ids : ID pn_AddVariable DecVarDim lista_ids2
     '''
 
 
@@ -288,6 +288,17 @@ def p_parDim2(p):
     '''
     parDim2 : COMMA expresion
             | empty
+    '''
+
+def p_llamada_param(p):
+    '''
+    llamada_param : expresion llamada_param2
+    '''
+
+def p_llamada_param2(p):
+    '''
+    llamada_param2 : COMMA expresion
+                   | empty
     '''
 
 def p_principal(p):
@@ -377,10 +388,17 @@ def p_loop_no_condicional(p):
     loop_no_condicional : DESDE variable ASSIGN expresion HASTA expresion HACER bloque
     '''
 
+# LECTURA
+def p_lectura(p) : 
+    '''
+    lectura : LEE LPAREN llamada_param RPAREN SEMIC
+    '''
+    print('lectura')
+
 # LLAMADA FUNCION
 def p_llamada_funcion(p) :
     '''
-    llamada_funcion : ID LPAREN lista_ids RPAREN SEMIC
+    llamada_funcion : ID LPAREN llamada_param RPAREN SEMIC
     '''
 
 # ESCRITURA
@@ -398,12 +416,6 @@ def p_escritura3(p) :
     '''
     escritura3 : COMMA escritura2
                | empty
-    '''
-
-# LECTURA
-def p_lectura(p) : 
-    '''
-    lectura : LEE LPAREN lista_ids RPAREN SEMIC
     '''
 
 def p_regresa(p):
@@ -533,27 +545,11 @@ def p_pn_AddVariable(p):
     global currentType
     global currentVarName
     global currentCantVars
-    global pIDs
-
-    for x in range(currentCantVars): 
-        varName = popIDs()
-        currentVarName = varName
-        directorioFunciones.func_addVar(currentFunc, varName, currentType, 0, 0, 0)
-    currentCantVars = 0
-
-'''
-Guardar los IDs declarados para cuando se tenga 
-el tipo insertarlos a tabla de variables
-'''
-
-def p_pn_SaveID(p):
-    '''
-    pn_SaveID :
-    '''
-    global pIDs
-    global currentCantVars
+    varName = p[-1]
+    print(varName)
+    currentVarName = varName
+    directorioFunciones.func_addVar(currentFunc, varName, currentType, 0, 0, 0)
     currentCantVars += 1
-    pushIDs(p[-1])
 
 '''
 Agregar nueva funcion al Directorio de Funciones

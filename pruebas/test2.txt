@@ -1,7 +1,7 @@
 programa Team_pp;
 variables
-i, j : entero;
-k, z : flotante;
+entero: i, j;
+flotante: f, k;
 
 principal ()
 {
