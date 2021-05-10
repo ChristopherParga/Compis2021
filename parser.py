@@ -33,21 +33,6 @@ def popTipos():
     print("Pop Tipos = ", pop)
     return pop
 
-#Te regresa el ultimo elemento de la pila de IDs
-def popIDs():
-    global pIDs
-    pop = pIDs.pop()
-    print("--------------------> POP IDs")
-    print("Pop IDs = ", pop)
-    return pop
-
-#Mete a la pila operandos el nuevo ID
-def pushIDs(ID):
-    global pIDs
-    pIDs.append(ID)
-    print("------> pushID : ", ID)
-    print("PIDs : ", pIDs)
-
 #Mete a la pila operandos el nuevo operando
 def pushOperando(operando):
     global pOperandos
@@ -127,7 +112,6 @@ pFunciones = [] #Pila de funciones
 pArgumentos = [] #Pila de agumentos de una funcion
 pMemorias = [] # Pila de direcciones de memoria
 pDim = [] #Pila de Arreglos
-pIDs = [] #Pila de IDs para declaracion
 
 #Arreglo donde se almacenaran todos los cuadruplos que se vayan generando
 cuadruplos = []
