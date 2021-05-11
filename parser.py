@@ -6,6 +6,7 @@ from lexer import tokens, lex_test
 from sys import stdin
 from DirFunc import *
 from CuboSemantico import *
+from sys import stdin
 
 ############## FUNCIONES DE LAS PILAS ################
 
@@ -448,7 +449,7 @@ precedencia = (
 #INICIO
 def p_programa(p):
     '''
-    programa : PROGRAMA ID SEMIC dec_variables dec_funciones principal
+    programa : PROGRAMA ID SEMIC dec_variables pn_GOTOprincipal dec_funciones principal
     '''
     print("PROGRAMA \"", p[2], "\" terminado.")
 
@@ -486,13 +487,13 @@ def p_lista_ids2(p):
 #Dimensiones
 def p_DecVarDim(p):
     '''
-    DecVarDim : DecVarDim2
+    DecVarDim : DecVarDim2 pn_VarDim
               | empty
     '''
 
 def p_DecVarDim2(p):
     '''
-    DecVarDim2 : LBRACK INT_CTE DecVarDim3 RBRACK
+    DecVarDim2 : LBRACK pn_VarDim2 INT_CTE pn_VarDim3 DecVarDim3 RBRACK
     '''
 
 def p_DecVarDim3(p):
@@ -788,6 +789,31 @@ def p_error(p):
 
 ############## PUNTOS NEURALGICOS ################
 '''
+Cuadruplo GOTO Main al inicio del programa
+'''
+
+def p_pn_GOTOprincipal(p):
+    '''
+    pn_GOTOprincipal :
+    '''
+    QuadGenerate('GOTO','','','')
+    pushSaltos(nextQuad() - 1)
+
+'''
+Genera el cuadruplo de GOTO Main
+'''
+
+def p_pn_GOTOprincipal2(p):
+    '''
+    pn_GOTOprincipal2 :
+    '''
+    global currentFunc
+    global cuadruplos
+
+    currentFunc = GBL
+    cuadruplos[popSaltos()] = ('GOTO', '', '', nextQuad())
+
+'''
 Establecer el tipo actual
 '''
 
@@ -814,8 +840,91 @@ def p_pn_AddVariable(p):
     global currentCantVars
     varName = p[-1]
     currentVarName = varName
-    directorioFunciones.func_addVar(currentFunc, varName, currentType, 0, 0, 0)
+    posMem = nextAvailMemory(currentFunc,currentType)
+    directorioFunciones.func_addVar(currentFunc, varName, currentType, 0, 0, posMem)
     currentCantVars += 1
+
+'''
+Actualizar bandera de id como arreglo
+'''
+def p_pn_VarDim2(p):
+    '''
+    pn_VarDim2 :
+    '''
+    global isArray
+    isArray = True
+
+'''
+Guardar limite de columnas
+'''
+def p_pn_VarDim3(p):
+    '''
+    pn_VarDim3 :
+    '''
+    global R
+    global numColumnas
+    global directorioFunciones
+    global currentFunc
+    global currentVarName
+
+    columnas = p[-1]
+    if columnas > 0:
+        R = R * columnas 
+        numColumnas = columnas
+        directorioFunciones.func_updateDim(currentFunc,currentVarName,0,columnas)
+    else:
+        sys.exit("Error : Index de arreglo invalido: ", columnas)
+
+'''
+Guardar renglones (matriz)
+'''
+def p_pn_VarDim4(p):
+    '''
+    pn_VarDim4 :
+    '''
+    global R
+    global numRenglones
+    global directorioFunciones
+    global currentFunc
+    global currentVarName
+    global isMatrix
+
+    isMatrix = True
+    renglones = p[-1]
+    if renglones > 0:
+        R = R * renglones 
+        print("pn_VarDim4.  R = ", R)
+        numRenglones = renglones
+
+        directorioFunciones.func_updateDim(currentFunc, currentVarName, renglones, -1)
+    else: 
+        sys.exit("Error. Index menor o igual a cero no es valido")   
+
+'''
+Actualizar el pointer de memoria tomando los espacios necesarios para el arreglo
+'''
+def p_pn_VarDim(p):
+    '''
+    pn_VarDim :
+    '''
+    global R
+    global directorioFunciones
+    global currentFunc
+    global currentVarName
+    global isArray
+    global currentConstArrays
+    numEspacios = R - 1
+
+    currentType = directorioFunciones.func_searchVarType(currentType, currentVarName)
+    
+    update_pointer(currentFunc, currentType, numEspacios)
+
+    R = 1
+    isArray = False
+    currentConstArrays = []
+
+
+
 
 '''
 Agregar nueva funcion al Directorio de Funciones
