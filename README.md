@@ -15,3 +15,8 @@ Correcion de la gramatica de acuerdo a los diagramas en lucidchart, punto neural
 Avance 10-05-21
 Cambio de sintaxis de declaracion de variables a tipo: lista_ids;, creacion de bloques de memoria, funciones para error out of bounds, nextAvail, etc.
 
+Avance 12-05-21
+generacion de cuadruplos para estatutos secuenciales, correcion cubo semantico en el nombre de tipos
+
+Avance 15-05-21
+implementacion de generacion de cuadruplos para estatutos condicionales
