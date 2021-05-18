@@ -970,20 +970,6 @@ def p_pn_Principal1(p):
     currentFunc = GBL
     cuadruplos[popSaltos()] = ('GOTO','','',nextQuad())
 
-'''
-Genera el cuadruplo de GOTO Main
-'''
-
-def p_pn_GOTOprincipal2(p):
-    '''
-    pn_GOTOprincipal2 :
-    '''
-    global currentFunc
-    global cuadruplos
-
-    currentFunc = GBL
-    cuadruplos[popSaltos()] = ('GOTO', '', '', nextQuad())
-
 ### FUNCIONES ###
 '''
 Agregar nueva funcion al Directorio de Funciones

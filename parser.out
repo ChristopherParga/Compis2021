@@ -117,53 +117,52 @@ Rule 105   factor -> llamada_funcion
 Rule 106   empty -> <empty>
 Rule 107   pn_GOTOprincipal -> <empty>
 Rule 108   pn_Principal1 -> <empty>
-Rule 109   pn_GOTOprincipal2 -> <empty>
-Rule 110   pn_AddFunc -> <empty>
-Rule 111   pn_Funcion1 -> <empty>
-Rule 112   pn_Funcion2 -> <empty>
-Rule 113   pn_Funcion3 -> <empty>
-Rule 114   pn_FuncionLlamada1 -> <empty>
-Rule 115   pn_FuncionLlamada2 -> <empty>
-Rule 116   pn_FuncionLlamada3 -> <empty>
-Rule 117   pn_CTENeg -> <empty>
-Rule 118   pn_CTEInt -> <empty>
-Rule 119   pn_CTEFloat -> <empty>
-Rule 120   pn_CTEChar -> <empty>
-Rule 121   pn_CTEString -> <empty>
-Rule 122   pn_Expresion1 -> <empty>
-Rule 123   pn_Expresion2 -> <empty>
-Rule 124   pn_Expresion3 -> <empty>
-Rule 125   pn_Expresion4 -> <empty>
-Rule 126   pn_Expresion5 -> <empty>
-Rule 127   pn_Expresion6 -> <empty>
-Rule 128   pn_Expresion7 -> <empty>
-Rule 129   pn_Expresion8 -> <empty>
-Rule 130   pn_Expresion9 -> <empty>
-Rule 131   pn_Expresion10 -> <empty>
-Rule 132   pn_Expresion11 -> <empty>
-Rule 133   pn_Secuencial1 -> <empty>
-Rule 134   pn_Secuencial2 -> <empty>
-Rule 135   pn_Secuencial3 -> <empty>
-Rule 136   pn_Secuencial4 -> <empty>
-Rule 137   pn_Secuencial5 -> <empty>
-Rule 138   pn_Regresa -> <empty>
-Rule 139   pn_Condicion1 -> <empty>
-Rule 140   pn_Condicion2 -> <empty>
-Rule 141   pn_Condicion3 -> <empty>
-Rule 142   pn_loop_condicional1 -> <empty>
-Rule 143   pn_loop_condicional2 -> <empty>
-Rule 144   pn_loop_condicional3 -> <empty>
-Rule 145   pn_loop_no_condicional1 -> <empty>
-Rule 146   pn_loop_no_condicional2 -> <empty>
-Rule 147   pn_loop_no_condicional3 -> <empty>
-Rule 148   pn_loop_no_condicional4 -> <empty>
-Rule 149   pn_loop_no_condicional5 -> <empty>
-Rule 150   pn_SetCurrentType -> <empty>
-Rule 151   pn_AddVariable -> <empty>
-Rule 152   pn_VarDim2 -> <empty>
-Rule 153   pn_VarDim3 -> <empty>
-Rule 154   pn_VarDim4 -> <empty>
-Rule 155   pn_VarDim -> <empty>
+Rule 109   pn_AddFunc -> <empty>
+Rule 110   pn_Funcion1 -> <empty>
+Rule 111   pn_Funcion2 -> <empty>
+Rule 112   pn_Funcion3 -> <empty>
+Rule 113   pn_FuncionLlamada1 -> <empty>
+Rule 114   pn_FuncionLlamada2 -> <empty>
+Rule 115   pn_FuncionLlamada3 -> <empty>
+Rule 116   pn_CTENeg -> <empty>
+Rule 117   pn_CTEInt -> <empty>
+Rule 118   pn_CTEFloat -> <empty>
+Rule 119   pn_CTEChar -> <empty>
+Rule 120   pn_CTEString -> <empty>
+Rule 121   pn_Expresion1 -> <empty>
+Rule 122   pn_Expresion2 -> <empty>
+Rule 123   pn_Expresion3 -> <empty>
+Rule 124   pn_Expresion4 -> <empty>
+Rule 125   pn_Expresion5 -> <empty>
+Rule 126   pn_Expresion6 -> <empty>
+Rule 127   pn_Expresion7 -> <empty>
+Rule 128   pn_Expresion8 -> <empty>
+Rule 129   pn_Expresion9 -> <empty>
+Rule 130   pn_Expresion10 -> <empty>
+Rule 131   pn_Expresion11 -> <empty>
+Rule 132   pn_Secuencial1 -> <empty>
+Rule 133   pn_Secuencial2 -> <empty>
+Rule 134   pn_Secuencial3 -> <empty>
+Rule 135   pn_Secuencial4 -> <empty>
+Rule 136   pn_Secuencial5 -> <empty>
+Rule 137   pn_Regresa -> <empty>
+Rule 138   pn_Condicion1 -> <empty>
+Rule 139   pn_Condicion2 -> <empty>
+Rule 140   pn_Condicion3 -> <empty>
+Rule 141   pn_loop_condicional1 -> <empty>
+Rule 142   pn_loop_condicional2 -> <empty>
+Rule 143   pn_loop_condicional3 -> <empty>
+Rule 144   pn_loop_no_condicional1 -> <empty>
+Rule 145   pn_loop_no_condicional2 -> <empty>
+Rule 146   pn_loop_no_condicional3 -> <empty>
+Rule 147   pn_loop_no_condicional4 -> <empty>
+Rule 148   pn_loop_no_condicional5 -> <empty>
+Rule 149   pn_SetCurrentType -> <empty>
+Rule 150   pn_AddVariable -> <empty>
+Rule 151   pn_VarDim2 -> <empty>
+Rule 152   pn_VarDim3 -> <empty>
+Rule 153   pn_VarDim4 -> <empty>
+Rule 154   pn_VarDim -> <empty>
 
 Terminals, with rules where they appear
 
@@ -292,7 +291,6 @@ pn_FuncionLlamada1   :
 pn_FuncionLlamada2   : 
 pn_FuncionLlamada3   : 
 pn_GOTOprincipal     : 1
-pn_GOTOprincipal2    : 
 pn_Principal1        : 35
 pn_Regresa           : 
 pn_Secuencial1       : 47 63
@@ -460,36 +458,36 @@ state 10
 state 11
 
     (15) tipo -> INT_TYPE . pn_SetCurrentType
-    (150) pn_SetCurrentType -> .
+    (149) pn_SetCurrentType -> .
 
-    COLON           reduce using rule 150 (pn_SetCurrentType -> .)
-    FUNCION         reduce using rule 150 (pn_SetCurrentType -> .)
-    COMMA           reduce using rule 150 (pn_SetCurrentType -> .)
-    RPAREN          reduce using rule 150 (pn_SetCurrentType -> .)
+    COLON           reduce using rule 149 (pn_SetCurrentType -> .)
+    FUNCION         reduce using rule 149 (pn_SetCurrentType -> .)
+    COMMA           reduce using rule 149 (pn_SetCurrentType -> .)
+    RPAREN          reduce using rule 149 (pn_SetCurrentType -> .)
 
     pn_SetCurrentType              shift and go to state 20
 
 state 12
 
     (16) tipo -> CHAR_TYPE . pn_SetCurrentType
-    (150) pn_SetCurrentType -> .
+    (149) pn_SetCurrentType -> .
 
-    COLON           reduce using rule 150 (pn_SetCurrentType -> .)
-    FUNCION         reduce using rule 150 (pn_SetCurrentType -> .)
-    COMMA           reduce using rule 150 (pn_SetCurrentType -> .)
-    RPAREN          reduce using rule 150 (pn_SetCurrentType -> .)
+    COLON           reduce using rule 149 (pn_SetCurrentType -> .)
+    FUNCION         reduce using rule 149 (pn_SetCurrentType -> .)
+    COMMA           reduce using rule 149 (pn_SetCurrentType -> .)
+    RPAREN          reduce using rule 149 (pn_SetCurrentType -> .)
 
     pn_SetCurrentType              shift and go to state 21
 
 state 13
 
     (17) tipo -> FLOAT_TYPE . pn_SetCurrentType
-    (150) pn_SetCurrentType -> .
+    (149) pn_SetCurrentType -> .
 
-    COLON           reduce using rule 150 (pn_SetCurrentType -> .)
-    FUNCION         reduce using rule 150 (pn_SetCurrentType -> .)
-    COMMA           reduce using rule 150 (pn_SetCurrentType -> .)
-    RPAREN          reduce using rule 150 (pn_SetCurrentType -> .)
+    COLON           reduce using rule 149 (pn_SetCurrentType -> .)
+    FUNCION         reduce using rule 149 (pn_SetCurrentType -> .)
+    COMMA           reduce using rule 149 (pn_SetCurrentType -> .)
+    RPAREN          reduce using rule 149 (pn_SetCurrentType -> .)
 
     pn_SetCurrentType              shift and go to state 22
 
@@ -544,9 +542,9 @@ state 17
 state 18
 
     (21) dec_funciones2 -> VOID . pn_SetCurrentType dec_funciones3
-    (150) pn_SetCurrentType -> .
+    (149) pn_SetCurrentType -> .
 
-    FUNCION         reduce using rule 150 (pn_SetCurrentType -> .)
+    FUNCION         reduce using rule 149 (pn_SetCurrentType -> .)
 
     pn_SetCurrentType              shift and go to state 28
 
@@ -649,11 +647,11 @@ state 29
 state 30
 
     (7) lista_ids -> ID . pn_AddVariable DecVarDim lista_ids2
-    (151) pn_AddVariable -> .
+    (150) pn_AddVariable -> .
 
-    LBRACK          reduce using rule 151 (pn_AddVariable -> .)
-    COMMA           reduce using rule 151 (pn_AddVariable -> .)
-    SEMIC           reduce using rule 151 (pn_AddVariable -> .)
+    LBRACK          reduce using rule 150 (pn_AddVariable -> .)
+    COMMA           reduce using rule 150 (pn_AddVariable -> .)
+    SEMIC           reduce using rule 150 (pn_AddVariable -> .)
 
     pn_AddVariable                 shift and go to state 35
 
@@ -667,9 +665,9 @@ state 31
 state 32
 
     (22) dec_funciones3 -> FUNCION ID . pn_AddFunc LPAREN dec_funcion_param RPAREN dec_variables bloque
-    (110) pn_AddFunc -> .
+    (109) pn_AddFunc -> .
 
-    LPAREN          reduce using rule 110 (pn_AddFunc -> .)
+    LPAREN          reduce using rule 109 (pn_AddFunc -> .)
 
     pn_AddFunc                     shift and go to state 37
 
@@ -796,10 +794,10 @@ state 41
 state 42
 
     (10) DecVarDim -> DecVarDim2 . pn_VarDim
-    (155) pn_VarDim -> .
+    (154) pn_VarDim -> .
 
-    COMMA           reduce using rule 155 (pn_VarDim -> .)
-    SEMIC           reduce using rule 155 (pn_VarDim -> .)
+    COMMA           reduce using rule 154 (pn_VarDim -> .)
+    SEMIC           reduce using rule 154 (pn_VarDim -> .)
 
     pn_VarDim                      shift and go to state 50
 
@@ -814,9 +812,9 @@ state 43
 state 44
 
     (12) DecVarDim2 -> LBRACK . pn_VarDim2 INT_CTE pn_VarDim3 DecVarDim3 RBRACK
-    (152) pn_VarDim2 -> .
+    (151) pn_VarDim2 -> .
 
-    INT_CTE         reduce using rule 152 (pn_VarDim2 -> .)
+    INT_CTE         reduce using rule 151 (pn_VarDim2 -> .)
 
     pn_VarDim2                     shift and go to state 51
 
@@ -979,10 +977,10 @@ state 58
 state 59
 
     (12) DecVarDim2 -> LBRACK pn_VarDim2 INT_CTE . pn_VarDim3 DecVarDim3 RBRACK
-    (153) pn_VarDim3 -> .
+    (152) pn_VarDim3 -> .
 
-    COMMA           reduce using rule 153 (pn_VarDim3 -> .)
-    RBRACK          reduce using rule 153 (pn_VarDim3 -> .)
+    COMMA           reduce using rule 152 (pn_VarDim3 -> .)
+    RBRACK          reduce using rule 152 (pn_VarDim3 -> .)
 
     pn_VarDim3                     shift and go to state 83
 
@@ -1182,18 +1180,18 @@ state 73
 state 74
 
     (62) loop_condicional -> MIENTRAS . pn_loop_condicional1 LPAREN expresion RPAREN pn_loop_condicional2 HACER bloque pn_loop_condicional3
-    (142) pn_loop_condicional1 -> .
+    (141) pn_loop_condicional1 -> .
 
-    LPAREN          reduce using rule 142 (pn_loop_condicional1 -> .)
+    LPAREN          reduce using rule 141 (pn_loop_condicional1 -> .)
 
     pn_loop_condicional1           shift and go to state 89
 
 state 75
 
     (63) loop_no_condicional -> DESDE . pn_loop_no_condicional1 variable ASSIGN pn_Secuencial1 expresion pn_loop_no_condicional2 HASTA pn_loop_no_condicional3 expresion pn_loop_no_condicional4 HACER bloque pn_loop_no_condicional5
-    (145) pn_loop_no_condicional1 -> .
+    (144) pn_loop_no_condicional1 -> .
 
-    ID              reduce using rule 145 (pn_loop_no_condicional1 -> .)
+    ID              reduce using rule 144 (pn_loop_no_condicional1 -> .)
 
     pn_loop_no_condicional1        shift and go to state 90
 
@@ -1201,29 +1199,29 @@ state 76
 
     (68) llamada_funcion -> ID . LPAREN llamada_param RPAREN SEMIC
     (54) variable -> ID . pn_Expresion1 varDim
-    (122) pn_Expresion1 -> .
+    (121) pn_Expresion1 -> .
 
     LPAREN          shift and go to state 91
-    LBRACK          reduce using rule 122 (pn_Expresion1 -> .)
-    ASSIGN          reduce using rule 122 (pn_Expresion1 -> .)
+    LBRACK          reduce using rule 121 (pn_Expresion1 -> .)
+    ASSIGN          reduce using rule 121 (pn_Expresion1 -> .)
 
     pn_Expresion1                  shift and go to state 92
 
 state 77
 
     (69) escritura -> ESCRIBE . pn_Secuencial3 LPAREN escritura2 RPAREN SEMIC pn_Secuencial5
-    (135) pn_Secuencial3 -> .
+    (134) pn_Secuencial3 -> .
 
-    LPAREN          reduce using rule 135 (pn_Secuencial3 -> .)
+    LPAREN          reduce using rule 134 (pn_Secuencial3 -> .)
 
     pn_Secuencial3                 shift and go to state 93
 
 state 78
 
     (67) lectura -> LEE . pn_Secuencial3 LPAREN varLectura RPAREN SEMIC pn_Secuencial5
-    (135) pn_Secuencial3 -> .
+    (134) pn_Secuencial3 -> .
 
-    LPAREN          reduce using rule 135 (pn_Secuencial3 -> .)
+    LPAREN          reduce using rule 134 (pn_Secuencial3 -> .)
 
     pn_Secuencial3                 shift and go to state 94
 
@@ -1338,15 +1336,15 @@ state 85
 state 86
 
     (47) asignacion -> variable ASSIGN . pn_Secuencial1 expresion SEMIC pn_Secuencial2
-    (133) pn_Secuencial1 -> .
+    (132) pn_Secuencial1 -> .
 
-    LPAREN          reduce using rule 133 (pn_Secuencial1 -> .)
-    CHAR_CTE        reduce using rule 133 (pn_Secuencial1 -> .)
-    STRING_CTE      reduce using rule 133 (pn_Secuencial1 -> .)
-    MINUS_OP        reduce using rule 133 (pn_Secuencial1 -> .)
-    ID              reduce using rule 133 (pn_Secuencial1 -> .)
-    INT_CTE         reduce using rule 133 (pn_Secuencial1 -> .)
-    FLOAT_CTE       reduce using rule 133 (pn_Secuencial1 -> .)
+    LPAREN          reduce using rule 132 (pn_Secuencial1 -> .)
+    CHAR_CTE        reduce using rule 132 (pn_Secuencial1 -> .)
+    STRING_CTE      reduce using rule 132 (pn_Secuencial1 -> .)
+    MINUS_OP        reduce using rule 132 (pn_Secuencial1 -> .)
+    ID              reduce using rule 132 (pn_Secuencial1 -> .)
+    INT_CTE         reduce using rule 132 (pn_Secuencial1 -> .)
+    FLOAT_CTE       reduce using rule 132 (pn_Secuencial1 -> .)
 
     pn_Secuencial1                 shift and go to state 117
 
@@ -1605,52 +1603,52 @@ state 99
 state 100
 
     (92) exp -> termino . pn_Expresion4 exp1
-    (125) pn_Expresion4 -> .
+    (124) pn_Expresion4 -> .
 
-    PLUS_OP         reduce using rule 125 (pn_Expresion4 -> .)
-    MINUS_OP        reduce using rule 125 (pn_Expresion4 -> .)
-    LT_LOG          reduce using rule 125 (pn_Expresion4 -> .)
-    GT_LOG          reduce using rule 125 (pn_Expresion4 -> .)
-    LTE_LOG         reduce using rule 125 (pn_Expresion4 -> .)
-    GTE_LOG         reduce using rule 125 (pn_Expresion4 -> .)
-    NE_LOG          reduce using rule 125 (pn_Expresion4 -> .)
-    EQUAL_LOG       reduce using rule 125 (pn_Expresion4 -> .)
-    AND_LOG         reduce using rule 125 (pn_Expresion4 -> .)
-    OR_LOG          reduce using rule 125 (pn_Expresion4 -> .)
-    ASSIGN          reduce using rule 125 (pn_Expresion4 -> .)
-    COMMA           reduce using rule 125 (pn_Expresion4 -> .)
-    RBRACK          reduce using rule 125 (pn_Expresion4 -> .)
-    RPAREN          reduce using rule 125 (pn_Expresion4 -> .)
-    SEMIC           reduce using rule 125 (pn_Expresion4 -> .)
-    HASTA           reduce using rule 125 (pn_Expresion4 -> .)
-    HACER           reduce using rule 125 (pn_Expresion4 -> .)
+    PLUS_OP         reduce using rule 124 (pn_Expresion4 -> .)
+    MINUS_OP        reduce using rule 124 (pn_Expresion4 -> .)
+    LT_LOG          reduce using rule 124 (pn_Expresion4 -> .)
+    GT_LOG          reduce using rule 124 (pn_Expresion4 -> .)
+    LTE_LOG         reduce using rule 124 (pn_Expresion4 -> .)
+    GTE_LOG         reduce using rule 124 (pn_Expresion4 -> .)
+    NE_LOG          reduce using rule 124 (pn_Expresion4 -> .)
+    EQUAL_LOG       reduce using rule 124 (pn_Expresion4 -> .)
+    AND_LOG         reduce using rule 124 (pn_Expresion4 -> .)
+    OR_LOG          reduce using rule 124 (pn_Expresion4 -> .)
+    ASSIGN          reduce using rule 124 (pn_Expresion4 -> .)
+    COMMA           reduce using rule 124 (pn_Expresion4 -> .)
+    RBRACK          reduce using rule 124 (pn_Expresion4 -> .)
+    RPAREN          reduce using rule 124 (pn_Expresion4 -> .)
+    SEMIC           reduce using rule 124 (pn_Expresion4 -> .)
+    HASTA           reduce using rule 124 (pn_Expresion4 -> .)
+    HACER           reduce using rule 124 (pn_Expresion4 -> .)
 
     pn_Expresion4                  shift and go to state 151
 
 state 101
 
     (97) termino -> factor . pn_Expresion5 term
-    (126) pn_Expresion5 -> .
+    (125) pn_Expresion5 -> .
 
-    MULT_OP         reduce using rule 126 (pn_Expresion5 -> .)
-    DIV_OP          reduce using rule 126 (pn_Expresion5 -> .)
-    PLUS_OP         reduce using rule 126 (pn_Expresion5 -> .)
-    MINUS_OP        reduce using rule 126 (pn_Expresion5 -> .)
-    LT_LOG          reduce using rule 126 (pn_Expresion5 -> .)
-    GT_LOG          reduce using rule 126 (pn_Expresion5 -> .)
-    LTE_LOG         reduce using rule 126 (pn_Expresion5 -> .)
-    GTE_LOG         reduce using rule 126 (pn_Expresion5 -> .)
-    NE_LOG          reduce using rule 126 (pn_Expresion5 -> .)
-    EQUAL_LOG       reduce using rule 126 (pn_Expresion5 -> .)
-    AND_LOG         reduce using rule 126 (pn_Expresion5 -> .)
-    OR_LOG          reduce using rule 126 (pn_Expresion5 -> .)
-    ASSIGN          reduce using rule 126 (pn_Expresion5 -> .)
-    COMMA           reduce using rule 126 (pn_Expresion5 -> .)
-    RBRACK          reduce using rule 126 (pn_Expresion5 -> .)
-    RPAREN          reduce using rule 126 (pn_Expresion5 -> .)
-    SEMIC           reduce using rule 126 (pn_Expresion5 -> .)
-    HASTA           reduce using rule 126 (pn_Expresion5 -> .)
-    HACER           reduce using rule 126 (pn_Expresion5 -> .)
+    MULT_OP         reduce using rule 125 (pn_Expresion5 -> .)
+    DIV_OP          reduce using rule 125 (pn_Expresion5 -> .)
+    PLUS_OP         reduce using rule 125 (pn_Expresion5 -> .)
+    MINUS_OP        reduce using rule 125 (pn_Expresion5 -> .)
+    LT_LOG          reduce using rule 125 (pn_Expresion5 -> .)
+    GT_LOG          reduce using rule 125 (pn_Expresion5 -> .)
+    LTE_LOG         reduce using rule 125 (pn_Expresion5 -> .)
+    GTE_LOG         reduce using rule 125 (pn_Expresion5 -> .)
+    NE_LOG          reduce using rule 125 (pn_Expresion5 -> .)
+    EQUAL_LOG       reduce using rule 125 (pn_Expresion5 -> .)
+    AND_LOG         reduce using rule 125 (pn_Expresion5 -> .)
+    OR_LOG          reduce using rule 125 (pn_Expresion5 -> .)
+    ASSIGN          reduce using rule 125 (pn_Expresion5 -> .)
+    COMMA           reduce using rule 125 (pn_Expresion5 -> .)
+    RBRACK          reduce using rule 125 (pn_Expresion5 -> .)
+    RPAREN          reduce using rule 125 (pn_Expresion5 -> .)
+    SEMIC           reduce using rule 125 (pn_Expresion5 -> .)
+    HASTA           reduce using rule 125 (pn_Expresion5 -> .)
+    HACER           reduce using rule 125 (pn_Expresion5 -> .)
 
     pn_Expresion5                  shift and go to state 152
 
@@ -1682,15 +1680,15 @@ state 102
 state 103
 
     (103) factor -> LPAREN . pn_Expresion6 exp RPAREN pn_Expresion7
-    (127) pn_Expresion6 -> .
+    (126) pn_Expresion6 -> .
 
-    LPAREN          reduce using rule 127 (pn_Expresion6 -> .)
-    CHAR_CTE        reduce using rule 127 (pn_Expresion6 -> .)
-    STRING_CTE      reduce using rule 127 (pn_Expresion6 -> .)
-    MINUS_OP        reduce using rule 127 (pn_Expresion6 -> .)
-    ID              reduce using rule 127 (pn_Expresion6 -> .)
-    INT_CTE         reduce using rule 127 (pn_Expresion6 -> .)
-    FLOAT_CTE       reduce using rule 127 (pn_Expresion6 -> .)
+    LPAREN          reduce using rule 126 (pn_Expresion6 -> .)
+    CHAR_CTE        reduce using rule 126 (pn_Expresion6 -> .)
+    STRING_CTE      reduce using rule 126 (pn_Expresion6 -> .)
+    MINUS_OP        reduce using rule 126 (pn_Expresion6 -> .)
+    ID              reduce using rule 126 (pn_Expresion6 -> .)
+    INT_CTE         reduce using rule 126 (pn_Expresion6 -> .)
+    FLOAT_CTE       reduce using rule 126 (pn_Expresion6 -> .)
 
     pn_Expresion6                  shift and go to state 153
 
@@ -1747,64 +1745,64 @@ state 105
 state 106
 
     (48) ctes -> CHAR_CTE . pn_CTEChar
-    (120) pn_CTEChar -> .
+    (119) pn_CTEChar -> .
 
-    MULT_OP         reduce using rule 120 (pn_CTEChar -> .)
-    DIV_OP          reduce using rule 120 (pn_CTEChar -> .)
-    PLUS_OP         reduce using rule 120 (pn_CTEChar -> .)
-    MINUS_OP        reduce using rule 120 (pn_CTEChar -> .)
-    LT_LOG          reduce using rule 120 (pn_CTEChar -> .)
-    GT_LOG          reduce using rule 120 (pn_CTEChar -> .)
-    LTE_LOG         reduce using rule 120 (pn_CTEChar -> .)
-    GTE_LOG         reduce using rule 120 (pn_CTEChar -> .)
-    NE_LOG          reduce using rule 120 (pn_CTEChar -> .)
-    EQUAL_LOG       reduce using rule 120 (pn_CTEChar -> .)
-    AND_LOG         reduce using rule 120 (pn_CTEChar -> .)
-    OR_LOG          reduce using rule 120 (pn_CTEChar -> .)
-    ASSIGN          reduce using rule 120 (pn_CTEChar -> .)
-    COMMA           reduce using rule 120 (pn_CTEChar -> .)
-    RBRACK          reduce using rule 120 (pn_CTEChar -> .)
-    RPAREN          reduce using rule 120 (pn_CTEChar -> .)
-    SEMIC           reduce using rule 120 (pn_CTEChar -> .)
-    HASTA           reduce using rule 120 (pn_CTEChar -> .)
-    HACER           reduce using rule 120 (pn_CTEChar -> .)
+    MULT_OP         reduce using rule 119 (pn_CTEChar -> .)
+    DIV_OP          reduce using rule 119 (pn_CTEChar -> .)
+    PLUS_OP         reduce using rule 119 (pn_CTEChar -> .)
+    MINUS_OP        reduce using rule 119 (pn_CTEChar -> .)
+    LT_LOG          reduce using rule 119 (pn_CTEChar -> .)
+    GT_LOG          reduce using rule 119 (pn_CTEChar -> .)
+    LTE_LOG         reduce using rule 119 (pn_CTEChar -> .)
+    GTE_LOG         reduce using rule 119 (pn_CTEChar -> .)
+    NE_LOG          reduce using rule 119 (pn_CTEChar -> .)
+    EQUAL_LOG       reduce using rule 119 (pn_CTEChar -> .)
+    AND_LOG         reduce using rule 119 (pn_CTEChar -> .)
+    OR_LOG          reduce using rule 119 (pn_CTEChar -> .)
+    ASSIGN          reduce using rule 119 (pn_CTEChar -> .)
+    COMMA           reduce using rule 119 (pn_CTEChar -> .)
+    RBRACK          reduce using rule 119 (pn_CTEChar -> .)
+    RPAREN          reduce using rule 119 (pn_CTEChar -> .)
+    SEMIC           reduce using rule 119 (pn_CTEChar -> .)
+    HASTA           reduce using rule 119 (pn_CTEChar -> .)
+    HACER           reduce using rule 119 (pn_CTEChar -> .)
 
     pn_CTEChar                     shift and go to state 154
 
 state 107
 
     (49) ctes -> STRING_CTE . pn_CTEString
-    (121) pn_CTEString -> .
+    (120) pn_CTEString -> .
 
-    MULT_OP         reduce using rule 121 (pn_CTEString -> .)
-    DIV_OP          reduce using rule 121 (pn_CTEString -> .)
-    PLUS_OP         reduce using rule 121 (pn_CTEString -> .)
-    MINUS_OP        reduce using rule 121 (pn_CTEString -> .)
-    LT_LOG          reduce using rule 121 (pn_CTEString -> .)
-    GT_LOG          reduce using rule 121 (pn_CTEString -> .)
-    LTE_LOG         reduce using rule 121 (pn_CTEString -> .)
-    GTE_LOG         reduce using rule 121 (pn_CTEString -> .)
-    NE_LOG          reduce using rule 121 (pn_CTEString -> .)
-    EQUAL_LOG       reduce using rule 121 (pn_CTEString -> .)
-    AND_LOG         reduce using rule 121 (pn_CTEString -> .)
-    OR_LOG          reduce using rule 121 (pn_CTEString -> .)
-    ASSIGN          reduce using rule 121 (pn_CTEString -> .)
-    COMMA           reduce using rule 121 (pn_CTEString -> .)
-    RBRACK          reduce using rule 121 (pn_CTEString -> .)
-    RPAREN          reduce using rule 121 (pn_CTEString -> .)
-    SEMIC           reduce using rule 121 (pn_CTEString -> .)
-    HASTA           reduce using rule 121 (pn_CTEString -> .)
-    HACER           reduce using rule 121 (pn_CTEString -> .)
+    MULT_OP         reduce using rule 120 (pn_CTEString -> .)
+    DIV_OP          reduce using rule 120 (pn_CTEString -> .)
+    PLUS_OP         reduce using rule 120 (pn_CTEString -> .)
+    MINUS_OP        reduce using rule 120 (pn_CTEString -> .)
+    LT_LOG          reduce using rule 120 (pn_CTEString -> .)
+    GT_LOG          reduce using rule 120 (pn_CTEString -> .)
+    LTE_LOG         reduce using rule 120 (pn_CTEString -> .)
+    GTE_LOG         reduce using rule 120 (pn_CTEString -> .)
+    NE_LOG          reduce using rule 120 (pn_CTEString -> .)
+    EQUAL_LOG       reduce using rule 120 (pn_CTEString -> .)
+    AND_LOG         reduce using rule 120 (pn_CTEString -> .)
+    OR_LOG          reduce using rule 120 (pn_CTEString -> .)
+    ASSIGN          reduce using rule 120 (pn_CTEString -> .)
+    COMMA           reduce using rule 120 (pn_CTEString -> .)
+    RBRACK          reduce using rule 120 (pn_CTEString -> .)
+    RPAREN          reduce using rule 120 (pn_CTEString -> .)
+    SEMIC           reduce using rule 120 (pn_CTEString -> .)
+    HASTA           reduce using rule 120 (pn_CTEString -> .)
+    HACER           reduce using rule 120 (pn_CTEString -> .)
 
     pn_CTEString                   shift and go to state 155
 
 state 108
 
     (50) ctes -> MINUS_OP . pn_CTENeg num
-    (117) pn_CTENeg -> .
+    (116) pn_CTENeg -> .
 
-    INT_CTE         reduce using rule 117 (pn_CTENeg -> .)
-    FLOAT_CTE       reduce using rule 117 (pn_CTENeg -> .)
+    INT_CTE         reduce using rule 116 (pn_CTENeg -> .)
+    FLOAT_CTE       reduce using rule 116 (pn_CTENeg -> .)
 
     pn_CTENeg                      shift and go to state 156
 
@@ -1837,83 +1835,83 @@ state 110
 
     (54) variable -> ID . pn_Expresion1 varDim
     (68) llamada_funcion -> ID . LPAREN llamada_param RPAREN SEMIC
-    (122) pn_Expresion1 -> .
+    (121) pn_Expresion1 -> .
 
     LPAREN          shift and go to state 91
-    LBRACK          reduce using rule 122 (pn_Expresion1 -> .)
-    MULT_OP         reduce using rule 122 (pn_Expresion1 -> .)
-    DIV_OP          reduce using rule 122 (pn_Expresion1 -> .)
-    PLUS_OP         reduce using rule 122 (pn_Expresion1 -> .)
-    MINUS_OP        reduce using rule 122 (pn_Expresion1 -> .)
-    LT_LOG          reduce using rule 122 (pn_Expresion1 -> .)
-    GT_LOG          reduce using rule 122 (pn_Expresion1 -> .)
-    LTE_LOG         reduce using rule 122 (pn_Expresion1 -> .)
-    GTE_LOG         reduce using rule 122 (pn_Expresion1 -> .)
-    NE_LOG          reduce using rule 122 (pn_Expresion1 -> .)
-    EQUAL_LOG       reduce using rule 122 (pn_Expresion1 -> .)
-    AND_LOG         reduce using rule 122 (pn_Expresion1 -> .)
-    OR_LOG          reduce using rule 122 (pn_Expresion1 -> .)
-    ASSIGN          reduce using rule 122 (pn_Expresion1 -> .)
-    COMMA           reduce using rule 122 (pn_Expresion1 -> .)
-    RBRACK          reduce using rule 122 (pn_Expresion1 -> .)
-    RPAREN          reduce using rule 122 (pn_Expresion1 -> .)
-    SEMIC           reduce using rule 122 (pn_Expresion1 -> .)
-    HASTA           reduce using rule 122 (pn_Expresion1 -> .)
-    HACER           reduce using rule 122 (pn_Expresion1 -> .)
+    LBRACK          reduce using rule 121 (pn_Expresion1 -> .)
+    MULT_OP         reduce using rule 121 (pn_Expresion1 -> .)
+    DIV_OP          reduce using rule 121 (pn_Expresion1 -> .)
+    PLUS_OP         reduce using rule 121 (pn_Expresion1 -> .)
+    MINUS_OP        reduce using rule 121 (pn_Expresion1 -> .)
+    LT_LOG          reduce using rule 121 (pn_Expresion1 -> .)
+    GT_LOG          reduce using rule 121 (pn_Expresion1 -> .)
+    LTE_LOG         reduce using rule 121 (pn_Expresion1 -> .)
+    GTE_LOG         reduce using rule 121 (pn_Expresion1 -> .)
+    NE_LOG          reduce using rule 121 (pn_Expresion1 -> .)
+    EQUAL_LOG       reduce using rule 121 (pn_Expresion1 -> .)
+    AND_LOG         reduce using rule 121 (pn_Expresion1 -> .)
+    OR_LOG          reduce using rule 121 (pn_Expresion1 -> .)
+    ASSIGN          reduce using rule 121 (pn_Expresion1 -> .)
+    COMMA           reduce using rule 121 (pn_Expresion1 -> .)
+    RBRACK          reduce using rule 121 (pn_Expresion1 -> .)
+    RPAREN          reduce using rule 121 (pn_Expresion1 -> .)
+    SEMIC           reduce using rule 121 (pn_Expresion1 -> .)
+    HASTA           reduce using rule 121 (pn_Expresion1 -> .)
+    HACER           reduce using rule 121 (pn_Expresion1 -> .)
 
     pn_Expresion1                  shift and go to state 92
 
 state 111
 
     (52) num -> INT_CTE . pn_CTEInt
-    (118) pn_CTEInt -> .
+    (117) pn_CTEInt -> .
 
-    MULT_OP         reduce using rule 118 (pn_CTEInt -> .)
-    DIV_OP          reduce using rule 118 (pn_CTEInt -> .)
-    PLUS_OP         reduce using rule 118 (pn_CTEInt -> .)
-    MINUS_OP        reduce using rule 118 (pn_CTEInt -> .)
-    LT_LOG          reduce using rule 118 (pn_CTEInt -> .)
-    GT_LOG          reduce using rule 118 (pn_CTEInt -> .)
-    LTE_LOG         reduce using rule 118 (pn_CTEInt -> .)
-    GTE_LOG         reduce using rule 118 (pn_CTEInt -> .)
-    NE_LOG          reduce using rule 118 (pn_CTEInt -> .)
-    EQUAL_LOG       reduce using rule 118 (pn_CTEInt -> .)
-    AND_LOG         reduce using rule 118 (pn_CTEInt -> .)
-    OR_LOG          reduce using rule 118 (pn_CTEInt -> .)
-    ASSIGN          reduce using rule 118 (pn_CTEInt -> .)
-    COMMA           reduce using rule 118 (pn_CTEInt -> .)
-    RBRACK          reduce using rule 118 (pn_CTEInt -> .)
-    RPAREN          reduce using rule 118 (pn_CTEInt -> .)
-    SEMIC           reduce using rule 118 (pn_CTEInt -> .)
-    HASTA           reduce using rule 118 (pn_CTEInt -> .)
-    HACER           reduce using rule 118 (pn_CTEInt -> .)
+    MULT_OP         reduce using rule 117 (pn_CTEInt -> .)
+    DIV_OP          reduce using rule 117 (pn_CTEInt -> .)
+    PLUS_OP         reduce using rule 117 (pn_CTEInt -> .)
+    MINUS_OP        reduce using rule 117 (pn_CTEInt -> .)
+    LT_LOG          reduce using rule 117 (pn_CTEInt -> .)
+    GT_LOG          reduce using rule 117 (pn_CTEInt -> .)
+    LTE_LOG         reduce using rule 117 (pn_CTEInt -> .)
+    GTE_LOG         reduce using rule 117 (pn_CTEInt -> .)
+    NE_LOG          reduce using rule 117 (pn_CTEInt -> .)
+    EQUAL_LOG       reduce using rule 117 (pn_CTEInt -> .)
+    AND_LOG         reduce using rule 117 (pn_CTEInt -> .)
+    OR_LOG          reduce using rule 117 (pn_CTEInt -> .)
+    ASSIGN          reduce using rule 117 (pn_CTEInt -> .)
+    COMMA           reduce using rule 117 (pn_CTEInt -> .)
+    RBRACK          reduce using rule 117 (pn_CTEInt -> .)
+    RPAREN          reduce using rule 117 (pn_CTEInt -> .)
+    SEMIC           reduce using rule 117 (pn_CTEInt -> .)
+    HASTA           reduce using rule 117 (pn_CTEInt -> .)
+    HACER           reduce using rule 117 (pn_CTEInt -> .)
 
     pn_CTEInt                      shift and go to state 157
 
 state 112
 
     (53) num -> FLOAT_CTE . pn_CTEFloat
-    (119) pn_CTEFloat -> .
+    (118) pn_CTEFloat -> .
 
-    MULT_OP         reduce using rule 119 (pn_CTEFloat -> .)
-    DIV_OP          reduce using rule 119 (pn_CTEFloat -> .)
-    PLUS_OP         reduce using rule 119 (pn_CTEFloat -> .)
-    MINUS_OP        reduce using rule 119 (pn_CTEFloat -> .)
-    LT_LOG          reduce using rule 119 (pn_CTEFloat -> .)
-    GT_LOG          reduce using rule 119 (pn_CTEFloat -> .)
-    LTE_LOG         reduce using rule 119 (pn_CTEFloat -> .)
-    GTE_LOG         reduce using rule 119 (pn_CTEFloat -> .)
-    NE_LOG          reduce using rule 119 (pn_CTEFloat -> .)
-    EQUAL_LOG       reduce using rule 119 (pn_CTEFloat -> .)
-    AND_LOG         reduce using rule 119 (pn_CTEFloat -> .)
-    OR_LOG          reduce using rule 119 (pn_CTEFloat -> .)
-    ASSIGN          reduce using rule 119 (pn_CTEFloat -> .)
-    COMMA           reduce using rule 119 (pn_CTEFloat -> .)
-    RBRACK          reduce using rule 119 (pn_CTEFloat -> .)
-    RPAREN          reduce using rule 119 (pn_CTEFloat -> .)
-    SEMIC           reduce using rule 119 (pn_CTEFloat -> .)
-    HASTA           reduce using rule 119 (pn_CTEFloat -> .)
-    HACER           reduce using rule 119 (pn_CTEFloat -> .)
+    MULT_OP         reduce using rule 118 (pn_CTEFloat -> .)
+    DIV_OP          reduce using rule 118 (pn_CTEFloat -> .)
+    PLUS_OP         reduce using rule 118 (pn_CTEFloat -> .)
+    MINUS_OP        reduce using rule 118 (pn_CTEFloat -> .)
+    LT_LOG          reduce using rule 118 (pn_CTEFloat -> .)
+    GT_LOG          reduce using rule 118 (pn_CTEFloat -> .)
+    LTE_LOG         reduce using rule 118 (pn_CTEFloat -> .)
+    GTE_LOG         reduce using rule 118 (pn_CTEFloat -> .)
+    NE_LOG          reduce using rule 118 (pn_CTEFloat -> .)
+    EQUAL_LOG       reduce using rule 118 (pn_CTEFloat -> .)
+    AND_LOG         reduce using rule 118 (pn_CTEFloat -> .)
+    OR_LOG          reduce using rule 118 (pn_CTEFloat -> .)
+    ASSIGN          reduce using rule 118 (pn_CTEFloat -> .)
+    COMMA           reduce using rule 118 (pn_CTEFloat -> .)
+    RBRACK          reduce using rule 118 (pn_CTEFloat -> .)
+    RPAREN          reduce using rule 118 (pn_CTEFloat -> .)
+    SEMIC           reduce using rule 118 (pn_CTEFloat -> .)
+    HASTA           reduce using rule 118 (pn_CTEFloat -> .)
+    HACER           reduce using rule 118 (pn_CTEFloat -> .)
 
     pn_CTEFloat                    shift and go to state 158
 
@@ -2004,11 +2002,11 @@ state 119
 state 120
 
     (54) variable -> ID . pn_Expresion1 varDim
-    (122) pn_Expresion1 -> .
+    (121) pn_Expresion1 -> .
 
-    LBRACK          reduce using rule 122 (pn_Expresion1 -> .)
-    RPAREN          reduce using rule 122 (pn_Expresion1 -> .)
-    ASSIGN          reduce using rule 122 (pn_Expresion1 -> .)
+    LBRACK          reduce using rule 121 (pn_Expresion1 -> .)
+    RPAREN          reduce using rule 121 (pn_Expresion1 -> .)
+    ASSIGN          reduce using rule 121 (pn_Expresion1 -> .)
 
     pn_Expresion1                  shift and go to state 92
 
@@ -2368,15 +2366,15 @@ state 137
 state 138
 
     (79) meg -> op_l . pn_Expresion10 mega_exp pn_Expresion11
-    (131) pn_Expresion10 -> .
+    (130) pn_Expresion10 -> .
 
-    LPAREN          reduce using rule 131 (pn_Expresion10 -> .)
-    CHAR_CTE        reduce using rule 131 (pn_Expresion10 -> .)
-    STRING_CTE      reduce using rule 131 (pn_Expresion10 -> .)
-    MINUS_OP        reduce using rule 131 (pn_Expresion10 -> .)
-    ID              reduce using rule 131 (pn_Expresion10 -> .)
-    INT_CTE         reduce using rule 131 (pn_Expresion10 -> .)
-    FLOAT_CTE       reduce using rule 131 (pn_Expresion10 -> .)
+    LPAREN          reduce using rule 130 (pn_Expresion10 -> .)
+    CHAR_CTE        reduce using rule 130 (pn_Expresion10 -> .)
+    STRING_CTE      reduce using rule 130 (pn_Expresion10 -> .)
+    MINUS_OP        reduce using rule 130 (pn_Expresion10 -> .)
+    ID              reduce using rule 130 (pn_Expresion10 -> .)
+    INT_CTE         reduce using rule 130 (pn_Expresion10 -> .)
+    FLOAT_CTE       reduce using rule 130 (pn_Expresion10 -> .)
 
     pn_Expresion10                 shift and go to state 183
 
@@ -2486,90 +2484,90 @@ state 144
 state 145
 
     (86) op_r -> LT_LOG . pn_Expresion8
-    (129) pn_Expresion8 -> .
+    (128) pn_Expresion8 -> .
 
-    LPAREN          reduce using rule 129 (pn_Expresion8 -> .)
-    CHAR_CTE        reduce using rule 129 (pn_Expresion8 -> .)
-    STRING_CTE      reduce using rule 129 (pn_Expresion8 -> .)
-    MINUS_OP        reduce using rule 129 (pn_Expresion8 -> .)
-    ID              reduce using rule 129 (pn_Expresion8 -> .)
-    INT_CTE         reduce using rule 129 (pn_Expresion8 -> .)
-    FLOAT_CTE       reduce using rule 129 (pn_Expresion8 -> .)
+    LPAREN          reduce using rule 128 (pn_Expresion8 -> .)
+    CHAR_CTE        reduce using rule 128 (pn_Expresion8 -> .)
+    STRING_CTE      reduce using rule 128 (pn_Expresion8 -> .)
+    MINUS_OP        reduce using rule 128 (pn_Expresion8 -> .)
+    ID              reduce using rule 128 (pn_Expresion8 -> .)
+    INT_CTE         reduce using rule 128 (pn_Expresion8 -> .)
+    FLOAT_CTE       reduce using rule 128 (pn_Expresion8 -> .)
 
     pn_Expresion8                  shift and go to state 185
 
 state 146
 
     (87) op_r -> GT_LOG . pn_Expresion8
-    (129) pn_Expresion8 -> .
+    (128) pn_Expresion8 -> .
 
-    LPAREN          reduce using rule 129 (pn_Expresion8 -> .)
-    CHAR_CTE        reduce using rule 129 (pn_Expresion8 -> .)
-    STRING_CTE      reduce using rule 129 (pn_Expresion8 -> .)
-    MINUS_OP        reduce using rule 129 (pn_Expresion8 -> .)
-    ID              reduce using rule 129 (pn_Expresion8 -> .)
-    INT_CTE         reduce using rule 129 (pn_Expresion8 -> .)
-    FLOAT_CTE       reduce using rule 129 (pn_Expresion8 -> .)
+    LPAREN          reduce using rule 128 (pn_Expresion8 -> .)
+    CHAR_CTE        reduce using rule 128 (pn_Expresion8 -> .)
+    STRING_CTE      reduce using rule 128 (pn_Expresion8 -> .)
+    MINUS_OP        reduce using rule 128 (pn_Expresion8 -> .)
+    ID              reduce using rule 128 (pn_Expresion8 -> .)
+    INT_CTE         reduce using rule 128 (pn_Expresion8 -> .)
+    FLOAT_CTE       reduce using rule 128 (pn_Expresion8 -> .)
 
     pn_Expresion8                  shift and go to state 186
 
 state 147
 
     (88) op_r -> LTE_LOG . pn_Expresion8
-    (129) pn_Expresion8 -> .
+    (128) pn_Expresion8 -> .
 
-    LPAREN          reduce using rule 129 (pn_Expresion8 -> .)
-    CHAR_CTE        reduce using rule 129 (pn_Expresion8 -> .)
-    STRING_CTE      reduce using rule 129 (pn_Expresion8 -> .)
-    MINUS_OP        reduce using rule 129 (pn_Expresion8 -> .)
-    ID              reduce using rule 129 (pn_Expresion8 -> .)
-    INT_CTE         reduce using rule 129 (pn_Expresion8 -> .)
-    FLOAT_CTE       reduce using rule 129 (pn_Expresion8 -> .)
+    LPAREN          reduce using rule 128 (pn_Expresion8 -> .)
+    CHAR_CTE        reduce using rule 128 (pn_Expresion8 -> .)
+    STRING_CTE      reduce using rule 128 (pn_Expresion8 -> .)
+    MINUS_OP        reduce using rule 128 (pn_Expresion8 -> .)
+    ID              reduce using rule 128 (pn_Expresion8 -> .)
+    INT_CTE         reduce using rule 128 (pn_Expresion8 -> .)
+    FLOAT_CTE       reduce using rule 128 (pn_Expresion8 -> .)
 
     pn_Expresion8                  shift and go to state 187
 
 state 148
 
     (89) op_r -> GTE_LOG . pn_Expresion8
-    (129) pn_Expresion8 -> .
+    (128) pn_Expresion8 -> .
 
-    LPAREN          reduce using rule 129 (pn_Expresion8 -> .)
-    CHAR_CTE        reduce using rule 129 (pn_Expresion8 -> .)
-    STRING_CTE      reduce using rule 129 (pn_Expresion8 -> .)
-    MINUS_OP        reduce using rule 129 (pn_Expresion8 -> .)
-    ID              reduce using rule 129 (pn_Expresion8 -> .)
-    INT_CTE         reduce using rule 129 (pn_Expresion8 -> .)
-    FLOAT_CTE       reduce using rule 129 (pn_Expresion8 -> .)
+    LPAREN          reduce using rule 128 (pn_Expresion8 -> .)
+    CHAR_CTE        reduce using rule 128 (pn_Expresion8 -> .)
+    STRING_CTE      reduce using rule 128 (pn_Expresion8 -> .)
+    MINUS_OP        reduce using rule 128 (pn_Expresion8 -> .)
+    ID              reduce using rule 128 (pn_Expresion8 -> .)
+    INT_CTE         reduce using rule 128 (pn_Expresion8 -> .)
+    FLOAT_CTE       reduce using rule 128 (pn_Expresion8 -> .)
 
     pn_Expresion8                  shift and go to state 188
 
 state 149
 
     (90) op_r -> NE_LOG . pn_Expresion8
-    (129) pn_Expresion8 -> .
+    (128) pn_Expresion8 -> .
 
-    LPAREN          reduce using rule 129 (pn_Expresion8 -> .)
-    CHAR_CTE        reduce using rule 129 (pn_Expresion8 -> .)
-    STRING_CTE      reduce using rule 129 (pn_Expresion8 -> .)
-    MINUS_OP        reduce using rule 129 (pn_Expresion8 -> .)
-    ID              reduce using rule 129 (pn_Expresion8 -> .)
-    INT_CTE         reduce using rule 129 (pn_Expresion8 -> .)
-    FLOAT_CTE       reduce using rule 129 (pn_Expresion8 -> .)
+    LPAREN          reduce using rule 128 (pn_Expresion8 -> .)
+    CHAR_CTE        reduce using rule 128 (pn_Expresion8 -> .)
+    STRING_CTE      reduce using rule 128 (pn_Expresion8 -> .)
+    MINUS_OP        reduce using rule 128 (pn_Expresion8 -> .)
+    ID              reduce using rule 128 (pn_Expresion8 -> .)
+    INT_CTE         reduce using rule 128 (pn_Expresion8 -> .)
+    FLOAT_CTE       reduce using rule 128 (pn_Expresion8 -> .)
 
     pn_Expresion8                  shift and go to state 189
 
 state 150
 
     (91) op_r -> EQUAL_LOG . pn_Expresion8
-    (129) pn_Expresion8 -> .
+    (128) pn_Expresion8 -> .
 
-    LPAREN          reduce using rule 129 (pn_Expresion8 -> .)
-    CHAR_CTE        reduce using rule 129 (pn_Expresion8 -> .)
-    STRING_CTE      reduce using rule 129 (pn_Expresion8 -> .)
-    MINUS_OP        reduce using rule 129 (pn_Expresion8 -> .)
-    ID              reduce using rule 129 (pn_Expresion8 -> .)
-    INT_CTE         reduce using rule 129 (pn_Expresion8 -> .)
-    FLOAT_CTE       reduce using rule 129 (pn_Expresion8 -> .)
+    LPAREN          reduce using rule 128 (pn_Expresion8 -> .)
+    CHAR_CTE        reduce using rule 128 (pn_Expresion8 -> .)
+    STRING_CTE      reduce using rule 128 (pn_Expresion8 -> .)
+    MINUS_OP        reduce using rule 128 (pn_Expresion8 -> .)
+    ID              reduce using rule 128 (pn_Expresion8 -> .)
+    INT_CTE         reduce using rule 128 (pn_Expresion8 -> .)
+    FLOAT_CTE       reduce using rule 128 (pn_Expresion8 -> .)
 
     pn_Expresion8                  shift and go to state 190
 
@@ -2818,9 +2816,9 @@ state 162
 state 163
 
     (59) condicion -> SI LPAREN expresion RPAREN . pn_Condicion1 ENTONCES bloque else pn_Condicion2
-    (139) pn_Condicion1 -> .
+    (138) pn_Condicion1 -> .
 
-    ENTONCES        reduce using rule 139 (pn_Condicion1 -> .)
+    ENTONCES        reduce using rule 138 (pn_Condicion1 -> .)
 
     pn_Condicion1                  shift and go to state 204
 
@@ -2841,15 +2839,15 @@ state 165
 state 166
 
     (63) loop_no_condicional -> DESDE pn_loop_no_condicional1 variable ASSIGN . pn_Secuencial1 expresion pn_loop_no_condicional2 HASTA pn_loop_no_condicional3 expresion pn_loop_no_condicional4 HACER bloque pn_loop_no_condicional5
-    (133) pn_Secuencial1 -> .
+    (132) pn_Secuencial1 -> .
 
-    LPAREN          reduce using rule 133 (pn_Secuencial1 -> .)
-    CHAR_CTE        reduce using rule 133 (pn_Secuencial1 -> .)
-    STRING_CTE      reduce using rule 133 (pn_Secuencial1 -> .)
-    MINUS_OP        reduce using rule 133 (pn_Secuencial1 -> .)
-    ID              reduce using rule 133 (pn_Secuencial1 -> .)
-    INT_CTE         reduce using rule 133 (pn_Secuencial1 -> .)
-    FLOAT_CTE       reduce using rule 133 (pn_Secuencial1 -> .)
+    LPAREN          reduce using rule 132 (pn_Secuencial1 -> .)
+    CHAR_CTE        reduce using rule 132 (pn_Secuencial1 -> .)
+    STRING_CTE      reduce using rule 132 (pn_Secuencial1 -> .)
+    MINUS_OP        reduce using rule 132 (pn_Secuencial1 -> .)
+    ID              reduce using rule 132 (pn_Secuencial1 -> .)
+    INT_CTE         reduce using rule 132 (pn_Secuencial1 -> .)
+    FLOAT_CTE       reduce using rule 132 (pn_Secuencial1 -> .)
 
     pn_Secuencial1                 shift and go to state 207
 
@@ -2938,29 +2936,29 @@ state 173
 
     (70) escritura2 -> STRING_CTE . pn_Secuencial4 escritura3
     (49) ctes -> STRING_CTE . pn_CTEString
-    (136) pn_Secuencial4 -> .
-    (121) pn_CTEString -> .
+    (135) pn_Secuencial4 -> .
+    (120) pn_CTEString -> .
 
-  ! reduce/reduce conflict for COMMA resolved using rule 121 (pn_CTEString -> .)
-  ! reduce/reduce conflict for RPAREN resolved using rule 121 (pn_CTEString -> .)
-    MULT_OP         reduce using rule 121 (pn_CTEString -> .)
-    DIV_OP          reduce using rule 121 (pn_CTEString -> .)
-    PLUS_OP         reduce using rule 121 (pn_CTEString -> .)
-    MINUS_OP        reduce using rule 121 (pn_CTEString -> .)
-    LT_LOG          reduce using rule 121 (pn_CTEString -> .)
-    GT_LOG          reduce using rule 121 (pn_CTEString -> .)
-    LTE_LOG         reduce using rule 121 (pn_CTEString -> .)
-    GTE_LOG         reduce using rule 121 (pn_CTEString -> .)
-    NE_LOG          reduce using rule 121 (pn_CTEString -> .)
-    EQUAL_LOG       reduce using rule 121 (pn_CTEString -> .)
-    AND_LOG         reduce using rule 121 (pn_CTEString -> .)
-    OR_LOG          reduce using rule 121 (pn_CTEString -> .)
-    ASSIGN          reduce using rule 121 (pn_CTEString -> .)
-    COMMA           reduce using rule 121 (pn_CTEString -> .)
-    RPAREN          reduce using rule 121 (pn_CTEString -> .)
+  ! reduce/reduce conflict for COMMA resolved using rule 120 (pn_CTEString -> .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 120 (pn_CTEString -> .)
+    MULT_OP         reduce using rule 120 (pn_CTEString -> .)
+    DIV_OP          reduce using rule 120 (pn_CTEString -> .)
+    PLUS_OP         reduce using rule 120 (pn_CTEString -> .)
+    MINUS_OP        reduce using rule 120 (pn_CTEString -> .)
+    LT_LOG          reduce using rule 120 (pn_CTEString -> .)
+    GT_LOG          reduce using rule 120 (pn_CTEString -> .)
+    LTE_LOG         reduce using rule 120 (pn_CTEString -> .)
+    GTE_LOG         reduce using rule 120 (pn_CTEString -> .)
+    NE_LOG          reduce using rule 120 (pn_CTEString -> .)
+    EQUAL_LOG       reduce using rule 120 (pn_CTEString -> .)
+    AND_LOG         reduce using rule 120 (pn_CTEString -> .)
+    OR_LOG          reduce using rule 120 (pn_CTEString -> .)
+    ASSIGN          reduce using rule 120 (pn_CTEString -> .)
+    COMMA           reduce using rule 120 (pn_CTEString -> .)
+    RPAREN          reduce using rule 120 (pn_CTEString -> .)
 
-  ! COMMA           [ reduce using rule 136 (pn_Secuencial4 -> .) ]
-  ! RPAREN          [ reduce using rule 136 (pn_Secuencial4 -> .) ]
+  ! COMMA           [ reduce using rule 135 (pn_Secuencial4 -> .) ]
+  ! RPAREN          [ reduce using rule 135 (pn_Secuencial4 -> .) ]
 
     pn_Secuencial4                 shift and go to state 214
     pn_CTEString                   shift and go to state 155
@@ -2968,10 +2966,10 @@ state 173
 state 174
 
     (71) escritura2 -> expresion . pn_Secuencial4 escritura3
-    (136) pn_Secuencial4 -> .
+    (135) pn_Secuencial4 -> .
 
-    COMMA           reduce using rule 136 (pn_Secuencial4 -> .)
-    RPAREN          reduce using rule 136 (pn_Secuencial4 -> .)
+    COMMA           reduce using rule 135 (pn_Secuencial4 -> .)
+    RPAREN          reduce using rule 135 (pn_Secuencial4 -> .)
 
     pn_Secuencial4                 shift and go to state 215
 
@@ -2985,11 +2983,11 @@ state 175
 state 176
 
     (64) varLectura -> ID . pn_Expresion1 varDim varLectura2
-    (122) pn_Expresion1 -> .
+    (121) pn_Expresion1 -> .
 
-    LBRACK          reduce using rule 122 (pn_Expresion1 -> .)
-    COMMA           reduce using rule 122 (pn_Expresion1 -> .)
-    RPAREN          reduce using rule 122 (pn_Expresion1 -> .)
+    LBRACK          reduce using rule 121 (pn_Expresion1 -> .)
+    COMMA           reduce using rule 121 (pn_Expresion1 -> .)
+    RPAREN          reduce using rule 121 (pn_Expresion1 -> .)
 
     pn_Expresion1                  shift and go to state 217
 
@@ -3083,17 +3081,17 @@ state 183
 state 184
 
     (84) sp -> op_r exp . pn_Expresion9
-    (130) pn_Expresion9 -> .
+    (129) pn_Expresion9 -> .
 
-    AND_LOG         reduce using rule 130 (pn_Expresion9 -> .)
-    OR_LOG          reduce using rule 130 (pn_Expresion9 -> .)
-    ASSIGN          reduce using rule 130 (pn_Expresion9 -> .)
-    COMMA           reduce using rule 130 (pn_Expresion9 -> .)
-    RBRACK          reduce using rule 130 (pn_Expresion9 -> .)
-    RPAREN          reduce using rule 130 (pn_Expresion9 -> .)
-    SEMIC           reduce using rule 130 (pn_Expresion9 -> .)
-    HASTA           reduce using rule 130 (pn_Expresion9 -> .)
-    HACER           reduce using rule 130 (pn_Expresion9 -> .)
+    AND_LOG         reduce using rule 129 (pn_Expresion9 -> .)
+    OR_LOG          reduce using rule 129 (pn_Expresion9 -> .)
+    ASSIGN          reduce using rule 129 (pn_Expresion9 -> .)
+    COMMA           reduce using rule 129 (pn_Expresion9 -> .)
+    RBRACK          reduce using rule 129 (pn_Expresion9 -> .)
+    RPAREN          reduce using rule 129 (pn_Expresion9 -> .)
+    SEMIC           reduce using rule 129 (pn_Expresion9 -> .)
+    HASTA           reduce using rule 129 (pn_Expresion9 -> .)
+    HACER           reduce using rule 129 (pn_Expresion9 -> .)
 
     pn_Expresion9                  shift and go to state 220
 
@@ -3254,30 +3252,30 @@ state 193
 state 194
 
     (95) op_a -> PLUS_OP . pn_Expresion2
-    (123) pn_Expresion2 -> .
+    (122) pn_Expresion2 -> .
 
-    LPAREN          reduce using rule 123 (pn_Expresion2 -> .)
-    CHAR_CTE        reduce using rule 123 (pn_Expresion2 -> .)
-    STRING_CTE      reduce using rule 123 (pn_Expresion2 -> .)
-    MINUS_OP        reduce using rule 123 (pn_Expresion2 -> .)
-    ID              reduce using rule 123 (pn_Expresion2 -> .)
-    INT_CTE         reduce using rule 123 (pn_Expresion2 -> .)
-    FLOAT_CTE       reduce using rule 123 (pn_Expresion2 -> .)
+    LPAREN          reduce using rule 122 (pn_Expresion2 -> .)
+    CHAR_CTE        reduce using rule 122 (pn_Expresion2 -> .)
+    STRING_CTE      reduce using rule 122 (pn_Expresion2 -> .)
+    MINUS_OP        reduce using rule 122 (pn_Expresion2 -> .)
+    ID              reduce using rule 122 (pn_Expresion2 -> .)
+    INT_CTE         reduce using rule 122 (pn_Expresion2 -> .)
+    FLOAT_CTE       reduce using rule 122 (pn_Expresion2 -> .)
 
     pn_Expresion2                  shift and go to state 222
 
 state 195
 
     (96) op_a -> MINUS_OP . pn_Expresion2
-    (123) pn_Expresion2 -> .
+    (122) pn_Expresion2 -> .
 
-    LPAREN          reduce using rule 123 (pn_Expresion2 -> .)
-    CHAR_CTE        reduce using rule 123 (pn_Expresion2 -> .)
-    STRING_CTE      reduce using rule 123 (pn_Expresion2 -> .)
-    MINUS_OP        reduce using rule 123 (pn_Expresion2 -> .)
-    ID              reduce using rule 123 (pn_Expresion2 -> .)
-    INT_CTE         reduce using rule 123 (pn_Expresion2 -> .)
-    FLOAT_CTE       reduce using rule 123 (pn_Expresion2 -> .)
+    LPAREN          reduce using rule 122 (pn_Expresion2 -> .)
+    CHAR_CTE        reduce using rule 122 (pn_Expresion2 -> .)
+    STRING_CTE      reduce using rule 122 (pn_Expresion2 -> .)
+    MINUS_OP        reduce using rule 122 (pn_Expresion2 -> .)
+    ID              reduce using rule 122 (pn_Expresion2 -> .)
+    INT_CTE         reduce using rule 122 (pn_Expresion2 -> .)
+    FLOAT_CTE       reduce using rule 122 (pn_Expresion2 -> .)
 
     pn_Expresion2                  shift and go to state 223
 
@@ -3362,30 +3360,30 @@ state 198
 state 199
 
     (100) op_a1 -> MULT_OP . pn_Expresion3
-    (124) pn_Expresion3 -> .
+    (123) pn_Expresion3 -> .
 
-    LPAREN          reduce using rule 124 (pn_Expresion3 -> .)
-    CHAR_CTE        reduce using rule 124 (pn_Expresion3 -> .)
-    STRING_CTE      reduce using rule 124 (pn_Expresion3 -> .)
-    MINUS_OP        reduce using rule 124 (pn_Expresion3 -> .)
-    ID              reduce using rule 124 (pn_Expresion3 -> .)
-    INT_CTE         reduce using rule 124 (pn_Expresion3 -> .)
-    FLOAT_CTE       reduce using rule 124 (pn_Expresion3 -> .)
+    LPAREN          reduce using rule 123 (pn_Expresion3 -> .)
+    CHAR_CTE        reduce using rule 123 (pn_Expresion3 -> .)
+    STRING_CTE      reduce using rule 123 (pn_Expresion3 -> .)
+    MINUS_OP        reduce using rule 123 (pn_Expresion3 -> .)
+    ID              reduce using rule 123 (pn_Expresion3 -> .)
+    INT_CTE         reduce using rule 123 (pn_Expresion3 -> .)
+    FLOAT_CTE       reduce using rule 123 (pn_Expresion3 -> .)
 
     pn_Expresion3                  shift and go to state 225
 
 state 200
 
     (101) op_a1 -> DIV_OP . pn_Expresion3
-    (124) pn_Expresion3 -> .
+    (123) pn_Expresion3 -> .
 
-    LPAREN          reduce using rule 124 (pn_Expresion3 -> .)
-    CHAR_CTE        reduce using rule 124 (pn_Expresion3 -> .)
-    STRING_CTE      reduce using rule 124 (pn_Expresion3 -> .)
-    MINUS_OP        reduce using rule 124 (pn_Expresion3 -> .)
-    ID              reduce using rule 124 (pn_Expresion3 -> .)
-    INT_CTE         reduce using rule 124 (pn_Expresion3 -> .)
-    FLOAT_CTE       reduce using rule 124 (pn_Expresion3 -> .)
+    LPAREN          reduce using rule 123 (pn_Expresion3 -> .)
+    CHAR_CTE        reduce using rule 123 (pn_Expresion3 -> .)
+    STRING_CTE      reduce using rule 123 (pn_Expresion3 -> .)
+    MINUS_OP        reduce using rule 123 (pn_Expresion3 -> .)
+    ID              reduce using rule 123 (pn_Expresion3 -> .)
+    INT_CTE         reduce using rule 123 (pn_Expresion3 -> .)
+    FLOAT_CTE       reduce using rule 123 (pn_Expresion3 -> .)
 
     pn_Expresion3                  shift and go to state 226
 
@@ -3424,16 +3422,16 @@ state 202
 state 203
 
     (47) asignacion -> variable ASSIGN pn_Secuencial1 expresion SEMIC . pn_Secuencial2
-    (134) pn_Secuencial2 -> .
+    (133) pn_Secuencial2 -> .
 
-    SI              reduce using rule 134 (pn_Secuencial2 -> .)
-    REGRESA         reduce using rule 134 (pn_Secuencial2 -> .)
-    MIENTRAS        reduce using rule 134 (pn_Secuencial2 -> .)
-    DESDE           reduce using rule 134 (pn_Secuencial2 -> .)
-    ID              reduce using rule 134 (pn_Secuencial2 -> .)
-    ESCRIBE         reduce using rule 134 (pn_Secuencial2 -> .)
-    LEE             reduce using rule 134 (pn_Secuencial2 -> .)
-    RCURLY          reduce using rule 134 (pn_Secuencial2 -> .)
+    SI              reduce using rule 133 (pn_Secuencial2 -> .)
+    REGRESA         reduce using rule 133 (pn_Secuencial2 -> .)
+    MIENTRAS        reduce using rule 133 (pn_Secuencial2 -> .)
+    DESDE           reduce using rule 133 (pn_Secuencial2 -> .)
+    ID              reduce using rule 133 (pn_Secuencial2 -> .)
+    ESCRIBE         reduce using rule 133 (pn_Secuencial2 -> .)
+    LEE             reduce using rule 133 (pn_Secuencial2 -> .)
+    RCURLY          reduce using rule 133 (pn_Secuencial2 -> .)
 
     pn_Secuencial2                 shift and go to state 228
 
@@ -3461,9 +3459,9 @@ state 205
 state 206
 
     (62) loop_condicional -> MIENTRAS pn_loop_condicional1 LPAREN expresion RPAREN . pn_loop_condicional2 HACER bloque pn_loop_condicional3
-    (143) pn_loop_condicional2 -> .
+    (142) pn_loop_condicional2 -> .
 
-    HACER           reduce using rule 143 (pn_loop_condicional2 -> .)
+    HACER           reduce using rule 142 (pn_loop_condicional2 -> .)
 
     pn_loop_condicional2           shift and go to state 230
 
@@ -3665,15 +3663,15 @@ state 218
 state 219
 
     (79) meg -> op_l pn_Expresion10 mega_exp . pn_Expresion11
-    (132) pn_Expresion11 -> .
+    (131) pn_Expresion11 -> .
 
-    ASSIGN          reduce using rule 132 (pn_Expresion11 -> .)
-    COMMA           reduce using rule 132 (pn_Expresion11 -> .)
-    RBRACK          reduce using rule 132 (pn_Expresion11 -> .)
-    RPAREN          reduce using rule 132 (pn_Expresion11 -> .)
-    SEMIC           reduce using rule 132 (pn_Expresion11 -> .)
-    HASTA           reduce using rule 132 (pn_Expresion11 -> .)
-    HACER           reduce using rule 132 (pn_Expresion11 -> .)
+    ASSIGN          reduce using rule 131 (pn_Expresion11 -> .)
+    COMMA           reduce using rule 131 (pn_Expresion11 -> .)
+    RBRACK          reduce using rule 131 (pn_Expresion11 -> .)
+    RPAREN          reduce using rule 131 (pn_Expresion11 -> .)
+    SEMIC           reduce using rule 131 (pn_Expresion11 -> .)
+    HASTA           reduce using rule 131 (pn_Expresion11 -> .)
+    HACER           reduce using rule 131 (pn_Expresion11 -> .)
 
     pn_Expresion11                 shift and go to state 241
 
@@ -3791,27 +3789,27 @@ state 226
 state 227
 
     (103) factor -> LPAREN pn_Expresion6 exp RPAREN . pn_Expresion7
-    (128) pn_Expresion7 -> .
+    (127) pn_Expresion7 -> .
 
-    MULT_OP         reduce using rule 128 (pn_Expresion7 -> .)
-    DIV_OP          reduce using rule 128 (pn_Expresion7 -> .)
-    PLUS_OP         reduce using rule 128 (pn_Expresion7 -> .)
-    MINUS_OP        reduce using rule 128 (pn_Expresion7 -> .)
-    LT_LOG          reduce using rule 128 (pn_Expresion7 -> .)
-    GT_LOG          reduce using rule 128 (pn_Expresion7 -> .)
-    LTE_LOG         reduce using rule 128 (pn_Expresion7 -> .)
-    GTE_LOG         reduce using rule 128 (pn_Expresion7 -> .)
-    NE_LOG          reduce using rule 128 (pn_Expresion7 -> .)
-    EQUAL_LOG       reduce using rule 128 (pn_Expresion7 -> .)
-    AND_LOG         reduce using rule 128 (pn_Expresion7 -> .)
-    OR_LOG          reduce using rule 128 (pn_Expresion7 -> .)
-    ASSIGN          reduce using rule 128 (pn_Expresion7 -> .)
-    COMMA           reduce using rule 128 (pn_Expresion7 -> .)
-    RBRACK          reduce using rule 128 (pn_Expresion7 -> .)
-    RPAREN          reduce using rule 128 (pn_Expresion7 -> .)
-    SEMIC           reduce using rule 128 (pn_Expresion7 -> .)
-    HASTA           reduce using rule 128 (pn_Expresion7 -> .)
-    HACER           reduce using rule 128 (pn_Expresion7 -> .)
+    MULT_OP         reduce using rule 127 (pn_Expresion7 -> .)
+    DIV_OP          reduce using rule 127 (pn_Expresion7 -> .)
+    PLUS_OP         reduce using rule 127 (pn_Expresion7 -> .)
+    MINUS_OP        reduce using rule 127 (pn_Expresion7 -> .)
+    LT_LOG          reduce using rule 127 (pn_Expresion7 -> .)
+    GT_LOG          reduce using rule 127 (pn_Expresion7 -> .)
+    LTE_LOG         reduce using rule 127 (pn_Expresion7 -> .)
+    GTE_LOG         reduce using rule 127 (pn_Expresion7 -> .)
+    NE_LOG          reduce using rule 127 (pn_Expresion7 -> .)
+    EQUAL_LOG       reduce using rule 127 (pn_Expresion7 -> .)
+    AND_LOG         reduce using rule 127 (pn_Expresion7 -> .)
+    OR_LOG          reduce using rule 127 (pn_Expresion7 -> .)
+    ASSIGN          reduce using rule 127 (pn_Expresion7 -> .)
+    COMMA           reduce using rule 127 (pn_Expresion7 -> .)
+    RBRACK          reduce using rule 127 (pn_Expresion7 -> .)
+    RPAREN          reduce using rule 127 (pn_Expresion7 -> .)
+    SEMIC           reduce using rule 127 (pn_Expresion7 -> .)
+    HASTA           reduce using rule 127 (pn_Expresion7 -> .)
+    HACER           reduce using rule 127 (pn_Expresion7 -> .)
 
     pn_Expresion7                  shift and go to state 242
 
@@ -3848,9 +3846,9 @@ state 230
 state 231
 
     (63) loop_no_condicional -> DESDE pn_loop_no_condicional1 variable ASSIGN pn_Secuencial1 expresion . pn_loop_no_condicional2 HASTA pn_loop_no_condicional3 expresion pn_loop_no_condicional4 HACER bloque pn_loop_no_condicional5
-    (146) pn_loop_no_condicional2 -> .
+    (145) pn_loop_no_condicional2 -> .
 
-    HASTA           reduce using rule 146 (pn_loop_no_condicional2 -> .)
+    HASTA           reduce using rule 145 (pn_loop_no_condicional2 -> .)
 
     pn_loop_no_condicional2        shift and go to state 245
 
@@ -3889,16 +3887,16 @@ state 233
 state 234
 
     (69) escritura -> ESCRIBE pn_Secuencial3 LPAREN escritura2 RPAREN SEMIC . pn_Secuencial5
-    (137) pn_Secuencial5 -> .
+    (136) pn_Secuencial5 -> .
 
-    SI              reduce using rule 137 (pn_Secuencial5 -> .)
-    REGRESA         reduce using rule 137 (pn_Secuencial5 -> .)
-    MIENTRAS        reduce using rule 137 (pn_Secuencial5 -> .)
-    DESDE           reduce using rule 137 (pn_Secuencial5 -> .)
-    ID              reduce using rule 137 (pn_Secuencial5 -> .)
-    ESCRIBE         reduce using rule 137 (pn_Secuencial5 -> .)
-    LEE             reduce using rule 137 (pn_Secuencial5 -> .)
-    RCURLY          reduce using rule 137 (pn_Secuencial5 -> .)
+    SI              reduce using rule 136 (pn_Secuencial5 -> .)
+    REGRESA         reduce using rule 136 (pn_Secuencial5 -> .)
+    MIENTRAS        reduce using rule 136 (pn_Secuencial5 -> .)
+    DESDE           reduce using rule 136 (pn_Secuencial5 -> .)
+    ID              reduce using rule 136 (pn_Secuencial5 -> .)
+    ESCRIBE         reduce using rule 136 (pn_Secuencial5 -> .)
+    LEE             reduce using rule 136 (pn_Secuencial5 -> .)
+    RCURLY          reduce using rule 136 (pn_Secuencial5 -> .)
 
     pn_Secuencial5                 shift and go to state 246
 
@@ -3969,16 +3967,16 @@ state 238
 state 239
 
     (67) lectura -> LEE pn_Secuencial3 LPAREN varLectura RPAREN SEMIC . pn_Secuencial5
-    (137) pn_Secuencial5 -> .
+    (136) pn_Secuencial5 -> .
 
-    SI              reduce using rule 137 (pn_Secuencial5 -> .)
-    REGRESA         reduce using rule 137 (pn_Secuencial5 -> .)
-    MIENTRAS        reduce using rule 137 (pn_Secuencial5 -> .)
-    DESDE           reduce using rule 137 (pn_Secuencial5 -> .)
-    ID              reduce using rule 137 (pn_Secuencial5 -> .)
-    ESCRIBE         reduce using rule 137 (pn_Secuencial5 -> .)
-    LEE             reduce using rule 137 (pn_Secuencial5 -> .)
-    RCURLY          reduce using rule 137 (pn_Secuencial5 -> .)
+    SI              reduce using rule 136 (pn_Secuencial5 -> .)
+    REGRESA         reduce using rule 136 (pn_Secuencial5 -> .)
+    MIENTRAS        reduce using rule 136 (pn_Secuencial5 -> .)
+    DESDE           reduce using rule 136 (pn_Secuencial5 -> .)
+    ID              reduce using rule 136 (pn_Secuencial5 -> .)
+    ESCRIBE         reduce using rule 136 (pn_Secuencial5 -> .)
+    LEE             reduce using rule 136 (pn_Secuencial5 -> .)
+    RCURLY          reduce using rule 136 (pn_Secuencial5 -> .)
 
     pn_Secuencial5                 shift and go to state 248
 
@@ -4114,43 +4112,43 @@ state 249
 state 250
 
     (65) varLectura2 -> COMMA . pn_Secuencial4 varLectura
-    (136) pn_Secuencial4 -> .
+    (135) pn_Secuencial4 -> .
 
-    ID              reduce using rule 136 (pn_Secuencial4 -> .)
+    ID              reduce using rule 135 (pn_Secuencial4 -> .)
 
     pn_Secuencial4                 shift and go to state 257
 
 state 251
 
     (66) varLectura2 -> empty . pn_Secuencial4
-    (136) pn_Secuencial4 -> .
+    (135) pn_Secuencial4 -> .
 
-    RPAREN          reduce using rule 136 (pn_Secuencial4 -> .)
+    RPAREN          reduce using rule 135 (pn_Secuencial4 -> .)
 
     pn_Secuencial4                 shift and go to state 258
 
 state 252
 
     (59) condicion -> SI LPAREN expresion RPAREN pn_Condicion1 ENTONCES bloque else . pn_Condicion2
-    (140) pn_Condicion2 -> .
+    (139) pn_Condicion2 -> .
 
-    SI              reduce using rule 140 (pn_Condicion2 -> .)
-    REGRESA         reduce using rule 140 (pn_Condicion2 -> .)
-    MIENTRAS        reduce using rule 140 (pn_Condicion2 -> .)
-    DESDE           reduce using rule 140 (pn_Condicion2 -> .)
-    ID              reduce using rule 140 (pn_Condicion2 -> .)
-    ESCRIBE         reduce using rule 140 (pn_Condicion2 -> .)
-    LEE             reduce using rule 140 (pn_Condicion2 -> .)
-    RCURLY          reduce using rule 140 (pn_Condicion2 -> .)
+    SI              reduce using rule 139 (pn_Condicion2 -> .)
+    REGRESA         reduce using rule 139 (pn_Condicion2 -> .)
+    MIENTRAS        reduce using rule 139 (pn_Condicion2 -> .)
+    DESDE           reduce using rule 139 (pn_Condicion2 -> .)
+    ID              reduce using rule 139 (pn_Condicion2 -> .)
+    ESCRIBE         reduce using rule 139 (pn_Condicion2 -> .)
+    LEE             reduce using rule 139 (pn_Condicion2 -> .)
+    RCURLY          reduce using rule 139 (pn_Condicion2 -> .)
 
     pn_Condicion2                  shift and go to state 259
 
 state 253
 
     (60) else -> SINO . pn_Condicion3 bloque
-    (141) pn_Condicion3 -> .
+    (140) pn_Condicion3 -> .
 
-    LCURLY          reduce using rule 141 (pn_Condicion3 -> .)
+    LCURLY          reduce using rule 140 (pn_Condicion3 -> .)
 
     pn_Condicion3                  shift and go to state 260
 
@@ -4171,31 +4169,31 @@ state 254
 state 255
 
     (62) loop_condicional -> MIENTRAS pn_loop_condicional1 LPAREN expresion RPAREN pn_loop_condicional2 HACER bloque . pn_loop_condicional3
-    (144) pn_loop_condicional3 -> .
+    (143) pn_loop_condicional3 -> .
 
-    SI              reduce using rule 144 (pn_loop_condicional3 -> .)
-    REGRESA         reduce using rule 144 (pn_loop_condicional3 -> .)
-    MIENTRAS        reduce using rule 144 (pn_loop_condicional3 -> .)
-    DESDE           reduce using rule 144 (pn_loop_condicional3 -> .)
-    ID              reduce using rule 144 (pn_loop_condicional3 -> .)
-    ESCRIBE         reduce using rule 144 (pn_loop_condicional3 -> .)
-    LEE             reduce using rule 144 (pn_loop_condicional3 -> .)
-    RCURLY          reduce using rule 144 (pn_loop_condicional3 -> .)
+    SI              reduce using rule 143 (pn_loop_condicional3 -> .)
+    REGRESA         reduce using rule 143 (pn_loop_condicional3 -> .)
+    MIENTRAS        reduce using rule 143 (pn_loop_condicional3 -> .)
+    DESDE           reduce using rule 143 (pn_loop_condicional3 -> .)
+    ID              reduce using rule 143 (pn_loop_condicional3 -> .)
+    ESCRIBE         reduce using rule 143 (pn_loop_condicional3 -> .)
+    LEE             reduce using rule 143 (pn_loop_condicional3 -> .)
+    RCURLY          reduce using rule 143 (pn_loop_condicional3 -> .)
 
     pn_loop_condicional3           shift and go to state 261
 
 state 256
 
     (63) loop_no_condicional -> DESDE pn_loop_no_condicional1 variable ASSIGN pn_Secuencial1 expresion pn_loop_no_condicional2 HASTA . pn_loop_no_condicional3 expresion pn_loop_no_condicional4 HACER bloque pn_loop_no_condicional5
-    (147) pn_loop_no_condicional3 -> .
+    (146) pn_loop_no_condicional3 -> .
 
-    LPAREN          reduce using rule 147 (pn_loop_no_condicional3 -> .)
-    CHAR_CTE        reduce using rule 147 (pn_loop_no_condicional3 -> .)
-    STRING_CTE      reduce using rule 147 (pn_loop_no_condicional3 -> .)
-    MINUS_OP        reduce using rule 147 (pn_loop_no_condicional3 -> .)
-    ID              reduce using rule 147 (pn_loop_no_condicional3 -> .)
-    INT_CTE         reduce using rule 147 (pn_loop_no_condicional3 -> .)
-    FLOAT_CTE       reduce using rule 147 (pn_loop_no_condicional3 -> .)
+    LPAREN          reduce using rule 146 (pn_loop_no_condicional3 -> .)
+    CHAR_CTE        reduce using rule 146 (pn_loop_no_condicional3 -> .)
+    STRING_CTE      reduce using rule 146 (pn_loop_no_condicional3 -> .)
+    MINUS_OP        reduce using rule 146 (pn_loop_no_condicional3 -> .)
+    ID              reduce using rule 146 (pn_loop_no_condicional3 -> .)
+    INT_CTE         reduce using rule 146 (pn_loop_no_condicional3 -> .)
+    FLOAT_CTE       reduce using rule 146 (pn_loop_no_condicional3 -> .)
 
     pn_loop_no_condicional3        shift and go to state 262
 
@@ -4316,9 +4314,9 @@ state 264
 state 265
 
     (63) loop_no_condicional -> DESDE pn_loop_no_condicional1 variable ASSIGN pn_Secuencial1 expresion pn_loop_no_condicional2 HASTA pn_loop_no_condicional3 expresion . pn_loop_no_condicional4 HACER bloque pn_loop_no_condicional5
-    (148) pn_loop_no_condicional4 -> .
+    (147) pn_loop_no_condicional4 -> .
 
-    HACER           reduce using rule 148 (pn_loop_no_condicional4 -> .)
+    HACER           reduce using rule 147 (pn_loop_no_condicional4 -> .)
 
     pn_loop_no_condicional4        shift and go to state 266
 
@@ -4341,16 +4339,16 @@ state 267
 state 268
 
     (63) loop_no_condicional -> DESDE pn_loop_no_condicional1 variable ASSIGN pn_Secuencial1 expresion pn_loop_no_condicional2 HASTA pn_loop_no_condicional3 expresion pn_loop_no_condicional4 HACER bloque . pn_loop_no_condicional5
-    (149) pn_loop_no_condicional5 -> .
+    (148) pn_loop_no_condicional5 -> .
 
-    SI              reduce using rule 149 (pn_loop_no_condicional5 -> .)
-    REGRESA         reduce using rule 149 (pn_loop_no_condicional5 -> .)
-    MIENTRAS        reduce using rule 149 (pn_loop_no_condicional5 -> .)
-    DESDE           reduce using rule 149 (pn_loop_no_condicional5 -> .)
-    ID              reduce using rule 149 (pn_loop_no_condicional5 -> .)
-    ESCRIBE         reduce using rule 149 (pn_loop_no_condicional5 -> .)
-    LEE             reduce using rule 149 (pn_loop_no_condicional5 -> .)
-    RCURLY          reduce using rule 149 (pn_loop_no_condicional5 -> .)
+    SI              reduce using rule 148 (pn_loop_no_condicional5 -> .)
+    REGRESA         reduce using rule 148 (pn_loop_no_condicional5 -> .)
+    MIENTRAS        reduce using rule 148 (pn_loop_no_condicional5 -> .)
+    DESDE           reduce using rule 148 (pn_loop_no_condicional5 -> .)
+    ID              reduce using rule 148 (pn_loop_no_condicional5 -> .)
+    ESCRIBE         reduce using rule 148 (pn_loop_no_condicional5 -> .)
+    LEE             reduce using rule 148 (pn_loop_no_condicional5 -> .)
+    RCURLY          reduce using rule 148 (pn_loop_no_condicional5 -> .)
 
     pn_loop_no_condicional5        shift and go to state 269
 
