@@ -38,7 +38,8 @@ keywords = {
     #tipos de datos
     'entero' : 'INT_TYPE',
     'flotante' : 'FLOAT_TYPE',
-    'char' : 'CHAR_TYPE'
+    'char' : 'CHAR_TYPE',
+    'string' : 'STRING_TYPE'
 
 }
 

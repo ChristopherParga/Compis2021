@@ -5,6 +5,10 @@ flotante: f, k;
 
 principal ()
 {
-    lee(i,j,f,k);
+    i = -5;
+    j = 6;
+    f = 5.1;
+    k = .001;
+    i = j + 5;
     escribe(i,j);
 }

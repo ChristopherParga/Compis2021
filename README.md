@@ -20,3 +20,11 @@ generacion de cuadruplos para estatutos secuenciales, correcion cubo semantico e
 
 Avance 15-05-21
 implementacion de generacion de cuadruplos para estatutos condicionales
+
+Avance 17-05-21
+Prueba de generacion de cuadruplos con expresiones, lectura, escritura y constantes.
+
+Avance 18-05-21
+Prueba de generaciond de cuadruplos con ciclos y condiciones implementacion de algunos puntos neuralgicos para arreglos aun no utilizados por el parser para generacion de cuadruplos
+
+
