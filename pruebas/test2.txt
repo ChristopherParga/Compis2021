@@ -1,14 +1,13 @@
 programa Team_pp;
 variables
-entero: i, j;
-flotante: f, k;
+entero: x;
+
+void funcion test(entero x)
+{
+    x = 2;
+}
 
 principal ()
 {
-    i = -5;
-    j = 6;
-    f = 5.1;
-    k = .001;
-    i = j + 5;
-    escribe(i,j);
+ test(x);
 }

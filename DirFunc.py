@@ -137,7 +137,7 @@ class DirFunc:
         if self.directorio_funciones[nombre]['variables'].var_exist(nombreVar):
             return  self.directorio_funciones[nombre]['variables'].var_searchMemPos(nombreVar)
         else:
-            print("Error: Variable: ", nombreVar, "no existe en este contexto: ", nombre)
+            print(" Variable: ", nombreVar, "no existe en este contexto: ", nombre)
 
     '''
     Funcion que imprime el directorio de funciones actual
@@ -145,6 +145,12 @@ class DirFunc:
     def func_print(self, nombre):
         print (self.directorio_funciones[nombre]['variables'].tabla_variables)
         print("\n")
+    
+    '''
+    
+    '''
+    def listaTipos(self, funcion):
+        return [self.directorio_funciones[funcion]['variables'].tabla_variables[x]['tipo'] for x in self.directorio_funciones[funcion]['variables'].tabla_variables]
 
     '''
     Funcion que borra el directorio de funciones

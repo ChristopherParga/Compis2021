@@ -660,7 +660,7 @@ def p_dec_funciones2(p):
 
 def p_dec_funciones3(p):
     '''
-    dec_funciones3 : FUNCION ID pn_AddFunc LPAREN dec_funcion_param RPAREN dec_variables bloque
+    dec_funciones3 : FUNCION ID pn_AddFunc LPAREN dec_funcion_param RPAREN pn_Funcion2 dec_variables bloque pn_Funcion3
     '''
 
 def p_dec_funcion_param(p):
@@ -671,36 +671,13 @@ def p_dec_funcion_param(p):
 
 def p_lista_parametros(p):
     '''
-    lista_parametros : ID parDim COLON tipo lista_parametros2
+    lista_parametros : tipo ID pn_Funcion1 lista_parametros2
     '''
 
 def p_lista_parametros2(p):
     '''
     lista_parametros2 : COMMA lista_parametros
                       | empty 
-    '''
-
-def p_parDim(p):
-    '''
-    parDim : LBRACK expresion parDim2 RBRACK
-           | empty 
-    '''
-
-def p_parDim2(p):
-    '''
-    parDim2 : COMMA expresion
-            | empty
-    '''
-
-def p_llamada_param(p):
-    '''
-    llamada_param : expresion llamada_param2
-    '''
-
-def p_llamada_param2(p):
-    '''
-    llamada_param2 : COMMA expresion
-                   | empty
     '''
 
 def p_principal(p):
@@ -821,9 +798,27 @@ def p_lectura(p) :
     '''
 
 # LLAMADA FUNCION
+def p_llamada_param(p):
+    '''
+    llamada_param : expresion pn_FuncionLlamada2 llamada_param2
+                  | empty
+    '''
+
+def p_llamada_param2(p):
+    '''
+    llamada_param2 : COMMA llamada_param
+                   | empty
+    '''
+
 def p_llamada_funcion(p) :
     '''
-    llamada_funcion : ID LPAREN llamada_param RPAREN SEMIC
+    llamada_funcion : ID pn_FuncionLlamada1 LPAREN pn_Expresion6 llamada_param RPAREN pn_Expresion7 pn_FuncionLlamada3 SEMIC
+    '''
+    p[0] = 'llamada'
+
+def p_regresa(p):
+    '''
+    regresa : REGRESA pn_Secuencial3 LPAREN exp RPAREN pn_Regresa SEMIC
     '''
 
 # ESCRITURA
@@ -842,11 +837,6 @@ def p_escritura3(p) :
     '''
     escritura3 : COMMA escritura2
                | empty
-    '''
-
-def p_regresa(p):
-    '''
-    regresa : REGRESA LPAREN variable RPAREN SEMIC
     '''
 
 # EXPRESIONES
@@ -981,12 +971,15 @@ def p_pn_AddFunc(p):
     global currentFunc
     global currentType
     global returnBool
+    global currentCantVars
+    global currentCantParams
 
+    currentCantParams = 0
     currentCantVars = 0
     currentFunc = p[-1]
     print("CAMBIO DE CONTEXTO CURRENTFUNC = ", currentFunc)
     print('\n')
-    directorioFunciones.func_add(currentFunc, currentType,0,0)
+    directorioFunciones.func_add(currentFunc, currentType, currentCantParams, nextQuad())
 
     if directorioFunciones.directorio_funciones[currentFunc]['tipo'] == 'void':
         returnBool = False
