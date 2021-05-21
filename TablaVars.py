@@ -78,7 +78,7 @@ class TablaVars:
             print("Renglones: ", self.tabla_variables[nombre]['renglones'], "Columnas: ", self.tabla_variables[nombre]['columnas'])
 
         else:
-            print("Error. No es posible actializar las dimensaiones de una variable que no existe: ", nombre)
+            print("Error. No es posible actualizar las dimensaiones de una variable que no existe: ", nombre)
 
     
     '''

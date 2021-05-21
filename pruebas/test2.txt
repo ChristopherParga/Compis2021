@@ -1,9 +1,14 @@
 programa Team_pp;
 variables
-entero: i, j;
-flotante: f, k;
+entero: x, y, z;
 
 principal ()
 {
-    lee(j);
+
+    lee(x);
+    si(x < 0) entonces {
+        escribe("x es menor a 0 ", x);
+    } sino {
+        escribe("x es mayor a 0 ", x);
+    }
 }
