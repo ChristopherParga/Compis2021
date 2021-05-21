@@ -1,13 +1,14 @@
 programa Team_pp;
 variables
-entero: x;
-
-void funcion test(entero x)
-{
-    x = 2;
-}
+entero: x, y, z;
 
 principal ()
 {
- test(x);
+
+    lee(x);
+    si(x < 0) entonces {
+        escribe("x es menor a 0 ", x);
+    } sino {
+        escribe("x es mayor a 0 ", x);
+    }
 }

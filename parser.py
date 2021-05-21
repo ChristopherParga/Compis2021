@@ -303,6 +303,7 @@ def nextAvailTemp(tipo):
     else:
         avail = -1
         print("Error: Tipo de variable no existente")
+        sys.exit()
     return avail
 
 '''
@@ -654,13 +655,14 @@ def p_dec_funciones(p):
 
 def p_dec_funciones2(p):
     '''
-    dec_funciones2 : tipo dec_funciones3
-                   | VOID pn_SetCurrentType dec_funciones3
+    dec_funciones2 : FUNCION tipo_func ID pn_AddFunc LPAREN dec_funcion_param RPAREN pn_Funcion2 dec_variables bloque pn_Funcion3
     '''
 
-def p_dec_funciones3(p):
+
+def p_tipo_func(p):
     '''
-    dec_funciones3 : FUNCION ID pn_AddFunc LPAREN dec_funcion_param RPAREN pn_Funcion2 dec_variables bloque pn_Funcion3
+    tipo_func : VOID pn_SetCurrentType
+              | tipo
     '''
 
 def p_dec_funcion_param(p):
@@ -812,8 +814,9 @@ def p_llamada_param2(p):
 
 def p_llamada_funcion(p) :
     '''
-    llamada_funcion : ID pn_FuncionLlamada1 LPAREN pn_Expresion6 llamada_param RPAREN pn_Expresion7 pn_FuncionLlamada3 SEMIC
+    llamada_funcion : ID pn_FuncionLlamada1 LPAREN pn_Expresion6 llamada_param RPAREN pn_Expresion7 pn_FuncionLlamada3
     '''
+    print(p[1], "llamada funcion")
     p[0] = 'llamada'
 
 def p_regresa(p):
@@ -932,6 +935,7 @@ def p_error(p):
         print("Error en la linea "+ str(p.lineno))
         print()
         parser.errok()
+        
     else:
         print("Syntax error at EOF")
 
@@ -1093,6 +1097,7 @@ def p_pn_FuncionLlamada2(p):
     ArgumentoMem = popMemoria()
     funcion = pFunciones.pop()
     argumentos = pArgumentos.pop() + 1
+
     pArgumentos.append(argumentos)
     parametro = 'param' + str(argumentos)
     
@@ -1105,6 +1110,7 @@ def p_pn_FuncionLlamada2(p):
             QuadGenerate('PARAMETER',ArgumentoMem,'',parametro)
         else:
             print("Error: Parametros incorrectos")
+            sys.exit()
     else:
         print("Error: numero de argumentos incorrecto")
         sys.exit()
@@ -1130,7 +1136,7 @@ def p_pn_FuncionLlamada3(p):
         quadLlamada = directorioFunciones.directorio_funciones[funcion]['cantQuads']
 
         #Generar GOSUB, nombre funcion, '', memoria inicial
-        QuadGenerate('GOSUB',funcion, nextQuad()+1, quadLlamada)
+        QuadGenerate('GOSUB',funcion, nextQuad() + 1, quadLlamada)
 
     else:
         print("Error: Mismatch de Argumentos")
@@ -1138,7 +1144,7 @@ def p_pn_FuncionLlamada3(p):
     
     tipo = directorioFunciones.directorio_funciones[funcion]['tipo']
     if tipo != 'void':
-        temporal = nextAvailMemory(tipo)
+        temporal = nextAvailTemp(tipo)
         QuadGenerate('=', funcion, '', temporal)
         pushOperando(temporal)
         pushMemoria(temporal)
@@ -1208,7 +1214,7 @@ def p_pn_Expresion1(p):
         tipo = directorioFunciones.func_searchVarType(GBL, id)
     if not tipo:
         print("Error: Variable ", id, " no declarada")
-        return
+        sys.exit()
     
     varPosMem = directorioFunciones.func_memoria(currentFunc, id)
     if not varPosMem:
@@ -1216,7 +1222,7 @@ def p_pn_Expresion1(p):
     
     if varPosMem < 0:
         print("Error: Variable ", id, " no declarada")
-        return
+        sys.exit()
     
     if forBool:
         varFor = id
@@ -1252,6 +1258,7 @@ def p_pn_Expresion2(p):
     global pOper
     if p[-1] not in OP_SUMARESTA:
         print("Error: Operador no esperado")
+        sys.exit()
     else:
         pushOperador(p[-1])
 
@@ -1264,8 +1271,9 @@ def p_pn_Expresion3(p):
     '''
 
     global pOper
-    if p[p-1] not in OP_MULTDIV:
+    if p[-1] not in OP_MULTDIV:
         print("Error: Operador no esperado")
+        sys.exit()
     else:
         pushOperador(p[-1])
 
@@ -1319,7 +1327,7 @@ def p_pn_Expresion5(p):
         if resultType == "error":
             errorTypeMismatch()
         else:
-            temporal = nextAvailMemory(resultType)
+            temporal = nextAvailTemp(resultType)
             QuadGenerate(operador, leftMem, rightMem, temporal)
             pushOperando(temporal)
             pushMemoria(temporal)
@@ -1355,6 +1363,7 @@ def p_pn_Expresion8(p):
     '''
     if p[-1] not in OP_REL:
         print("Error: Operador no esperado")
+        sys.exit()
     else:
         pushOperador(p[-1])
 
@@ -1380,7 +1389,7 @@ def p_pn_Expresion9(p):
         if resultType == "error":
             errorTypeMismatch()
         else:
-            temporal = nextAvailMemory(resultType)
+            temporal = nextAvailTemp(resultType)
             QuadGenerate(operador, leftMem, rightMem, temporal)
             pushOperando(temporal)
             pushMemoria(temporal)
@@ -1396,6 +1405,7 @@ def p_pn_Expresion10(p):
     global pOper
     if p[-1] not in OP_LOGICOS:
         print("Error: Operador no esperado")
+        sys.exit()
     else:
         pushOperador(p[-1])
 
@@ -1421,7 +1431,7 @@ def p_pn_pn_Expresion11(p):
         if resultType == "error":
             errorTypeMismatch()
         else:
-            temporal = nextAvailMemory(resultType)
+            temporal = nextAvailTemp(resultType)
             QuadGenerate(operador, leftMem, rightMem, temporal)
             pushOperando(temporal)
             pushMemoria(temporal)
@@ -1440,6 +1450,7 @@ def p_pn_Secuencial1(p):
     global pOper
     if p[-1] not in OP_ASIG:
         print('Error: Operador no esperado')
+        sys.exit()
     else:
         pushOperador(p[-1])
 
@@ -1467,6 +1478,7 @@ def p_pn_Secuencial2(p):
         if directorioFunciones.var_exist(currentFunc, leftOp) or directorioFunciones.var_exist(GBL, leftOp):
             if resultType == 'error':
                 print("Error: Operacion invalida")
+                sys.exit()
             else:
                 QuadGenerate(operador, rightMem,'',leftMem)
         else:
@@ -1483,6 +1495,7 @@ def p_pn_Secuencial3(p):
     global pOper
     if p[-1] not in OP_SECUENCIALES:
         print("Error: operador secuencial no esperado ", p[-1])
+        sys.exit()
     else:
         pushOperador(p[-1])
 
@@ -1505,7 +1518,7 @@ def p_pn_Secuencial4(p):
         resultType = cuboSem.getType(operador, rightType, '')
 
         if resultType == "error":
-            print("Error: Operacion invalida")
+            errorTypeMismatch()
         else:
             QuadGenerate(operador, rightMem, '', operador)
             pushOperador(operador)
@@ -1541,6 +1554,7 @@ def p_pn_Regresa(p):
             errorReturnTipo()
     else:
         print("Error: esta funcion no debe regresar nada")
+        sys.exit()
 
 ### CONDICION ###
 
@@ -1665,6 +1679,7 @@ def p_pn_loop_no_condicional2(p):
         if directorioFunciones.var_exist(currentFunc, leftOperand) or directorioFunciones.var_exist(GBL, leftOperand):
             if resultado == 'error':
                 print("Error: operacion invalida")
+                sys.exit()
             else:
                 QuadGenerate(operador, rightOperand, '', leftOperand)
         else:

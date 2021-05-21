@@ -71,7 +71,7 @@ class DirFunc:
             else:
                 return self.directorio_funciones[nombre]['variables'].var_upadateDims(nombreVar, renglones, -1)
         else:
-            print("Error: Variable ", nombreVar, "no existe en este contexto ", nombre)
+            print("Variable ", nombreVar, "no existe en este contexto ", nombre)
             return None
     
 
@@ -108,7 +108,7 @@ class DirFunc:
         if self.directorio_funciones[nombre]['variables'].var_exist(nombreVar):
             return self.directorio_funciones[nombre]['variables'].var_searchType(nombreVar)
         else:
-            print("Error: Variable: ", nombreVar ," no existe en este contexto: ", nombre)
+            print("Variable: ", nombreVar ," no existe en este contexto: ", nombre)
             return None
     
     '''
@@ -128,6 +128,7 @@ class DirFunc:
             self.directorio_funciones[nombre]['cantParametros'] = cantParametros
         else:
             print("Error: NO existe la funcion: ", nombre)
+            sys.exit()
 
 
     '''

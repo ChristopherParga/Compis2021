@@ -27,4 +27,6 @@ Prueba de generacion de cuadruplos con expresiones, lectura, escritura y constan
 Avance 18-05-21
 Prueba de generaciond de cuadruplos con ciclos y condiciones implementacion de algunos puntos neuralgicos para arreglos aun no utilizados por el parser para generacion de cuadruplos
 
-
+Avance 19-05-21
+pruebas sencillas con condicionales, ciclos y funciones. TODO funciona funcion void, pero marca error de sintaxis con los demas tipos de datos checar gramatica, en maquina virtual jala la ejecucion de las pruebas sencillas. falta implementar arreglos xd
+* si se cambia de lugar la palabra reservada de lugar en la gramatica a funcion tipo id dec funciona por alguna razon
