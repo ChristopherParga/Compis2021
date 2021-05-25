@@ -11,11 +11,6 @@ funcion void suma(entero n, flotante m){
     escribe(n + m * 4 / 2 - 1);
 }
 
-funcion void error(char a, entero j){
-    escribe(a);
-    regresa(a);
-}
-
 principal(){
     escribe("Introduce i");
     lee(i);

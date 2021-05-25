@@ -285,7 +285,7 @@ def ejecutar():
     # Ciclo que permite guardar todos los constantes antes de correr los demas cuadruplo
     for cons in constLista:
         llenarValor(mem_GLOBAL, cons[3], cons[1], cons[2])
-
+    mem_GLOBAL.imprimirDir()
     terminado = False # nos avisas cuando salir del programa
     while not terminado:
         sigCuaIndice = -1 # nos permite llevar control, de que cuadro ejecutar

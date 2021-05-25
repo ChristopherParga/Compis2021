@@ -630,13 +630,12 @@ def p_DecVarDim(p):
 
 def p_DecVarDim2(p):
     '''
-    DecVarDim2 : LBRACK pn_VarDim2 INT_CTE pn_VarDim3 DecVarDim3 RBRACK
+    DecVarDim2 : LBRACK pn_VarDim2 INT_CTE pn_VarDim3 RBRACK pn_Columnas
     '''
 
-def p_DecVarDim3(p):
+def p_VarDimAcc(p):
     '''
-    DecVarDim3 : COMMA INT_CTE
-               | empty
+    VarDimAcc : LBRACK pn_DimAccess pn_Expresion6 exp pn_VarDim2 pn_AccederArreglo RBRACK pn_Expresion7
     '''
 
 # TIPOS DE VARIABLE
@@ -750,7 +749,7 @@ def p_variable(p):
 
 def p_varDim(p):
     '''
-    varDim : LBRACK expresion varDim2 RBRACK
+    varDim : LBRACK expresion  RBRACK
            | empty
     '''
 
@@ -781,7 +780,7 @@ def p_loop_condicional(p):
 # LOOP NO CONDICIONAL
 def p_loop_no_condicional(p):
     '''
-    loop_no_condicional : DESDE pn_loop_no_condicional1 variable ASSIGN pn_Secuencial1 expresion pn_loop_no_condicional2 HASTA pn_loop_no_condicional3 expresion pn_loop_no_condicional4 HACER bloque pn_loop_no_condicional5
+    loop_no_condicional : DESDE pn_loop_no_condicional1 variable ASSIGN pn_Secuencial1 exp pn_loop_no_condicional2 HASTA pn_loop_no_condicional3 exp pn_loop_no_condicional4 HACER bloque pn_loop_no_condicional5
     '''
 
 def p_varLectura(p):
@@ -835,7 +834,7 @@ def p_escritura(p) :
 def p_escritura2(p) :
     '''
     escritura2 : STRING_CTE pn_Secuencial4 escritura3
-               | expresion pn_Secuencial4 escritura3
+               | exp pn_Secuencial4 escritura3
     '''
 
 def p_escritura3(p) :
@@ -1687,6 +1686,7 @@ def p_pn_loop_no_condicional2(p):
                 QuadGenerate(operador, rightOperand, '', leftOperand)
         else:
             print('Error')
+            sys.exit()
 
 '''
 '''
@@ -1734,7 +1734,7 @@ def p_pn_loop_no_condicional4(p):
             pushTipo(tipo)
         
         tipo_exp = popTipos()
-        if tipo_exp != 'bool' or tipo_exp == 'error':
+        if (tipo_exp != 'bool' or tipo_exp == 'error'):
             errorTypeMismatch(leftType,rightType,operador)
         else:
             result = popOperandos()
@@ -1789,6 +1789,28 @@ def p_pn_AddVariable(p):
     currentCantVars += 1
 
 ### ARREGLOS Y MATRICES ###
+
+'''
+Guardar la cantidad de renglones que tiene la variable
+'''
+def p_pn_Renglones(p):
+    '''
+    pn_Renglones :
+    '''
+    global numRenglones
+    numRenglones = p[-2]
+
+'''
+Guardar la cantidad de columnas que tiene la variable
+'''
+def p_pn_Columnas(p):
+    '''
+    pn_Columnas :
+    '''
+    global numColumnas
+    print("Declaracion arreglo renglones:")
+    print(p[-2])
+    numColumnas = p[-2]
 
 '''
 Actualizar bandera de id como arreglo
@@ -1869,6 +1891,21 @@ def p_pn_VarDim(p):
     R = 1
     isArray = False
     currentConstArrays = []
+
+def p_pn_DimAccess(p):
+    '''
+    pn_DimAccess :
+    '''
+
+    global isArray
+    global pDim
+    isArray = True
+
+    id = popOperandos()
+    memoria = popMemoria()
+    tipo = popTipos()
+
+    pDim.append(id)
 
 '''
 Acceder al indice del arreglo
