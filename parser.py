@@ -2,11 +2,12 @@ import ply.yacc as yacc
 import os
 import codecs
 import re
+import sys
 from lexer import tokens, lex_test
 from sys import stdin
 from DirFunc import *
 from CuboSemantico import *
-from sys import stdin
+
 
 ############## FUNCIONES DE LAS PILAS ################
 
@@ -816,7 +817,6 @@ def p_llamada_funcion(p) :
     '''
     llamada_funcion : ID pn_FuncionLlamada1 LPAREN pn_Expresion6 llamada_param RPAREN pn_Expresion7 pn_FuncionLlamada3
     '''
-    print(p[1], "llamada funcion")
     p[0] = 'llamada'
 
 def p_regresa(p):
@@ -1812,7 +1812,7 @@ def p_pn_VarDim3(p):
 
     columnas = p[-1]
     if columnas > 0:
-        R = R * columnas 
+        R = R * columnas # R = (LimSup - LimInf + 1) * R
         numColumnas = columnas
         directorioFunciones.func_updateDim(currentFunc,currentVarName,0,columnas)
     else:
@@ -1858,13 +1858,161 @@ def p_pn_VarDim(p):
     global currentConstArrays
     numEspacios = R - 1
 
-    currentType = directorioFunciones.func_searchVarType(currentType, currentVarName)
+    currentType = directorioFunciones.func_searchVarType(currentFunc, currentVarName)
     
     update_pointer(currentFunc, currentType, numEspacios)
 
+    #Reseteo
     R = 1
     isArray = False
     currentConstArrays = []
+
+'''
+Acceder al indice del arreglo
+'''
+
+def p_pn_AccederArreglo(p):
+    '''
+    pn_AccederArreglo :
+    '''
+
+    global isArray
+    global currentFunc
+    global currentVarName
+
+    #Valor que va acceder al arreglo
+    id = popOperandos()
+    memoria = popMemoria()
+    tipo = popTipos()
+    #variable dimensionada
+    dim = pDim.pop()
+
+    if isArray:
+        #Tiene que ser entero
+        if tipo != 'entero':
+            sys.exit('Error: Tiene que ser valor entero para acceder al arreglo')
+
+        varDimensiones = directorioFunciones.func_getDims(currentFunc,dim)
+
+        if varDimensiones == -1:
+            varDimensiones = directorioFunciones.func_getDims(GBL, dim)
+
+            if varDimensiones == -1:
+                sys.exit("Error: Variable Dimensionada no existe")
+        
+        #Cuadruplo verifica
+        QuadGenerate('VER', memoria, 0, varDimensiones[0]-1)
+
+        #Si no es Matriz
+        if varDimensiones[1] == 0:
+            #Memoria Base
+            posicionMemoria = directorioFunciones.func_memoria(currentFunc, dim)
+            if not posicionMemoria:
+                posicionMemoria = directorioFunciones.func_memoria(GBL,dim)
+            if posicionMemoria < 0:
+                sys.exit("Error variable no declarada ", dim)
+            
+            tipoActual = directorioFunciones.func_searchVarType(currentFunc,dim)
+            if not tipoActual:
+                tipoActual = directorioFunciones.func_searchVarType(currentFunc, dim)
+                sys.exit('Error variable no declarada ', dim)
+            
+            tMemoria = nextAvailTemp('entero')
+            QuadGenerate('+', '{' + str(posicionMemoria) + '}', memoria, tMemoria)
+            valorTMem = str(tMemoria) + '!'
+
+            pushOperando(dim)
+            pushMemoria(valorTMem)
+            pushTipo(tipoActual)
+            isArray = False
+            currentVarName = ''
+            # Si es matreiz generar cuadruplo de *
+        else:
+            tMemoria = nextAvailTemp('entero')
+            QuadGenerate('*', memoria, getAddConst(varDimensiones[1]-1), tMemoria)
+            pushOperando(tMemoria)
+            pushMemoria(tMemoria)
+            pushTipo('entero')
+            pDim.append(dim)
+    else:
+        sys.exit("Error no se puede acceder variable no dimensionada")
+
+'''
+Acceder indice de matriz
+'''
+def p_pn_AccederMatriz(p):
+    '''
+    pn_AccederMatriz :
+    '''
+    global isArray
+    global currentVarName
+    global currentFunc
+    global pDim
+
+    id = popOperandos()
+    memoria = popMemoria()
+    tipo = popTipos()
+
+    dim = pDim.pop()
+
+    if isArray:
+        if tipo != 'entero':
+            sys.exit('Error. Es necesario que el tipo sea entero para acceder')
+        
+        #Revisar dimensiones
+        varDim = directorioFunciones.func_getDims(currentFunc,dim)
+        if varDim == -1:
+            varDim = directorioFunciones.func_getDims(GBL,dim)
+            if varDim == -1:
+                sys.exit("Error variable no es matriz")
+
+        QuadGenerate('VER', memoria,0,varDim[1]-1)
+
+        #MemoriaBase
+        posicionMemoria = directorioFunciones.func_memoria(currentFunc, dim)
+        if not posicionMemoria:
+            posicionMemoria = directorioFunciones.func_memoria(GBL, dim)
+        if posicionMemoria < 0:
+            sys.exit('Error la variable no ha sido declarada', dim)
+
+        #Revisar tipos
+        tipoActual = directorioFunciones.func_searchVarType(currentFunc,dim)
+        if not tipoActual:
+            tipoActual = directorioFunciones.func_searchVarType(GBL, dim)
+            if not tipoActual:
+                sys.exit('Error variable no declarada', dim)
+        
+        id2 = popOperandos()
+        memoria2 = popMemoria()
+        tipo2 = popTipos()
+
+        tMemoria2 = nextAvailTemp('entero')
+        QuadGenerate('+', memoria2, memoria, tMemoria2)
+        pushOperando(tMemoria2)
+        pushMemoria(tMemoria2)
+        pushTipo('entero')
+
+        tMemoria3 = nextAvailTemp('entero')
+        base = str(posicionMemoria) #Base
+        QuadGenerate('+','{' + str(base) + '}', tMemoria2, tMemoria3)
+
+        valorTMemoria = str(tMemoria3) + '!'
+
+
+
+        pushOperando(dim)
+        pushMemoria(valorTMemoria)
+        pushTipo(tipoActual)
+
+        isArray = False
+        currentVarName = ''
+
+    else:
+        sys.exit("Error al acceder a la matriz dimensionada")
+
+
+
+
 
 parser = yacc.yacc()
 def main():

@@ -1,0 +1,19 @@
+programa factorialRecursivo;
+variables
+entero : j;
+
+funcion entero factorial(entero n)
+{
+    si (n>1) entonces{
+        regresa (n * factorial(n-1));
+    } sino{
+        regresa(1);
+    }
+}
+
+principal (){
+    escribe("Introduce numero");
+    lee(j);
+    j = factorial(j);
+    escribe(j);
+}
