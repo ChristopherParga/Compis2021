@@ -4,8 +4,7 @@ entero : j;
 
 funcion entero prueba(entero n)
 variables
-entero : i, fact;
-{
+entero : i, fact;{
     i = 1;
     fact = 1;
     mientras(i <= n) hacer {

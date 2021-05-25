@@ -270,7 +270,7 @@ class CuboSemantico:
             #Lectura
             ('lee', 'entero', '') : 'entero',
             ('lee', 'flotante', '') : 'flotante',
-            ('lee', 'char', '') : 'error',
+            ('lee', 'char', '') : 'char',
             ('lee', 'string', '') : 'error',
             ('lee', 'array', '') : 'char', #?????
 

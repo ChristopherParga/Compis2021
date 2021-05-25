@@ -258,8 +258,9 @@ def QuadGenerateList():
     file.close()
 
 #Funcion que muestra menssaje de error cuando los tipos no coinciden
-def errorTypeMismatch():
-    sys.exit('Error: Type Mismatch')
+def errorTypeMismatch(leftType,rightType,operador):
+    print('Error: Type Mismatch', "leftType: ", leftType,", rightType: ", rightType, ", operador: ", operador)
+    sys.exit()
     
 
 #Funcion para mostrar un mensaje de error cuando se llena los maximos posibles valores temporales
@@ -815,7 +816,8 @@ def p_llamada_param2(p):
 
 def p_llamada_funcion(p) :
     '''
-    llamada_funcion : ID pn_FuncionLlamada1 LPAREN pn_Expresion6 llamada_param RPAREN pn_Expresion7 pn_FuncionLlamada3
+    llamada_funcion : ID pn_FuncionLlamada1 LPAREN pn_Expresion6 llamada_param RPAREN pn_Expresion7 pn_FuncionLlamada3 SEMIC
+                    | ID pn_FuncionLlamada1 LPAREN pn_Expresion6 llamada_param RPAREN pn_Expresion7 pn_FuncionLlamada3
     '''
     p[0] = 'llamada'
 
@@ -935,6 +937,7 @@ def p_error(p):
         print("Error en la linea "+ str(p.lineno))
         print()
         parser.errok()
+        sys.exit()
         
     else:
         print("Syntax error at EOF")
@@ -1297,7 +1300,7 @@ def p_pn_Expresion4(p):
         resultType = cuboSem.getType(leftType,rightType,operador)
 
         if resultType == "error":
-            errorTypeMismatch()
+            errorTypeMismatch(leftType,rightType,operador)
         else:
             temporal = nextAvailTemp(resultType)
             QuadGenerate(operador, leftMem, rightMem, temporal)
@@ -1325,7 +1328,7 @@ def p_pn_Expresion5(p):
         resultType = cuboSem.getType(leftType,rightType,operador)
 
         if resultType == "error":
-            errorTypeMismatch()
+            errorTypeMismatch(leftType,rightType,operador)
         else:
             temporal = nextAvailTemp(resultType)
             QuadGenerate(operador, leftMem, rightMem, temporal)
@@ -1387,7 +1390,7 @@ def p_pn_Expresion9(p):
         resultType = cuboSem.getType(leftType,rightType,operador)
 
         if resultType == "error":
-            errorTypeMismatch()
+            errorTypeMismatch(leftType,rightType,operador)
         else:
             temporal = nextAvailTemp(resultType)
             QuadGenerate(operador, leftMem, rightMem, temporal)
@@ -1429,7 +1432,7 @@ def p_pn_pn_Expresion11(p):
         resultType = cuboSem.getType(leftType,rightType,operador)
 
         if resultType == "error":
-            errorTypeMismatch()
+            errorTypeMismatch(leftType,rightType,operador)
         else:
             temporal = nextAvailTemp(resultType)
             QuadGenerate(operador, leftMem, rightMem, temporal)
@@ -1518,7 +1521,7 @@ def p_pn_Secuencial4(p):
         resultType = cuboSem.getType(operador, rightType, '')
 
         if resultType == "error":
-            errorTypeMismatch()
+            errorTypeMismatch('',rightType,operador)
         else:
             QuadGenerate(operador, rightMem, '', operador)
             pushOperador(operador)
@@ -1573,7 +1576,7 @@ def p_pn_Condicion1(p):
         QuadGenerate('GOTOF', result,'','')
         pushSaltos(nextQuad()-1)
     else:
-        errorTypeMismatch()
+        sys.exit('Error al generar GOTOF')
 
 '''
 Rellena el cuadruplo para saber cuando terminar la condicion
@@ -1627,7 +1630,7 @@ def p_pn_loop_condicional2(p):
         QuadGenerate('GOTOF', result, '', '')
         pushSaltos(nextQuad() - 1)
     else:
-        errorTypeMismatch()
+        errorTypeMismatch(tipo,'','GOTOF')
 
 '''
 Generar el cuadruplo GOTO para regresar al inicio del ciclo y evaluar la condicion y rellenar el GOTOF
@@ -1723,7 +1726,7 @@ def p_pn_loop_no_condicional4(p):
         tipo = cuboSem.getType(leftType, rightType, operador)
 
         if tipo == 'error':
-            errorTypeMismatch()
+            errorTypeMismatch(leftType,rightType,operador)
         else:
             temporal = nextAvailTemp(tipo)
             QuadGenerate(operador, leftOperand, rightOperand, temporal)
@@ -1732,7 +1735,7 @@ def p_pn_loop_no_condicional4(p):
         
         tipo_exp = popTipos()
         if tipo_exp != 'bool' or tipo_exp == 'error':
-            errorTypeMismatch()
+            errorTypeMismatch(leftType,rightType,operador)
         else:
             result = popOperandos()
             QuadGenerate('GOTOF', result, '', '')

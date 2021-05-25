@@ -1,0 +1,20 @@
+programa errorParametros;
+variables
+entero: i;
+char: j;
+flotante: k;
+
+
+funcion void error(char a, entero j){
+    escribe(a);
+}
+
+principal(){
+    escribe("Introduce i");
+    lee(i);
+    escribe("Introduce j");
+    lee(j);
+    escribe("introduce k");
+    lee(k);
+    error(j,k);
+}

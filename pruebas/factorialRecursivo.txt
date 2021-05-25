@@ -2,8 +2,7 @@ programa factorialRecursivo;
 variables
 entero : j;
 
-funcion entero factorial(entero n)
-{
+funcion entero factorial(entero n){
     si (n>1) entonces{
         regresa (n * factorial(n-1));
     } sino{
