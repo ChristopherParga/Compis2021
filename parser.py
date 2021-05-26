@@ -796,7 +796,7 @@ def p_loop_no_condicional(p):
 
 def p_varLectura(p):
     '''
-    varLectura : ID pn_Expresion1 varDim varLectura2
+    varLectura : ID pn_Expresion1 varLectura2
     '''
 
 def p_varLectura2(p):

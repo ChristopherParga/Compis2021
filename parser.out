@@ -75,7 +75,7 @@ Rule 62    else -> SINO pn_Condicion3 bloque
 Rule 63    else -> empty
 Rule 64    loop_condicional -> MIENTRAS pn_loop_condicional1 LPAREN expresion RPAREN pn_loop_condicional2 HACER bloque pn_loop_condicional3
 Rule 65    loop_no_condicional -> DESDE pn_loop_no_condicional1 variable ASSIGN pn_Secuencial1 exp pn_loop_no_condicional2 HASTA pn_loop_no_condicional3 exp pn_loop_no_condicional4 HACER bloque pn_loop_no_condicional5
-Rule 66    varLectura -> ID pn_Expresion1 varDim varLectura2
+Rule 66    varLectura -> ID pn_Expresion1 varLectura2
 Rule 67    varLectura2 -> COMMA pn_Secuencial4 varLectura
 Rule 68    varLectura2 -> empty pn_Secuencial4
 Rule 69    lectura -> LEE pn_Secuencial3 LPAREN varLectura RPAREN SEMIC pn_Secuencial5
@@ -349,7 +349,7 @@ term                 : 104
 termino              : 99 105
 tipo                 : 4 20 23
 tipo_func            : 18
-varDim               : 58 66
+varDim               : 58
 varLectura           : 67 69
 varLectura2          : 66
 variable             : 51 65 111
@@ -2347,7 +2347,7 @@ state 138
 state 139
 
     (69) lectura -> LEE pn_Secuencial3 LPAREN . varLectura RPAREN SEMIC pn_Secuencial5
-    (66) varLectura -> . ID pn_Expresion1 varDim varLectura2
+    (66) varLectura -> . ID pn_Expresion1 varLectura2
 
     ID              shift and go to state 188
 
@@ -3120,10 +3120,9 @@ state 187
 
 state 188
 
-    (66) varLectura -> ID . pn_Expresion1 varDim varLectura2
+    (66) varLectura -> ID . pn_Expresion1 varLectura2
     (131) pn_Expresion1 -> .
 
-    LBRACK          reduce using rule 131 (pn_Expresion1 -> .)
     COMMA           reduce using rule 131 (pn_Expresion1 -> .)
     RPAREN          reduce using rule 131 (pn_Expresion1 -> .)
 
@@ -3908,44 +3907,43 @@ state 232
 
 state 233
 
-    (66) varLectura -> ID pn_Expresion1 . varDim varLectura2
-    (59) varDim -> . LBRACK expresion RBRACK
-    (60) varDim -> . empty
+    (66) varLectura -> ID pn_Expresion1 . varLectura2
+    (67) varLectura2 -> . COMMA pn_Secuencial4 varLectura
+    (68) varLectura2 -> . empty pn_Secuencial4
     (113) empty -> .
 
-    LBRACK          shift and go to state 136
-    COMMA           reduce using rule 113 (empty -> .)
+    COMMA           shift and go to state 266
     RPAREN          reduce using rule 113 (empty -> .)
 
-    varDim                         shift and go to state 265
-    empty                          shift and go to state 137
+    varLectura2                    shift and go to state 265
+    empty                          shift and go to state 267
 
 state 234
 
     (39) funcion_especial_void -> LINEA pn_FuncionEspecial LPAREN pn_Expresion6 exp . COMMA direccion RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
 
-    COMMA           shift and go to state 266
+    COMMA           shift and go to state 268
 
 
 state 235
 
     (40) funcion_especial_void -> PUNTO pn_FuncionEspecial LPAREN pn_Expresion6 exp . COMMA exp RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
 
-    COMMA           shift and go to state 267
+    COMMA           shift and go to state 269
 
 
 state 236
 
     (41) funcion_especial_void -> CIRCULO pn_FuncionEspecial LPAREN pn_Expresion6 exp . RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
 
-    RPAREN          shift and go to state 268
+    RPAREN          shift and go to state 270
 
 
 state 237
 
     (42) funcion_especial_void -> ARCO pn_FuncionEspecial LPAREN pn_Expresion6 exp . COMMA exp RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
 
-    COMMA           shift and go to state 269
+    COMMA           shift and go to state 271
 
 
 state 238
@@ -3970,7 +3968,7 @@ state 238
     LIMPIAR         reduce using rule 122 (pn_FuncionEspecial2 -> .)
     RCURLY          reduce using rule 122 (pn_FuncionEspecial2 -> .)
 
-    pn_FuncionEspecial2            shift and go to state 270
+    pn_FuncionEspecial2            shift and go to state 272
 
 state 239
 
@@ -3994,13 +3992,13 @@ state 239
     LIMPIAR         reduce using rule 122 (pn_FuncionEspecial2 -> .)
     RCURLY          reduce using rule 122 (pn_FuncionEspecial2 -> .)
 
-    pn_FuncionEspecial2            shift and go to state 271
+    pn_FuncionEspecial2            shift and go to state 273
 
 state 240
 
     (45) funcion_especial_void -> GROSOR pn_FuncionEspecial LPAREN pn_Expresion6 exp . RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
 
-    RPAREN          shift and go to state 272
+    RPAREN          shift and go to state 274
 
 
 state 241
@@ -4025,7 +4023,7 @@ state 241
     LIMPIAR         reduce using rule 122 (pn_FuncionEspecial2 -> .)
     RCURLY          reduce using rule 122 (pn_FuncionEspecial2 -> .)
 
-    pn_FuncionEspecial2            shift and go to state 273
+    pn_FuncionEspecial2            shift and go to state 275
 
 state 242
 
@@ -4082,7 +4080,7 @@ state 244
     HASTA           reduce using rule 137 (pn_Expresion7 -> .)
     HACER           reduce using rule 137 (pn_Expresion7 -> .)
 
-    pn_Expresion7                  shift and go to state 274
+    pn_Expresion7                  shift and go to state 276
 
 state 245
 
@@ -4091,7 +4089,7 @@ state 245
 
     LCURLY          shift and go to state 52
 
-    bloque                         shift and go to state 275
+    bloque                         shift and go to state 277
 
 state 246
 
@@ -4104,7 +4102,7 @@ state 246
     RBRACK          reduce using rule 141 (pn_Expresion11 -> .)
     COMMA           reduce using rule 141 (pn_Expresion11 -> .)
 
-    pn_Expresion11                 shift and go to state 276
+    pn_Expresion11                 shift and go to state 278
 
 state 247
 
@@ -4219,14 +4217,14 @@ state 254
 
     (76) regresa -> REGRESA pn_Secuencial3 LPAREN exp RPAREN pn_Regresa . SEMIC
 
-    SEMIC           shift and go to state 277
+    SEMIC           shift and go to state 279
 
 
 state 255
 
     (64) loop_condicional -> MIENTRAS pn_loop_condicional1 LPAREN expresion RPAREN pn_loop_condicional2 . HACER bloque pn_loop_condicional3
 
-    HACER           shift and go to state 278
+    HACER           shift and go to state 280
 
 
 state 256
@@ -4236,7 +4234,7 @@ state 256
 
     HASTA           reduce using rule 155 (pn_loop_no_condicional2 -> .)
 
-    pn_loop_no_condicional2        shift and go to state 279
+    pn_loop_no_condicional2        shift and go to state 281
 
 state 257
 
@@ -4280,7 +4278,7 @@ state 257
     HASTA           reduce using rule 137 (pn_Expresion7 -> .)
     HACER           reduce using rule 137 (pn_Expresion7 -> .)
 
-    pn_Expresion7                  shift and go to state 280
+    pn_Expresion7                  shift and go to state 282
 
 state 258
 
@@ -4289,11 +4287,11 @@ state 258
     (73) llamada_param2 -> . empty
     (113) empty -> .
 
-    COMMA           shift and go to state 282
+    COMMA           shift and go to state 284
     RPAREN          reduce using rule 113 (empty -> .)
 
-    llamada_param2                 shift and go to state 281
-    empty                          shift and go to state 283
+    llamada_param2                 shift and go to state 283
+    empty                          shift and go to state 285
 
 state 259
 
@@ -4317,7 +4315,7 @@ state 259
     LIMPIAR         reduce using rule 146 (pn_Secuencial5 -> .)
     RCURLY          reduce using rule 146 (pn_Secuencial5 -> .)
 
-    pn_Secuencial5                 shift and go to state 284
+    pn_Secuencial5                 shift and go to state 286
 
 state 260
 
@@ -4355,7 +4353,7 @@ state 261
     INT_CTE         shift and go to state 128
     FLOAT_CTE       shift and go to state 129
 
-    escritura2                     shift and go to state 285
+    escritura2                     shift and go to state 287
     exp                            shift and go to state 186
     termino                        shift and go to state 118
     factor                         shift and go to state 119
@@ -4400,22 +4398,34 @@ state 264
     LIMPIAR         reduce using rule 146 (pn_Secuencial5 -> .)
     RCURLY          reduce using rule 146 (pn_Secuencial5 -> .)
 
-    pn_Secuencial5                 shift and go to state 286
+    pn_Secuencial5                 shift and go to state 288
 
 state 265
 
-    (66) varLectura -> ID pn_Expresion1 varDim . varLectura2
-    (67) varLectura2 -> . COMMA pn_Secuencial4 varLectura
-    (68) varLectura2 -> . empty pn_Secuencial4
-    (113) empty -> .
+    (66) varLectura -> ID pn_Expresion1 varLectura2 .
 
-    COMMA           shift and go to state 288
-    RPAREN          reduce using rule 113 (empty -> .)
+    RPAREN          reduce using rule 66 (varLectura -> ID pn_Expresion1 varLectura2 .)
 
-    varLectura2                    shift and go to state 287
-    empty                          shift and go to state 289
 
 state 266
+
+    (67) varLectura2 -> COMMA . pn_Secuencial4 varLectura
+    (145) pn_Secuencial4 -> .
+
+    ID              reduce using rule 145 (pn_Secuencial4 -> .)
+
+    pn_Secuencial4                 shift and go to state 289
+
+state 267
+
+    (68) varLectura2 -> empty . pn_Secuencial4
+    (145) pn_Secuencial4 -> .
+
+    RPAREN          reduce using rule 145 (pn_Secuencial4 -> .)
+
+    pn_Secuencial4                 shift and go to state 290
+
+state 268
 
     (39) funcion_especial_void -> LINEA pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA . direccion RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
     (47) direccion -> . FORWARD pn_SetDireccion
@@ -4423,14 +4433,14 @@ state 266
     (49) direccion -> . RIGHTTURN pn_SetDireccion
     (50) direccion -> . LEFTTURN pn_SetDireccion
 
-    FORWARD         shift and go to state 291
-    BACKWARD        shift and go to state 292
-    RIGHTTURN       shift and go to state 293
-    LEFTTURN        shift and go to state 294
+    FORWARD         shift and go to state 292
+    BACKWARD        shift and go to state 293
+    RIGHTTURN       shift and go to state 294
+    LEFTTURN        shift and go to state 295
 
-    direccion                      shift and go to state 290
+    direccion                      shift and go to state 291
 
-state 267
+state 269
 
     (40) funcion_especial_void -> PUNTO pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA . exp RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
     (99) exp -> . termino pn_Expresion4 exp1
@@ -4457,7 +4467,7 @@ state 267
     INT_CTE         shift and go to state 128
     FLOAT_CTE       shift and go to state 129
 
-    exp                            shift and go to state 295
+    exp                            shift and go to state 296
     termino                        shift and go to state 118
     factor                         shift and go to state 119
     ctes                           shift and go to state 120
@@ -4465,16 +4475,16 @@ state 267
     llamada_funcion                shift and go to state 122
     num                            shift and go to state 126
 
-state 268
+state 270
 
     (41) funcion_especial_void -> CIRCULO pn_FuncionEspecial LPAREN pn_Expresion6 exp RPAREN . pn_Expresion7 SEMIC pn_FuncionEspecial2
     (137) pn_Expresion7 -> .
 
     SEMIC           reduce using rule 137 (pn_Expresion7 -> .)
 
-    pn_Expresion7                  shift and go to state 296
+    pn_Expresion7                  shift and go to state 297
 
-state 269
+state 271
 
     (42) funcion_especial_void -> ARCO pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA . exp RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
     (99) exp -> . termino pn_Expresion4 exp1
@@ -4501,7 +4511,7 @@ state 269
     INT_CTE         shift and go to state 128
     FLOAT_CTE       shift and go to state 129
 
-    exp                            shift and go to state 297
+    exp                            shift and go to state 298
     termino                        shift and go to state 118
     factor                         shift and go to state 119
     ctes                           shift and go to state 120
@@ -4509,7 +4519,7 @@ state 269
     llamada_funcion                shift and go to state 122
     num                            shift and go to state 126
 
-state 270
+state 272
 
     (43) funcion_especial_void -> PENUP pn_FuncionEspecial LPAREN RPAREN SEMIC pn_FuncionEspecial2 .
 
@@ -4531,7 +4541,7 @@ state 270
     RCURLY          reduce using rule 43 (funcion_especial_void -> PENUP pn_FuncionEspecial LPAREN RPAREN SEMIC pn_FuncionEspecial2 .)
 
 
-state 271
+state 273
 
     (44) funcion_especial_void -> PENDOWN pn_FuncionEspecial LPAREN RPAREN SEMIC pn_FuncionEspecial2 .
 
@@ -4553,16 +4563,16 @@ state 271
     RCURLY          reduce using rule 44 (funcion_especial_void -> PENDOWN pn_FuncionEspecial LPAREN RPAREN SEMIC pn_FuncionEspecial2 .)
 
 
-state 272
+state 274
 
     (45) funcion_especial_void -> GROSOR pn_FuncionEspecial LPAREN pn_Expresion6 exp RPAREN . pn_Expresion7 SEMIC pn_FuncionEspecial2
     (137) pn_Expresion7 -> .
 
     SEMIC           reduce using rule 137 (pn_Expresion7 -> .)
 
-    pn_Expresion7                  shift and go to state 298
+    pn_Expresion7                  shift and go to state 299
 
-state 273
+state 275
 
     (46) funcion_especial_void -> LIMPIAR pn_FuncionEspecial LPAREN RPAREN SEMIC pn_FuncionEspecial2 .
 
@@ -4584,7 +4594,7 @@ state 273
     RCURLY          reduce using rule 46 (funcion_especial_void -> LIMPIAR pn_FuncionEspecial LPAREN RPAREN SEMIC pn_FuncionEspecial2 .)
 
 
-state 274
+state 276
 
     (110) factor -> LPAREN pn_Expresion6 exp RPAREN pn_Expresion7 .
 
@@ -4609,14 +4619,14 @@ state 274
     HACER           reduce using rule 110 (factor -> LPAREN pn_Expresion6 exp RPAREN pn_Expresion7 .)
 
 
-state 275
+state 277
 
     (61) condicion -> SI LPAREN expresion RPAREN pn_Condicion1 ENTONCES bloque . else pn_Condicion2
     (62) else -> . SINO pn_Condicion3 bloque
     (63) else -> . empty
     (113) empty -> .
 
-    SINO            shift and go to state 300
+    SINO            shift and go to state 301
     SI              reduce using rule 113 (empty -> .)
     REGRESA         reduce using rule 113 (empty -> .)
     MIENTRAS        reduce using rule 113 (empty -> .)
@@ -4634,10 +4644,10 @@ state 275
     LIMPIAR         reduce using rule 113 (empty -> .)
     RCURLY          reduce using rule 113 (empty -> .)
 
-    else                           shift and go to state 299
-    empty                          shift and go to state 301
+    else                           shift and go to state 300
+    empty                          shift and go to state 302
 
-state 276
+state 278
 
     (86) meg -> op_l pn_Expresion10 mega_exp pn_Expresion11 .
 
@@ -4648,7 +4658,7 @@ state 276
     COMMA           reduce using rule 86 (meg -> op_l pn_Expresion10 mega_exp pn_Expresion11 .)
 
 
-state 277
+state 279
 
     (76) regresa -> REGRESA pn_Secuencial3 LPAREN exp RPAREN pn_Regresa SEMIC .
 
@@ -4670,23 +4680,23 @@ state 277
     RCURLY          reduce using rule 76 (regresa -> REGRESA pn_Secuencial3 LPAREN exp RPAREN pn_Regresa SEMIC .)
 
 
-state 278
+state 280
 
     (64) loop_condicional -> MIENTRAS pn_loop_condicional1 LPAREN expresion RPAREN pn_loop_condicional2 HACER . bloque pn_loop_condicional3
     (27) bloque -> . LCURLY estatutos RCURLY
 
     LCURLY          shift and go to state 52
 
-    bloque                         shift and go to state 302
+    bloque                         shift and go to state 303
 
-state 279
+state 281
 
     (65) loop_no_condicional -> DESDE pn_loop_no_condicional1 variable ASSIGN pn_Secuencial1 exp pn_loop_no_condicional2 . HASTA pn_loop_no_condicional3 exp pn_loop_no_condicional4 HACER bloque pn_loop_no_condicional5
 
-    HASTA           shift and go to state 303
+    HASTA           shift and go to state 304
 
 
-state 280
+state 282
 
     (74) llamada_funcion -> ID pn_FuncionLlamada1 LPAREN pn_Expresion6 llamada_param RPAREN pn_Expresion7 . pn_FuncionLlamada3 SEMIC
     (75) llamada_funcion -> ID pn_FuncionLlamada1 LPAREN pn_Expresion6 llamada_param RPAREN pn_Expresion7 . pn_FuncionLlamada3
@@ -4728,16 +4738,16 @@ state 280
     HASTA           reduce using rule 125 (pn_FuncionLlamada3 -> .)
     HACER           reduce using rule 125 (pn_FuncionLlamada3 -> .)
 
-    pn_FuncionLlamada3             shift and go to state 304
+    pn_FuncionLlamada3             shift and go to state 305
 
-state 281
+state 283
 
     (70) llamada_param -> expresion pn_FuncionLlamada2 llamada_param2 .
 
     RPAREN          reduce using rule 70 (llamada_param -> expresion pn_FuncionLlamada2 llamada_param2 .)
 
 
-state 282
+state 284
 
     (72) llamada_param2 -> COMMA . llamada_param
     (70) llamada_param -> . expresion pn_FuncionLlamada2 llamada_param2
@@ -4771,7 +4781,7 @@ state 282
     INT_CTE         shift and go to state 128
     FLOAT_CTE       shift and go to state 129
 
-    llamada_param                  shift and go to state 305
+    llamada_param                  shift and go to state 306
     expresion                      shift and go to state 226
     empty                          shift and go to state 227
     mega_exp                       shift and go to state 115
@@ -4784,14 +4794,14 @@ state 282
     llamada_funcion                shift and go to state 122
     num                            shift and go to state 126
 
-state 283
+state 285
 
     (73) llamada_param2 -> empty .
 
     RPAREN          reduce using rule 73 (llamada_param2 -> empty .)
 
 
-state 284
+state 286
 
     (77) escritura -> ESCRIBE pn_Secuencial3 LPAREN escritura2 RPAREN SEMIC pn_Secuencial5 .
 
@@ -4813,14 +4823,14 @@ state 284
     RCURLY          reduce using rule 77 (escritura -> ESCRIBE pn_Secuencial3 LPAREN escritura2 RPAREN SEMIC pn_Secuencial5 .)
 
 
-state 285
+state 287
 
     (80) escritura3 -> COMMA escritura2 .
 
     RPAREN          reduce using rule 80 (escritura3 -> COMMA escritura2 .)
 
 
-state 286
+state 288
 
     (69) lectura -> LEE pn_Secuencial3 LPAREN varLectura RPAREN SEMIC pn_Secuencial5 .
 
@@ -4842,39 +4852,30 @@ state 286
     RCURLY          reduce using rule 69 (lectura -> LEE pn_Secuencial3 LPAREN varLectura RPAREN SEMIC pn_Secuencial5 .)
 
 
-state 287
-
-    (66) varLectura -> ID pn_Expresion1 varDim varLectura2 .
-
-    RPAREN          reduce using rule 66 (varLectura -> ID pn_Expresion1 varDim varLectura2 .)
-
-
-state 288
-
-    (67) varLectura2 -> COMMA . pn_Secuencial4 varLectura
-    (145) pn_Secuencial4 -> .
-
-    ID              reduce using rule 145 (pn_Secuencial4 -> .)
-
-    pn_Secuencial4                 shift and go to state 306
-
 state 289
 
-    (68) varLectura2 -> empty . pn_Secuencial4
-    (145) pn_Secuencial4 -> .
+    (67) varLectura2 -> COMMA pn_Secuencial4 . varLectura
+    (66) varLectura -> . ID pn_Expresion1 varLectura2
 
-    RPAREN          reduce using rule 145 (pn_Secuencial4 -> .)
+    ID              shift and go to state 188
 
-    pn_Secuencial4                 shift and go to state 307
+    varLectura                     shift and go to state 307
 
 state 290
+
+    (68) varLectura2 -> empty pn_Secuencial4 .
+
+    RPAREN          reduce using rule 68 (varLectura2 -> empty pn_Secuencial4 .)
+
+
+state 291
 
     (39) funcion_especial_void -> LINEA pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA direccion . RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
 
     RPAREN          shift and go to state 308
 
 
-state 291
+state 292
 
     (47) direccion -> FORWARD . pn_SetDireccion
     (120) pn_SetDireccion -> .
@@ -4883,7 +4884,7 @@ state 291
 
     pn_SetDireccion                shift and go to state 309
 
-state 292
+state 293
 
     (48) direccion -> BACKWARD . pn_SetDireccion
     (120) pn_SetDireccion -> .
@@ -4892,7 +4893,7 @@ state 292
 
     pn_SetDireccion                shift and go to state 310
 
-state 293
+state 294
 
     (49) direccion -> RIGHTTURN . pn_SetDireccion
     (120) pn_SetDireccion -> .
@@ -4901,7 +4902,7 @@ state 293
 
     pn_SetDireccion                shift and go to state 311
 
-state 294
+state 295
 
     (50) direccion -> LEFTTURN . pn_SetDireccion
     (120) pn_SetDireccion -> .
@@ -4910,35 +4911,35 @@ state 294
 
     pn_SetDireccion                shift and go to state 312
 
-state 295
+state 296
 
     (40) funcion_especial_void -> PUNTO pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA exp . RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
 
     RPAREN          shift and go to state 313
 
 
-state 296
+state 297
 
     (41) funcion_especial_void -> CIRCULO pn_FuncionEspecial LPAREN pn_Expresion6 exp RPAREN pn_Expresion7 . SEMIC pn_FuncionEspecial2
 
     SEMIC           shift and go to state 314
 
 
-state 297
+state 298
 
     (42) funcion_especial_void -> ARCO pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA exp . RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
 
     RPAREN          shift and go to state 315
 
 
-state 298
+state 299
 
     (45) funcion_especial_void -> GROSOR pn_FuncionEspecial LPAREN pn_Expresion6 exp RPAREN pn_Expresion7 . SEMIC pn_FuncionEspecial2
 
     SEMIC           shift and go to state 316
 
 
-state 299
+state 300
 
     (61) condicion -> SI LPAREN expresion RPAREN pn_Condicion1 ENTONCES bloque else . pn_Condicion2
     (149) pn_Condicion2 -> .
@@ -4962,7 +4963,7 @@ state 299
 
     pn_Condicion2                  shift and go to state 317
 
-state 300
+state 301
 
     (62) else -> SINO . pn_Condicion3 bloque
     (150) pn_Condicion3 -> .
@@ -4971,7 +4972,7 @@ state 300
 
     pn_Condicion3                  shift and go to state 318
 
-state 301
+state 302
 
     (63) else -> empty .
 
@@ -4993,7 +4994,7 @@ state 301
     RCURLY          reduce using rule 63 (else -> empty .)
 
 
-state 302
+state 303
 
     (64) loop_condicional -> MIENTRAS pn_loop_condicional1 LPAREN expresion RPAREN pn_loop_condicional2 HACER bloque . pn_loop_condicional3
     (153) pn_loop_condicional3 -> .
@@ -5017,7 +5018,7 @@ state 302
 
     pn_loop_condicional3           shift and go to state 319
 
-state 303
+state 304
 
     (65) loop_no_condicional -> DESDE pn_loop_no_condicional1 variable ASSIGN pn_Secuencial1 exp pn_loop_no_condicional2 HASTA . pn_loop_no_condicional3 exp pn_loop_no_condicional4 HACER bloque pn_loop_no_condicional5
     (156) pn_loop_no_condicional3 -> .
@@ -5032,7 +5033,7 @@ state 303
 
     pn_loop_no_condicional3        shift and go to state 320
 
-state 304
+state 305
 
     (74) llamada_funcion -> ID pn_FuncionLlamada1 LPAREN pn_Expresion6 llamada_param RPAREN pn_Expresion7 pn_FuncionLlamada3 . SEMIC
     (75) llamada_funcion -> ID pn_FuncionLlamada1 LPAREN pn_Expresion6 llamada_param RPAREN pn_Expresion7 pn_FuncionLlamada3 .
@@ -5077,27 +5078,18 @@ state 304
   ! SEMIC           [ reduce using rule 75 (llamada_funcion -> ID pn_FuncionLlamada1 LPAREN pn_Expresion6 llamada_param RPAREN pn_Expresion7 pn_FuncionLlamada3 .) ]
 
 
-state 305
+state 306
 
     (72) llamada_param2 -> COMMA llamada_param .
 
     RPAREN          reduce using rule 72 (llamada_param2 -> COMMA llamada_param .)
 
 
-state 306
-
-    (67) varLectura2 -> COMMA pn_Secuencial4 . varLectura
-    (66) varLectura -> . ID pn_Expresion1 varDim varLectura2
-
-    ID              shift and go to state 188
-
-    varLectura                     shift and go to state 322
-
 state 307
 
-    (68) varLectura2 -> empty pn_Secuencial4 .
+    (67) varLectura2 -> COMMA pn_Secuencial4 varLectura .
 
-    RPAREN          reduce using rule 68 (varLectura2 -> empty pn_Secuencial4 .)
+    RPAREN          reduce using rule 67 (varLectura2 -> COMMA pn_Secuencial4 varLectura .)
 
 
 state 308
@@ -5107,7 +5099,7 @@ state 308
 
     SEMIC           reduce using rule 137 (pn_Expresion7 -> .)
 
-    pn_Expresion7                  shift and go to state 323
+    pn_Expresion7                  shift and go to state 322
 
 state 309
 
@@ -5144,7 +5136,7 @@ state 313
 
     SEMIC           reduce using rule 137 (pn_Expresion7 -> .)
 
-    pn_Expresion7                  shift and go to state 324
+    pn_Expresion7                  shift and go to state 323
 
 state 314
 
@@ -5168,7 +5160,7 @@ state 314
     LIMPIAR         reduce using rule 122 (pn_FuncionEspecial2 -> .)
     RCURLY          reduce using rule 122 (pn_FuncionEspecial2 -> .)
 
-    pn_FuncionEspecial2            shift and go to state 325
+    pn_FuncionEspecial2            shift and go to state 324
 
 state 315
 
@@ -5177,7 +5169,7 @@ state 315
 
     SEMIC           reduce using rule 137 (pn_Expresion7 -> .)
 
-    pn_Expresion7                  shift and go to state 326
+    pn_Expresion7                  shift and go to state 325
 
 state 316
 
@@ -5201,7 +5193,7 @@ state 316
     LIMPIAR         reduce using rule 122 (pn_FuncionEspecial2 -> .)
     RCURLY          reduce using rule 122 (pn_FuncionEspecial2 -> .)
 
-    pn_FuncionEspecial2            shift and go to state 327
+    pn_FuncionEspecial2            shift and go to state 326
 
 state 317
 
@@ -5232,7 +5224,7 @@ state 318
 
     LCURLY          shift and go to state 52
 
-    bloque                         shift and go to state 328
+    bloque                         shift and go to state 327
 
 state 319
 
@@ -5284,7 +5276,7 @@ state 320
     FLOAT_CTE       shift and go to state 129
 
     variable                       shift and go to state 121
-    exp                            shift and go to state 329
+    exp                            shift and go to state 328
     termino                        shift and go to state 118
     factor                         shift and go to state 119
     ctes                           shift and go to state 120
@@ -5334,26 +5326,19 @@ state 321
 
 state 322
 
-    (67) varLectura2 -> COMMA pn_Secuencial4 varLectura .
+    (39) funcion_especial_void -> LINEA pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA direccion RPAREN pn_Expresion7 . SEMIC pn_FuncionEspecial2
 
-    RPAREN          reduce using rule 67 (varLectura2 -> COMMA pn_Secuencial4 varLectura .)
+    SEMIC           shift and go to state 329
 
 
 state 323
 
-    (39) funcion_especial_void -> LINEA pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA direccion RPAREN pn_Expresion7 . SEMIC pn_FuncionEspecial2
+    (40) funcion_especial_void -> PUNTO pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA exp RPAREN pn_Expresion7 . SEMIC pn_FuncionEspecial2
 
     SEMIC           shift and go to state 330
 
 
 state 324
-
-    (40) funcion_especial_void -> PUNTO pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA exp RPAREN pn_Expresion7 . SEMIC pn_FuncionEspecial2
-
-    SEMIC           shift and go to state 331
-
-
-state 325
 
     (41) funcion_especial_void -> CIRCULO pn_FuncionEspecial LPAREN pn_Expresion6 exp RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2 .
 
@@ -5375,14 +5360,14 @@ state 325
     RCURLY          reduce using rule 41 (funcion_especial_void -> CIRCULO pn_FuncionEspecial LPAREN pn_Expresion6 exp RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2 .)
 
 
-state 326
+state 325
 
     (42) funcion_especial_void -> ARCO pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA exp RPAREN pn_Expresion7 . SEMIC pn_FuncionEspecial2
 
-    SEMIC           shift and go to state 332
+    SEMIC           shift and go to state 331
 
 
-state 327
+state 326
 
     (45) funcion_especial_void -> GROSOR pn_FuncionEspecial LPAREN pn_Expresion6 exp RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2 .
 
@@ -5404,7 +5389,7 @@ state 327
     RCURLY          reduce using rule 45 (funcion_especial_void -> GROSOR pn_FuncionEspecial LPAREN pn_Expresion6 exp RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2 .)
 
 
-state 328
+state 327
 
     (62) else -> SINO pn_Condicion3 bloque .
 
@@ -5426,18 +5411,42 @@ state 328
     RCURLY          reduce using rule 62 (else -> SINO pn_Condicion3 bloque .)
 
 
-state 329
+state 328
 
     (65) loop_no_condicional -> DESDE pn_loop_no_condicional1 variable ASSIGN pn_Secuencial1 exp pn_loop_no_condicional2 HASTA pn_loop_no_condicional3 exp . pn_loop_no_condicional4 HACER bloque pn_loop_no_condicional5
     (157) pn_loop_no_condicional4 -> .
 
     HACER           reduce using rule 157 (pn_loop_no_condicional4 -> .)
 
-    pn_loop_no_condicional4        shift and go to state 333
+    pn_loop_no_condicional4        shift and go to state 332
+
+state 329
+
+    (39) funcion_especial_void -> LINEA pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA direccion RPAREN pn_Expresion7 SEMIC . pn_FuncionEspecial2
+    (122) pn_FuncionEspecial2 -> .
+
+    SI              reduce using rule 122 (pn_FuncionEspecial2 -> .)
+    REGRESA         reduce using rule 122 (pn_FuncionEspecial2 -> .)
+    MIENTRAS        reduce using rule 122 (pn_FuncionEspecial2 -> .)
+    DESDE           reduce using rule 122 (pn_FuncionEspecial2 -> .)
+    ID              reduce using rule 122 (pn_FuncionEspecial2 -> .)
+    ESCRIBE         reduce using rule 122 (pn_FuncionEspecial2 -> .)
+    LEE             reduce using rule 122 (pn_FuncionEspecial2 -> .)
+    LINEA           reduce using rule 122 (pn_FuncionEspecial2 -> .)
+    PUNTO           reduce using rule 122 (pn_FuncionEspecial2 -> .)
+    CIRCULO         reduce using rule 122 (pn_FuncionEspecial2 -> .)
+    ARCO            reduce using rule 122 (pn_FuncionEspecial2 -> .)
+    PENUP           reduce using rule 122 (pn_FuncionEspecial2 -> .)
+    PENDOWN         reduce using rule 122 (pn_FuncionEspecial2 -> .)
+    GROSOR          reduce using rule 122 (pn_FuncionEspecial2 -> .)
+    LIMPIAR         reduce using rule 122 (pn_FuncionEspecial2 -> .)
+    RCURLY          reduce using rule 122 (pn_FuncionEspecial2 -> .)
+
+    pn_FuncionEspecial2            shift and go to state 333
 
 state 330
 
-    (39) funcion_especial_void -> LINEA pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA direccion RPAREN pn_Expresion7 SEMIC . pn_FuncionEspecial2
+    (40) funcion_especial_void -> PUNTO pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA exp RPAREN pn_Expresion7 SEMIC . pn_FuncionEspecial2
     (122) pn_FuncionEspecial2 -> .
 
     SI              reduce using rule 122 (pn_FuncionEspecial2 -> .)
@@ -5461,7 +5470,7 @@ state 330
 
 state 331
 
-    (40) funcion_especial_void -> PUNTO pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA exp RPAREN pn_Expresion7 SEMIC . pn_FuncionEspecial2
+    (42) funcion_especial_void -> ARCO pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA exp RPAREN pn_Expresion7 SEMIC . pn_FuncionEspecial2
     (122) pn_FuncionEspecial2 -> .
 
     SI              reduce using rule 122 (pn_FuncionEspecial2 -> .)
@@ -5485,36 +5494,12 @@ state 331
 
 state 332
 
-    (42) funcion_especial_void -> ARCO pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA exp RPAREN pn_Expresion7 SEMIC . pn_FuncionEspecial2
-    (122) pn_FuncionEspecial2 -> .
-
-    SI              reduce using rule 122 (pn_FuncionEspecial2 -> .)
-    REGRESA         reduce using rule 122 (pn_FuncionEspecial2 -> .)
-    MIENTRAS        reduce using rule 122 (pn_FuncionEspecial2 -> .)
-    DESDE           reduce using rule 122 (pn_FuncionEspecial2 -> .)
-    ID              reduce using rule 122 (pn_FuncionEspecial2 -> .)
-    ESCRIBE         reduce using rule 122 (pn_FuncionEspecial2 -> .)
-    LEE             reduce using rule 122 (pn_FuncionEspecial2 -> .)
-    LINEA           reduce using rule 122 (pn_FuncionEspecial2 -> .)
-    PUNTO           reduce using rule 122 (pn_FuncionEspecial2 -> .)
-    CIRCULO         reduce using rule 122 (pn_FuncionEspecial2 -> .)
-    ARCO            reduce using rule 122 (pn_FuncionEspecial2 -> .)
-    PENUP           reduce using rule 122 (pn_FuncionEspecial2 -> .)
-    PENDOWN         reduce using rule 122 (pn_FuncionEspecial2 -> .)
-    GROSOR          reduce using rule 122 (pn_FuncionEspecial2 -> .)
-    LIMPIAR         reduce using rule 122 (pn_FuncionEspecial2 -> .)
-    RCURLY          reduce using rule 122 (pn_FuncionEspecial2 -> .)
-
-    pn_FuncionEspecial2            shift and go to state 336
-
-state 333
-
     (65) loop_no_condicional -> DESDE pn_loop_no_condicional1 variable ASSIGN pn_Secuencial1 exp pn_loop_no_condicional2 HASTA pn_loop_no_condicional3 exp pn_loop_no_condicional4 . HACER bloque pn_loop_no_condicional5
 
-    HACER           shift and go to state 337
+    HACER           shift and go to state 336
 
 
-state 334
+state 333
 
     (39) funcion_especial_void -> LINEA pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA direccion RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2 .
 
@@ -5536,7 +5521,7 @@ state 334
     RCURLY          reduce using rule 39 (funcion_especial_void -> LINEA pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA direccion RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2 .)
 
 
-state 335
+state 334
 
     (40) funcion_especial_void -> PUNTO pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA exp RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2 .
 
@@ -5558,7 +5543,7 @@ state 335
     RCURLY          reduce using rule 40 (funcion_especial_void -> PUNTO pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA exp RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2 .)
 
 
-state 336
+state 335
 
     (42) funcion_especial_void -> ARCO pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA exp RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2 .
 
@@ -5580,16 +5565,16 @@ state 336
     RCURLY          reduce using rule 42 (funcion_especial_void -> ARCO pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA exp RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2 .)
 
 
-state 337
+state 336
 
     (65) loop_no_condicional -> DESDE pn_loop_no_condicional1 variable ASSIGN pn_Secuencial1 exp pn_loop_no_condicional2 HASTA pn_loop_no_condicional3 exp pn_loop_no_condicional4 HACER . bloque pn_loop_no_condicional5
     (27) bloque -> . LCURLY estatutos RCURLY
 
     LCURLY          shift and go to state 52
 
-    bloque                         shift and go to state 338
+    bloque                         shift and go to state 337
 
-state 338
+state 337
 
     (65) loop_no_condicional -> DESDE pn_loop_no_condicional1 variable ASSIGN pn_Secuencial1 exp pn_loop_no_condicional2 HASTA pn_loop_no_condicional3 exp pn_loop_no_condicional4 HACER bloque . pn_loop_no_condicional5
     (158) pn_loop_no_condicional5 -> .
@@ -5611,9 +5596,9 @@ state 338
     LIMPIAR         reduce using rule 158 (pn_loop_no_condicional5 -> .)
     RCURLY          reduce using rule 158 (pn_loop_no_condicional5 -> .)
 
-    pn_loop_no_condicional5        shift and go to state 339
+    pn_loop_no_condicional5        shift and go to state 338
 
-state 339
+state 338
 
     (65) loop_no_condicional -> DESDE pn_loop_no_condicional1 variable ASSIGN pn_Secuencial1 exp pn_loop_no_condicional2 HASTA pn_loop_no_condicional3 exp pn_loop_no_condicional4 HACER bloque pn_loop_no_condicional5 .
 
@@ -5637,6 +5622,6 @@ state 339
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for SEMIC in state 304 resolved as shift
+WARNING: shift/reduce conflict for SEMIC in state 305 resolved as shift
 WARNING: reduce/reduce conflict in state 185 resolved using rule (pn_CTEString -> <empty>)
 WARNING: rejected rule (pn_Secuencial4 -> <empty>) in state 185
