@@ -1,0 +1,17 @@
+programa graficos2;
+variables
+entero: x, y;
+
+principal(){
+    x = 50;
+    y = 150;
+    mientras (x <= y) hacer {
+        si (x >= 100) entonces{
+            escribe("circulo con radio ", x);
+            escribe("limite");
+            circulo(x);
+        }
+        x = x + 1;
+        escribe(x);
+    }
+}

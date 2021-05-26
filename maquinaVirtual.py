@@ -263,12 +263,14 @@ def operadores(signo):
         res = valor1 <= valor2
     elif signo == '>=':
         res = valor1 >= valor2
+        #print(getTipo(cuadruplo[3]))
     elif signo == '!=':
         res = valor1 != valor2
     elif signo == '|':
         res = True if valor1 == valor2 and valor1 == False and valor2 == False else False
     elif signo == '&':
         res = True if valor1 == valor2 and valor1 == True else False
+        print(getTipo(cuadruplo[3]))
 
     llenarValor(pilaCorriendo, cuadruplo[3], getTipo(cuadruplo[3]), res)
 
@@ -428,6 +430,7 @@ def main():
 
         #FINPROGRAMA
         elif cuadruplo[0] == 'FINPROGRAMA':
+            print("FIN PROGRAMA")
             terminado = True
         # OPERADORES 
         elif cuadruplo[0] != 'CONS':
