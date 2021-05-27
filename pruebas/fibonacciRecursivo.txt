@@ -1,0 +1,22 @@
+programa fibonacciRecursivo;
+variables
+entero: j, w;
+
+funcion entero fibonacci(entero n){
+    si (n == 1) entonces {
+        regresa(1);
+    }
+    si (n == 0) entonces{
+        regresa(0);
+    }
+    si (n > 1) entonces {
+        regresa(fibonacci(n-1) + fibonacci(n-2));
+    }
+}
+
+
+principal(){
+    lee(j);
+    w = fibonacci(j);
+    escribe(w);
+}

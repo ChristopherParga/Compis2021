@@ -1,0 +1,24 @@
+programa graficos;
+variables
+entero: x, y;
+
+funcion void dibuja(entero x,entero y){
+    grosor(50);
+    penup();
+    linea(x + y, fd);
+    linea(x, rt);
+    pendown();
+    linea(y, bk);
+    linea(90, lt);
+    limpiar();
+    punto(x,y);
+    circulo(x);
+    arco(50,100);
+}
+
+principal(){
+    x = 100;
+    y = 50;
+    dibuja(x, y);
+    
+}

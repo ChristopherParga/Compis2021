@@ -1,4 +1,6 @@
 from memoriaVirtual import *
+from easygraphics import *
+from easygraphics.turtle import *
 
 '''
 Declaracion de constantes
@@ -261,17 +263,19 @@ def operadores(signo):
         res = valor1 <= valor2
     elif signo == '>=':
         res = valor1 >= valor2
+        #print(getTipo(cuadruplo[3]))
     elif signo == '!=':
         res = valor1 != valor2
     elif signo == '|':
         res = True if valor1 == valor2 and valor1 == False and valor2 == False else False
     elif signo == '&':
         res = True if valor1 == valor2 and valor1 == True else False
+        print(getTipo(cuadruplo[3]))
 
     llenarValor(pilaCorriendo, cuadruplo[3], getTipo(cuadruplo[3]), res)
 
 
-def ejecutar():
+def main():
         # Se declaran las variables globales a utilizar
     global constLista
     global cuaLista
@@ -281,11 +285,13 @@ def ejecutar():
     global pilaRetorno
     global sigCuaIndice
     global pilaCorriendo
+    create_world(400,400)
+    set_speed(1)
 
     # Ciclo que permite guardar todos los constantes antes de correr los demas cuadruplo
     for cons in constLista:
         llenarValor(mem_GLOBAL, cons[3], cons[1], cons[2])
-
+    mem_GLOBAL.imprimirDir()
     terminado = False # nos avisas cuando salir del programa
     while not terminado:
         sigCuaIndice = -1 # nos permite llevar control, de que cuadro ejecutar
@@ -378,8 +384,53 @@ def ejecutar():
             #Trae el valor y lo imprime
             texto = getValor(pilaCorriendo, cuadruplo[1], getTipo(cuadruplo[1]))
             print("->",str(texto))
-            #FINPROGRAMA
+        #dibuja linea
+        elif cuadruplo[0] == 'linea':
+            numero = getValor(pilaCorriendo,cuadruplo[1], getTipo(cuadruplo[1]))
+            if cuadruplo[3] == 'fd':
+                fd(int(numero))
+            elif cuadruplo[3] == 'bk':
+                bk(int(numero))
+            elif cuadruplo[3] == 'rt':
+                rt(int(numero))
+            elif cuadruplo[3] == 'lt':
+                lt(int(numero))
+        #penup
+        elif cuadruplo[0] == 'penup':
+            pen_up()
+        #pendown
+        elif cuadruplo[0] == 'pendown':
+            pen_down()
+        #limpiar
+        elif cuadruplo[0] == 'limpiar':
+            clear_screen()
+        #punto
+        elif cuadruplo[0] == 'punto':
+            y = getValor(pilaCorriendo,cuadruplo[1],getTipo(cuadruplo[1]))
+            x = getValor(pilaCorriendo, cuadruplo[2],getTipo(cuadruplo[2]))
+            setxy(int(x),int(y))
+        #circulo
+        elif cuadruplo[0] == 'circulo':
+            x = get_x()
+            y = get_y()
+            r = getValor(pilaCorriendo, cuadruplo[1], getTipo(cuadruplo[1]))
+            circle(int(x),int(y),int(r))
+        #grosor
+        elif cuadruplo[0] == 'grosor':
+            grosor = getValor(pilaCorriendo, cuadruplo[1], getTipo(cuadruplo[1]))
+            set_line_width(int(grosor))
+        elif cuadruplo[0] == 'arco':
+            x = get_x()
+            y = get_y()
+            radio_x = getValor(pilaCorriendo, cuadruplo[2],getTipo(cuadruplo[2]))
+            radio_y = getValor(pilaCorriendo,cuadruplo[1],getTipo(cuadruplo[1]))
+            start_angle = 0
+            end_angle = 180
+            draw_arc(x,y,start_angle,end_angle,int(radio_x),int(radio_y))
+
+        #FINPROGRAMA
         elif cuadruplo[0] == 'FINPROGRAMA':
+            print("FIN PROGRAMA")
             terminado = True
         # OPERADORES 
         elif cuadruplo[0] != 'CONS':
@@ -415,6 +466,7 @@ for linea in cuadruplos:
     cuadruplo = (cuadruplo[0], cuadruplo[1], cuadruplo[2], cuadruplo[3])
     cuaLista.append(cuadruplo)
 print(constLista)
-ejecutar()
+
+easy_run(main)
 
 

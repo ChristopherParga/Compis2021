@@ -1,0 +1,10 @@
+programa test1;
+variables
+entero: i,j,k;
+
+principal(){
+    escribe("Introduce i j k");
+    lee(i,j,k);
+    escribe(i,j,k);
+
+}

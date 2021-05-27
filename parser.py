@@ -2,11 +2,12 @@ import ply.yacc as yacc
 import os
 import codecs
 import re
+import sys
 from lexer import tokens, lex_test
 from sys import stdin
 from DirFunc import *
 from CuboSemantico import *
-from sys import stdin
+
 
 ############## FUNCIONES DE LAS PILAS ################
 
@@ -257,8 +258,9 @@ def QuadGenerateList():
     file.close()
 
 #Funcion que muestra menssaje de error cuando los tipos no coinciden
-def errorTypeMismatch():
-    sys.exit('Error: Type Mismatch')
+def errorTypeMismatch(leftType,rightType,operador):
+    print('Error: Type Mismatch', "leftType: ", leftType,", rightType: ", rightType, ", operador: ", operador)
+    sys.exit()
     
 
 #Funcion para mostrar un mensaje de error cuando se llena los maximos posibles valores temporales
@@ -470,6 +472,7 @@ pFunciones = [] #Pila de funciones
 pArgumentos = [] #Pila de agumentos de una funcion
 pMemorias = [] # Pila de direcciones de memoria
 pDim = [] #Pila de Arreglos
+pDireccionGraficos = [] #Pila de direcciones para los graficos
 
 #Arreglo donde se almacenaran todos los cuadruplos que se vayan generando
 cuadruplos = []
@@ -508,9 +511,7 @@ boolDataf = False #Sirve para saber cuando una variable dataframe esta siendo de
 
 #Variables para Arreglos y matrices
 isArray = False
-isMatrix = False
 numRenglones = 0
-numColumnas = 0
 R = 1 #m0
 dirBase = 0 #Direccion base
 currentConstArrays = []
@@ -628,13 +629,7 @@ def p_DecVarDim(p):
 
 def p_DecVarDim2(p):
     '''
-    DecVarDim2 : LBRACK pn_VarDim2 INT_CTE pn_VarDim3 DecVarDim3 RBRACK
-    '''
-
-def p_DecVarDim3(p):
-    '''
-    DecVarDim3 : COMMA INT_CTE
-               | empty
+    DecVarDim2 : LBRACK pn_VarDim2 INT_CTE pn_VarDim3 RBRACK
     '''
 
 # TIPOS DE VARIABLE
@@ -712,6 +707,29 @@ def p_estatuto(p):
              | llamada_funcion
              | escritura
              | lectura
+             | funcion_especial_void
+    '''
+
+'''
+'''
+def p_funcion_especial_void(p):
+    '''
+    funcion_especial_void     : LINEA pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA direccion RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
+                              | PUNTO pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA exp RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
+                              | CIRCULO pn_FuncionEspecial LPAREN pn_Expresion6 exp RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
+                              | ARCO pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA exp RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
+                              | PENUP pn_FuncionEspecial LPAREN RPAREN SEMIC pn_FuncionEspecial2
+                              | PENDOWN pn_FuncionEspecial LPAREN RPAREN SEMIC pn_FuncionEspecial2
+                              | GROSOR pn_FuncionEspecial LPAREN pn_Expresion6 exp RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
+                              | LIMPIAR pn_FuncionEspecial LPAREN RPAREN SEMIC pn_FuncionEspecial2
+    '''
+
+def p_direccion(p):
+    '''
+    direccion : FORWARD pn_SetDireccion
+              | BACKWARD pn_SetDireccion
+              | RIGHTTURN pn_SetDireccion
+              | LEFTTURN pn_SetDireccion
     '''
 
 # ASIGNACION
@@ -748,14 +766,8 @@ def p_variable(p):
 
 def p_varDim(p):
     '''
-    varDim : LBRACK expresion varDim2 RBRACK
+    varDim : LBRACK expresion RBRACK
            | empty
-    '''
-
-def p_varDim2(p):
-    '''
-    varDim2 : COMMA expresion
-            | empty
     '''
 
 # IF-ELSE
@@ -779,12 +791,12 @@ def p_loop_condicional(p):
 # LOOP NO CONDICIONAL
 def p_loop_no_condicional(p):
     '''
-    loop_no_condicional : DESDE pn_loop_no_condicional1 variable ASSIGN pn_Secuencial1 expresion pn_loop_no_condicional2 HASTA pn_loop_no_condicional3 expresion pn_loop_no_condicional4 HACER bloque pn_loop_no_condicional5
+    loop_no_condicional : DESDE pn_loop_no_condicional1 variable ASSIGN pn_Secuencial1 exp pn_loop_no_condicional2 HASTA pn_loop_no_condicional3 exp pn_loop_no_condicional4 HACER bloque pn_loop_no_condicional5
     '''
 
 def p_varLectura(p):
     '''
-    varLectura : ID pn_Expresion1 varDim varLectura2
+    varLectura : ID pn_Expresion1 varLectura2
     '''
 
 def p_varLectura2(p):
@@ -814,9 +826,9 @@ def p_llamada_param2(p):
 
 def p_llamada_funcion(p) :
     '''
-    llamada_funcion : ID pn_FuncionLlamada1 LPAREN pn_Expresion6 llamada_param RPAREN pn_Expresion7 pn_FuncionLlamada3
+    llamada_funcion : ID pn_FuncionLlamada1 LPAREN pn_Expresion6 llamada_param RPAREN pn_Expresion7 pn_FuncionLlamada3 SEMIC
+                    | ID pn_FuncionLlamada1 LPAREN pn_Expresion6 llamada_param RPAREN pn_Expresion7 pn_FuncionLlamada3
     '''
-    print(p[1], "llamada funcion")
     p[0] = 'llamada'
 
 def p_regresa(p):
@@ -833,7 +845,7 @@ def p_escritura(p) :
 def p_escritura2(p) :
     '''
     escritura2 : STRING_CTE pn_Secuencial4 escritura3
-               | expresion pn_Secuencial4 escritura3
+               | exp pn_Secuencial4 escritura3
     '''
 
 def p_escritura3(p) :
@@ -935,6 +947,7 @@ def p_error(p):
         print("Error en la linea "+ str(p.lineno))
         print()
         parser.errok()
+        sys.exit()
         
     else:
         print("Syntax error at EOF")
@@ -963,6 +976,10 @@ def p_pn_Principal1(p):
 
     currentFunc = GBL
     cuadruplos[popSaltos()] = ('GOTO','','',nextQuad())
+
+'''
+Cuadruplos de funciones graficas
+'''
 
 ### FUNCIONES ###
 '''
@@ -1058,7 +1075,89 @@ def p_pn_Funcion3(p):
 
     QuadGenerate('ENDFUNC','','','')
     returnBool = False
+def p_pn_SetDireccion(p):
+    '''
+    pn_SetDireccion :
+    '''
+    pDireccionGraficos.append(str(p[-1]))
+    print(pDireccionGraficos)
 
+
+###FUNCIONES ESPECIALES###
+'''
+guardar la hacia donde se mueve la tortuga o si gira
+'''
+def p_pn_FuncionEspecial(p):
+    '''
+    pn_FuncionEspecial :
+    '''
+    pFunciones.append(str(p[-1]))
+
+'''
+crear los cuadruplos de las funciones graficas
+'''
+def p_pn_FuncionEspecial2(p):
+    '''
+    pn_FuncionEspecial2 :
+    '''
+    funName = pFunciones.pop()
+
+    if funName == 'linea':
+        direccion = pDireccionGraficos.pop()
+
+        parametroTipo = popTipos()
+        parametroNombre = popOperandos()
+        parametroMemoria = popMemoria()
+        if parametroTipo == 'entero' or parametroTipo == 'float':
+            QuadGenerate('linea', parametroMemoria,'',direccion)
+        else:
+            sys.exit('Error funcion especial linea')
+    elif funName == 'punto':
+        parametroTipo = popTipos()
+        parametroNombre = popOperandos()
+        parametroMemoria = popMemoria()
+
+        parametroTipo2 = popTipos()
+        parametroNombre2 = popOperandos()
+        parametroMemoria2 = popMemoria()
+        if ((parametroTipo == 'entero' or parametroTipo == 'float') and (parametroTipo2 == 'entero' or parametroTipo2 == 'float')):
+            QuadGenerate('punto', parametroMemoria, parametroMemoria2,'')
+        else:
+            sys.exit('Error funcion punto')
+    elif funName == 'circulo':
+        parametroTipo = popTipos()
+        parametroNombre = popOperandos()
+        parametroMemoria = popMemoria()
+        if parametroTipo == 'entero' or parametroTipo == 'float':
+            QuadGenerate('circulo', parametroMemoria,'','')
+        else:
+            sys.exit('Error funcion especial circulo')
+    elif funName == 'penup':
+        QuadGenerate('penup','','','')
+    elif funName == 'pendown':
+        QuadGenerate('pendown','','','')
+    elif funName == 'limpiar':
+        QuadGenerate('limpiar','','','')
+    elif funName == 'grosor':
+        parametroTipo = popTipos()
+        parametroNombre = popOperandos()
+        parametroMemoria = popMemoria()
+        if parametroTipo == 'entero' or parametroTipo == 'float':
+            QuadGenerate('grosor',parametroMemoria,'','')
+        else:
+            sys.exit('Error funcion especial grosor')
+    elif funName == 'arco':
+        parametroTipo = popTipos()
+        parametroNombre = popOperandos()
+        parametroMemoria = popMemoria()
+
+        parametroTipo2 = popTipos()
+        parametroNombre2 = popOperandos()
+        parametroMemoria2 = popMemoria()
+        if ((parametroTipo == 'entero' or parametroTipo == 'float') and (parametroTipo2 == 'entero' or parametroTipo2 == 'float')):
+            QuadGenerate('arco', parametroMemoria, parametroMemoria2,'')
+        else:
+            sys.exit('Error funcion arco')
 ### LLAMADA FUNCION ####
 '''
 Verifica que la funcion exista en el directorio de funciones
@@ -1297,7 +1396,7 @@ def p_pn_Expresion4(p):
         resultType = cuboSem.getType(leftType,rightType,operador)
 
         if resultType == "error":
-            errorTypeMismatch()
+            errorTypeMismatch(leftType,rightType,operador)
         else:
             temporal = nextAvailTemp(resultType)
             QuadGenerate(operador, leftMem, rightMem, temporal)
@@ -1325,7 +1424,7 @@ def p_pn_Expresion5(p):
         resultType = cuboSem.getType(leftType,rightType,operador)
 
         if resultType == "error":
-            errorTypeMismatch()
+            errorTypeMismatch(leftType,rightType,operador)
         else:
             temporal = nextAvailTemp(resultType)
             QuadGenerate(operador, leftMem, rightMem, temporal)
@@ -1387,7 +1486,7 @@ def p_pn_Expresion9(p):
         resultType = cuboSem.getType(leftType,rightType,operador)
 
         if resultType == "error":
-            errorTypeMismatch()
+            errorTypeMismatch(leftType,rightType,operador)
         else:
             temporal = nextAvailTemp(resultType)
             QuadGenerate(operador, leftMem, rightMem, temporal)
@@ -1429,7 +1528,7 @@ def p_pn_pn_Expresion11(p):
         resultType = cuboSem.getType(leftType,rightType,operador)
 
         if resultType == "error":
-            errorTypeMismatch()
+            errorTypeMismatch(leftType,rightType,operador)
         else:
             temporal = nextAvailTemp(resultType)
             QuadGenerate(operador, leftMem, rightMem, temporal)
@@ -1518,7 +1617,7 @@ def p_pn_Secuencial4(p):
         resultType = cuboSem.getType(operador, rightType, '')
 
         if resultType == "error":
-            errorTypeMismatch()
+            errorTypeMismatch('',rightType,operador)
         else:
             QuadGenerate(operador, rightMem, '', operador)
             pushOperador(operador)
@@ -1573,7 +1672,7 @@ def p_pn_Condicion1(p):
         QuadGenerate('GOTOF', result,'','')
         pushSaltos(nextQuad()-1)
     else:
-        errorTypeMismatch()
+        sys.exit('Error al generar GOTOF')
 
 '''
 Rellena el cuadruplo para saber cuando terminar la condicion
@@ -1627,7 +1726,7 @@ def p_pn_loop_condicional2(p):
         QuadGenerate('GOTOF', result, '', '')
         pushSaltos(nextQuad() - 1)
     else:
-        errorTypeMismatch()
+        errorTypeMismatch(tipo,'','GOTOF')
 
 '''
 Generar el cuadruplo GOTO para regresar al inicio del ciclo y evaluar la condicion y rellenar el GOTOF
@@ -1684,6 +1783,7 @@ def p_pn_loop_no_condicional2(p):
                 QuadGenerate(operador, rightOperand, '', leftOperand)
         else:
             print('Error')
+            sys.exit()
 
 '''
 '''
@@ -1723,7 +1823,7 @@ def p_pn_loop_no_condicional4(p):
         tipo = cuboSem.getType(leftType, rightType, operador)
 
         if tipo == 'error':
-            errorTypeMismatch()
+            errorTypeMismatch(leftType,rightType,operador)
         else:
             temporal = nextAvailTemp(tipo)
             QuadGenerate(operador, leftOperand, rightOperand, temporal)
@@ -1731,8 +1831,8 @@ def p_pn_loop_no_condicional4(p):
             pushTipo(tipo)
         
         tipo_exp = popTipos()
-        if tipo_exp != 'bool' or tipo_exp == 'error':
-            errorTypeMismatch()
+        if (tipo_exp != 'bool' or tipo_exp == 'error'):
+            errorTypeMismatch(leftType,rightType,operador)
         else:
             result = popOperandos()
             QuadGenerate('GOTOF', result, '', '')
@@ -1788,6 +1888,17 @@ def p_pn_AddVariable(p):
 ### ARREGLOS Y MATRICES ###
 
 '''
+Guardar la cantidad de renglones que tiene la variable
+'''
+def p_pn_Renglones(p):
+    '''
+    pn_Renglones :
+    '''
+    global numRenglones
+    numRenglones = p[-2]
+
+
+'''
 Actualizar bandera de id como arreglo
 '''
 def p_pn_VarDim2(p):
@@ -1812,36 +1923,12 @@ def p_pn_VarDim3(p):
 
     columnas = p[-1]
     if columnas > 0:
-        R = R * columnas 
+        R = R * columnas # R = (LimSup - LimInf + 1) * R
         numColumnas = columnas
         directorioFunciones.func_updateDim(currentFunc,currentVarName,0,columnas)
     else:
         sys.exit("Error : Index de arreglo invalido: ", columnas)
 
-'''
-Guardar renglones (matriz)
-'''
-def p_pn_VarDim4(p):
-    '''
-    pn_VarDim4 :
-    '''
-    global R
-    global numRenglones
-    global directorioFunciones
-    global currentFunc
-    global currentVarName
-    global isMatrix
-
-    isMatrix = True
-    renglones = p[-1]
-    if renglones > 0:
-        R = R * renglones 
-        print("pn_VarDim4.  R = ", R)
-        numRenglones = renglones
-
-        directorioFunciones.func_updateDim(currentFunc, currentVarName, renglones, -1)
-    else: 
-        sys.exit("Error. Index menor o igual a cero no es valido")   
 
 '''
 Actualizar el pointer de memoria tomando los espacios necesarios para el arreglo
@@ -1858,13 +1945,93 @@ def p_pn_VarDim(p):
     global currentConstArrays
     numEspacios = R - 1
 
-    currentType = directorioFunciones.func_searchVarType(currentType, currentVarName)
+    currentType = directorioFunciones.func_searchVarType(currentFunc, currentVarName)
     
     update_pointer(currentFunc, currentType, numEspacios)
 
+    #Reseteo
     R = 1
     isArray = False
     currentConstArrays = []
+
+def p_pn_DimAccess(p):
+    '''
+    pn_DimAccess :
+    '''
+
+    global isArray
+    global pDim
+    isArray = True
+
+    id = popOperandos()
+    memoria = popMemoria()
+    tipo = popTipos()
+
+    pDim.append(id)
+
+'''
+Acceder al indice del arreglo
+'''
+
+def p_pn_AccederArreglo(p):
+    '''
+    pn_AccederArreglo :
+    '''
+
+    global isArray
+    global currentFunc
+    global currentVarName
+
+    #Valor que va acceder al arreglo
+    id = popOperandos()
+    memoria = popMemoria()
+    tipo = popTipos()
+    #variable dimensionada
+    dim = pDim.pop()
+
+    if isArray:
+        #Tiene que ser entero
+        if tipo != 'entero':
+            sys.exit('Error: Tiene que ser valor entero para acceder al arreglo')
+
+        varDimensiones = directorioFunciones.func_getDims(currentFunc,dim)
+
+        if varDimensiones == -1:
+            varDimensiones = directorioFunciones.func_getDims(GBL, dim)
+
+            if varDimensiones == -1:
+                sys.exit("Error: Variable Dimensionada no existe")
+        
+        #Cuadruplo verifica
+        QuadGenerate('VER', memoria, 0, varDimensiones[0]-1)
+
+        #Si no es Matriz
+        if varDimensiones[1] == 0:
+            #Memoria Base
+            posicionMemoria = directorioFunciones.func_memoria(currentFunc, dim)
+            if not posicionMemoria:
+                posicionMemoria = directorioFunciones.func_memoria(GBL,dim)
+            if posicionMemoria < 0:
+                sys.exit("Error variable no declarada ", dim)
+            
+            tipoActual = directorioFunciones.func_searchVarType(currentFunc,dim)
+            if not tipoActual:
+                tipoActual = directorioFunciones.func_searchVarType(currentFunc, dim)
+                sys.exit('Error variable no declarada ', dim)
+            
+            tMemoria = nextAvailTemp('entero')
+            QuadGenerate('+', '{' + str(posicionMemoria) + '}', memoria, tMemoria)
+            valorTMem = str(tMemoria) + '!'
+
+            pushOperando(dim)
+            pushMemoria(valorTMem)
+            pushTipo(tipoActual)
+            isArray = False
+            currentVarName = ''
+    else:
+        sys.exit("Error no se puede acceder variable no dimensionada")
+
+
 
 parser = yacc.yacc()
 def main():

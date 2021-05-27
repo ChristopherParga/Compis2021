@@ -1,18 +1,22 @@
-programa Team_pp;
+programa test1;
 variables
-entero : res, j;
+entero: i;
+char: j;
+flotante: k;
 
-funcion entero prueba(entero n)
-variables
-entero : i, fact;
-{
-    i = 1;
-    regresa(i);
+funcion void suma(entero n, flotante m){
+    escribe("Suma entero y flotante", n + m);
+    escribe("Suma flotante y entero", m + n);
+    escribe("Operacion compuesta");
+    escribe(n + m * 4 / 2 - 1);
 }
 
-principal (){
-    escribe("Introduce numero");
+principal(){
+    escribe("Introduce i");
+    lee(i);
+    escribe("Introduce j");
     lee(j);
-    res = prueba(j);
-    escribe(res);
+    escribe("introduce k");
+    lee(k);
+    suma(i,k);
 }

@@ -1,0 +1,22 @@
+programa factorialIterativo;
+variables
+entero : j;
+
+funcion entero prueba(entero n)
+variables
+entero : i, fact;{
+    i = 1;
+    fact = 1;
+    mientras(i <= n) hacer {
+        fact = fact * i;
+        i = i + 1;
+    }
+    regresa(fact);
+}
+
+principal (){
+    escribe("Introduce numero");
+    lee(j);
+    j = prueba(j);
+    escribe(j);
+}

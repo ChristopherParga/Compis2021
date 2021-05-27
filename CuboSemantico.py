@@ -253,10 +253,10 @@ class CuboSemantico:
             ('array' , 'string' , '|' ) : 'error',
             ('array' , 'string' , '&' ) : 'error',
 
-            ('array' , 'array' , '+' ) : 'error',
-            ('array' , 'array' , '-' ) : 'error',
-            ('array' , 'array' , '*' ) : 'error',
-            ('array' , 'array' , '/' ) : 'error',
+            ('array' , 'array' , '+' ) : 'array',
+            ('array' , 'array' , '-' ) : 'array',
+            ('array' , 'array' , '*' ) : 'array',
+            ('array' , 'array' , '/' ) : 'array',
             ('array' , 'array' , '=' ) : 'array', 
             ('array' , 'array' , '==' ) : 'error',
             ('array' , 'array' , '<' ) : 'error',
@@ -270,7 +270,7 @@ class CuboSemantico:
             #Lectura
             ('lee', 'entero', '') : 'entero',
             ('lee', 'flotante', '') : 'flotante',
-            ('lee', 'char', '') : 'error',
+            ('lee', 'char', '') : 'char',
             ('lee', 'string', '') : 'error',
             ('lee', 'array', '') : 'char', #?????
 

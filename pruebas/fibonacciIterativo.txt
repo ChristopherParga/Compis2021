@@ -1,0 +1,25 @@
+programa fibonacciIterativo;
+variables
+entero: j, w;
+
+funcion entero fibonacci(entero n)
+variables
+entero: a, b, c, cont;{
+    cont = 0;
+    a = 0;
+    b = 1;
+    mientras(cont <= n) hacer{
+        c = a + b;
+        a = b;
+        b = c;
+        cont = cont + 1;
+    }
+
+    regresa(c-a);
+}
+
+principal(){
+    lee(j);
+    w = fibonacci(j);
+    escribe(w);
+}

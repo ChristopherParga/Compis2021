@@ -39,8 +39,22 @@ keywords = {
     'entero' : 'INT_TYPE',
     'flotante' : 'FLOAT_TYPE',
     'char' : 'CHAR_TYPE',
-    'string' : 'STRING_TYPE'
-
+    'string' : 'STRING_TYPE',
+    #funciones graficas
+    'linea' : 'LINEA',
+    'punto' : 'PUNTO',
+    'circulo' : 'CIRCULO',
+    'arco' : 'ARCO',
+    'penup' : 'PENUP',
+    'pendown' : 'PENDOWN',
+    'color' : 'COLOR',
+    'grosor' : 'GROSOR',
+    'limpiar' : 'LIMPIAR',
+    #direcciones
+    'fd' : 'FORWARD',
+    'bk' : 'BACKWARD',
+    'rt' : 'RIGHTTURN',
+    'lt' : 'LEFTTURN', 
 }
 
 tokens = tokens + list(keywords.values())

@@ -1,12 +1,12 @@
-programa errorParametros;
+programa errorRegresa;
 variables
 entero: i;
 char: j;
 flotante: k;
 
-
 funcion void error(char a, entero j){
     escribe(a);
+    regresa(a);
 }
 
 principal(){
@@ -16,5 +16,5 @@ principal(){
     lee(j);
     escribe("introduce k");
     lee(k);
-    error(j,k);
+    error(i,k);
 }

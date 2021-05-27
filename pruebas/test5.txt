@@ -1,0 +1,21 @@
+programa cicloAnidado;
+variables
+entero: i, j;
+
+funcion void ciclos(entero i, entero j){
+    mientras (i <= 10) hacer {
+        escribe("i = ", i);
+        mientras (j <= 5) hacer {
+            escribe("j = ", j);
+            j = j + 1;
+        }
+        j = 0;
+        i = i + 1;
+    }
+}
+
+principal(){
+    i = 0;
+    j = 0;
+    ciclos(i,j);
+}
