@@ -29,8 +29,6 @@ class memoriaVirtual:
     Obtener el valor de una direccion en específico
     """
     def obtenerValorDeDireccion(self, direccion, tipo):
-        #print('direccion: ', direccion)
-        #print('tipo: ', tipo)
         try:
             valor = self.direcciones[str(tipo)][str(direccion)]
             return valor

@@ -1,6 +1,6 @@
 programa condiciones;
 variables
-entero: i[3], cont;
+entero: cont;
 
 principal(){
     desde cont = 0 hasta 3 hacer{

@@ -3,8 +3,7 @@ variables
 entero: i,j,k;
 
 principal(){
-    escribe("Introduce i j k");
-    lee(i,j,k);
-    escribe(i,j,k);
+    i = 0;
+    i = i + 1;
 
 }

@@ -82,7 +82,7 @@ def popSaltos():
 #Agrega el nuevo salto a la pila de Saltos.
 def pushSaltos(salto):
     global pSaltos
-    #print("PUSH SALTO: ", salto)
+    print("PUSH SALTO: ", salto)
     pSaltos.append(salto)
 
 #Obtiene el indice del siguiente cuadruplo del arreglo de cuadruplos
@@ -1766,9 +1766,13 @@ def p_pn_loop_no_condicional2(p):
     if topOperador() in OP_ASIG:
         rightOperand = popOperandos()
         rightType = popTipos()
+        rightMem = popMemoria()
         leftOperand = popOperandos()
         leftType = popTipos()
         operador = popOperadores()
+        leftMem = popMemoria()
+        print(leftMem)
+        print(rightMem)
 
         global cuboSem
         global directorioFunciones
@@ -1780,7 +1784,8 @@ def p_pn_loop_no_condicional2(p):
                 print("Error: operacion invalida")
                 sys.exit()
             else:
-                QuadGenerate(operador, rightOperand, '', leftOperand)
+
+                QuadGenerate(operador, rightMem, '', leftMem)
         else:
             print('Error')
             sys.exit()
@@ -1791,7 +1796,9 @@ def p_pn_loop_no_condicional3(p):
     '''
     pn_loop_no_condicional3 :
     '''
-    pushOperando(varFor)
+    varForMem = directorioFunciones.func_memoria(currentFunc,varFor)
+    pushOperando(varForMem)
+    
 
     tipo = directorioFunciones.func_searchVarType(currentFunc, varFor)
 
@@ -1815,6 +1822,7 @@ def p_pn_loop_no_condicional4(p):
     if topOperador() in OP_REL:
         rightOperand = popOperandos()
         rightType = popTipos()
+        rightMem = popMemoria()
         leftOperand = popOperandos()
         leftType = popTipos()
         operador = popOperadores()
@@ -1825,10 +1833,16 @@ def p_pn_loop_no_condicional4(p):
         if tipo == 'error':
             errorTypeMismatch(leftType,rightType,operador)
         else:
+            temporal = nextAvailTemp('entero')
+            QuadGenerate('+',leftOperand,getAddConst(1),temporal)
+            QuadGenerate('=',temporal,'',leftOperand)
             temporal = nextAvailTemp(tipo)
-            QuadGenerate(operador, leftOperand, rightOperand, temporal)
+            print('pnFOR4', operador,leftOperand,rightMem,temporal)
+            QuadGenerate(operador, leftOperand, rightMem, temporal)
+            getAddConst(1)
             pushOperando(temporal)
             pushTipo(tipo)
+
         
         tipo_exp = popTipos()
         if (tipo_exp != 'bool' or tipo_exp == 'error'):

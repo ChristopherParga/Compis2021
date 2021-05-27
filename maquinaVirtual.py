@@ -1,3 +1,4 @@
+from os import DirEntry
 from memoriaVirtual import *
 from easygraphics import *
 from easygraphics.turtle import *
@@ -223,7 +224,7 @@ def getTipo(direccion):
     else:
         print("Error Maquina Virtual: {} no se encuentra dentro del rango de ningun tipo de variable".format(direccion))
         sys.exit()
-        return
+        
 '''
 Funcion operadores, para sacar el signo
 '''
@@ -270,7 +271,6 @@ def operadores(signo):
         res = True if valor1 == valor2 and valor1 == False and valor2 == False else False
     elif signo == '&':
         res = True if valor1 == valor2 and valor1 == True else False
-        print(getTipo(cuadruplo[3]))
 
     llenarValor(pilaCorriendo, cuadruplo[3], getTipo(cuadruplo[3]), res)
 
@@ -300,7 +300,7 @@ def main():
 
         # ASIGNACION
         if cuadruplo[0] == '=':
-            try: # Sino encuentra el valor, checa que este en la pila de valores de retorno 
+            try: # Sino encuentra el valor, checa que este en la pila de valores de retorno
                 valor = getValor(pilaCorriendo, cuadruplo[1], getTipo(cuadruplo[1]))
             except:
                 valor = pop(CONST_RETORNO_VALOR)
@@ -441,6 +441,8 @@ def main():
             cuaIndice = sigCuaIndice
         else: 
             cuaIndice = cuaIndice + 1
+        #print('Cuadruplo ejecutado')
+        #print(cuadruplo)
 
 # Funcion para abrir archivo
 def getArchivo(name):
