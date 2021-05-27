@@ -1,6 +1,8 @@
+from easygraphics.easygraphics import delay_fps, set_color
 from memoriaVirtual import *
 from easygraphics import *
 from easygraphics.turtle import *
+import random
 
 '''
 Declaracion de constantes
@@ -285,8 +287,9 @@ def main():
     global pilaRetorno
     global sigCuaIndice
     global pilaCorriendo
-    create_world(400,400)
+    create_world(1000,1000)
     set_speed(1)
+    delay_fps(30)
 
     # Ciclo que permite guardar todos los constantes antes de correr los demas cuadruplo
     for cons in constLista:
@@ -419,6 +422,15 @@ def main():
             y = get_y()
             r = getValor(pilaCorriendo, cuadruplo[1], getTipo(cuadruplo[1]))
             circle(int(x),int(y),int(r))
+            delay(250)
+        elif cuadruplo[0] == 'color':
+            colornumber = getValor(pilaCorriendo, cuadruplo[1], getTipo(cuadruplo[1]))
+            print(colornumber)
+            random.seed(int(colornumber))
+            r = random.randrange(0,255)
+            g = random.randrange(0,255)
+            b = random.randrange(0,255)
+            set_color(color_rgb(r,g,b))
         #grosor
         elif cuadruplo[0] == 'grosor':
             grosor = getValor(pilaCorriendo, cuadruplo[1], getTipo(cuadruplo[1]))

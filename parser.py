@@ -717,6 +717,7 @@ def p_funcion_especial_void(p):
     funcion_especial_void     : LINEA pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA direccion RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
                               | PUNTO pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA exp RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
                               | CIRCULO pn_FuncionEspecial LPAREN pn_Expresion6 exp RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
+                              | COLOR pn_FuncionEspecial LPAREN pn_Expresion6 exp RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
                               | ARCO pn_FuncionEspecial LPAREN pn_Expresion6 exp COMMA exp RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
                               | PENUP pn_FuncionEspecial LPAREN RPAREN SEMIC pn_FuncionEspecial2
                               | PENDOWN pn_FuncionEspecial LPAREN RPAREN SEMIC pn_FuncionEspecial2
@@ -1129,6 +1130,14 @@ def p_pn_FuncionEspecial2(p):
         parametroMemoria = popMemoria()
         if parametroTipo == 'entero' or parametroTipo == 'float':
             QuadGenerate('circulo', parametroMemoria,'','')
+        else:
+            sys.exit('Error funcion especial circulo')
+    elif funName == 'color':
+        parametroTipo = popTipos()
+        parametroNombre = popOperandos()
+        parametroMemoria = popMemoria()
+        if parametroTipo == 'entero' or parametroTipo == 'float':
+            QuadGenerate('color', parametroMemoria,'','')
         else:
             sys.exit('Error funcion especial circulo')
     elif funName == 'penup':
