@@ -826,10 +826,9 @@ def p_llamada_param2(p):
 
 def p_llamada_funcion(p) :
     '''
-    llamada_funcion : ID pn_FuncionLlamada1 LPAREN pn_Expresion6 llamada_param RPAREN pn_Expresion7 pn_FuncionLlamada3 SEMIC
-                    | ID pn_FuncionLlamada1 LPAREN pn_Expresion6 llamada_param RPAREN pn_Expresion7 pn_FuncionLlamada3
+    llamada_funcion : ID pn_FuncionLlamada1 LPAREN pn_Expresion6 llamada_param RPAREN pn_Expresion7 pn_FuncionLlamada3
     '''
-    p[0] = 'llamada'
+    #p[0] = 'llamada'
 
 def p_regresa(p):
     '''
@@ -947,7 +946,7 @@ def p_error(p):
         print("Error en la linea "+ str(p.lineno))
         print()
         parser.errok()
-        sys.exit()
+        
         
     else:
         print("Syntax error at EOF")
@@ -1766,9 +1765,13 @@ def p_pn_loop_no_condicional2(p):
     if topOperador() in OP_ASIG:
         rightOperand = popOperandos()
         rightType = popTipos()
+        rightMem = popMemoria()
         leftOperand = popOperandos()
         leftType = popTipos()
         operador = popOperadores()
+        leftMem = popMemoria()
+        print(leftMem)
+        print(rightMem)
 
         global cuboSem
         global directorioFunciones
@@ -1780,7 +1783,8 @@ def p_pn_loop_no_condicional2(p):
                 print("Error: operacion invalida")
                 sys.exit()
             else:
-                QuadGenerate(operador, rightOperand, '', leftOperand)
+
+                QuadGenerate(operador, rightMem, '', leftMem)
         else:
             print('Error')
             sys.exit()
@@ -1791,7 +1795,9 @@ def p_pn_loop_no_condicional3(p):
     '''
     pn_loop_no_condicional3 :
     '''
-    pushOperando(varFor)
+    varForMem = directorioFunciones.func_memoria(currentFunc,varFor)
+    pushOperando(varForMem)
+    
 
     tipo = directorioFunciones.func_searchVarType(currentFunc, varFor)
 
@@ -1815,6 +1821,7 @@ def p_pn_loop_no_condicional4(p):
     if topOperador() in OP_REL:
         rightOperand = popOperandos()
         rightType = popTipos()
+        rightMem = popMemoria()
         leftOperand = popOperandos()
         leftType = popTipos()
         operador = popOperadores()
@@ -1825,10 +1832,16 @@ def p_pn_loop_no_condicional4(p):
         if tipo == 'error':
             errorTypeMismatch(leftType,rightType,operador)
         else:
+            temporal = nextAvailTemp('entero')
+            QuadGenerate('+',leftOperand,getAddConst(1),temporal)
+            QuadGenerate('=',temporal,'',leftOperand)
             temporal = nextAvailTemp(tipo)
-            QuadGenerate(operador, leftOperand, rightOperand, temporal)
+            print('pnFOR4', operador,leftOperand,rightMem,temporal)
+            QuadGenerate(operador, leftOperand, rightMem, temporal)
+            getAddConst(1)
             pushOperando(temporal)
             pushTipo(tipo)
+
         
         tipo_exp = popTipos()
         if (tipo_exp != 'bool' or tipo_exp == 'error'):
@@ -1850,7 +1863,6 @@ def p_pn_loop_no_condicional5(p):
 
     temporal = (cuadruplos[end][0], cuadruplos[end][1], cuadruplos[end][2], nextQuad())
     cuadruplos[end] = temporal #FILL (end, cont) 
-
 
 
 '''

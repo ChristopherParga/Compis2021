@@ -9,5 +9,5 @@ principal(){
     k = -0.2;
     j = 'a';
     escribe(i+k);
-    escribe(i + j)
+    escribe(i + j);
 }

@@ -373,7 +373,11 @@ def main():
                     except:
                         print("Error Maquina Virtual: {}".format(sys.exc_info()[0], cuaIndice))
             auxTipo = getTipo(cuadruplo[1])
-            if tipo == auxTipo:
+            if tipo == 'entero' and auxTipo == 'flotante':
+                llenarValor(pilaCorriendo,cuadruplo[1],auxTipo,int(texto))
+            elif tipo == 'flotante' and auxTipo == 'entero':
+                llenarValor(pilaCorriendo,cuadruplo[1],auxTipo,float(texto))
+            elif tipo == auxTipo:
                 llenarValor(pilaCorriendo, cuadruplo[1], auxTipo, texto)
             else:
                 print("Error Maquina Virtual: {} es diferente a {}".format(tipo, auxTipo))

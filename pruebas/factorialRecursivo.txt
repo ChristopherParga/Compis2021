@@ -15,4 +15,5 @@ principal (){
     lee(j);
     j = factorial(j);
     escribe(j);
+    
 }
