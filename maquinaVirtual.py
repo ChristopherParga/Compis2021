@@ -360,7 +360,7 @@ def main():
             sigCuaIndice = int(pop(CONST_FUNCION_RETORNO))
         # lee
         elif cuadruplo[0] == 'lee':
-            texto = input("<- ")
+            texto = input(">> ")
             #Verifica que tipo de valor es el que recibe, para guardarlo donde corresponde
             try:
                 int(texto)
@@ -390,7 +390,7 @@ def main():
         elif cuadruplo[0] == 'escribe':
             #Trae el valor y lo imprime
             texto = getValor(pilaCorriendo, cuadruplo[1], getTipo(cuadruplo[1]))
-            print("->",str(texto))
+            print("<< ",str(texto))
         #dibuja linea
         elif cuadruplo[0] == 'linea':
             numero = getValor(pilaCorriendo,cuadruplo[1], getTipo(cuadruplo[1]))
@@ -425,7 +425,7 @@ def main():
             delay(250)
         elif cuadruplo[0] == 'color':
             colornumber = getValor(pilaCorriendo, cuadruplo[1], getTipo(cuadruplo[1]))
-            print(colornumber)
+            #print(colornumber)
             random.seed(int(colornumber))
             r = random.randrange(0,255)
             g = random.randrange(0,255)
