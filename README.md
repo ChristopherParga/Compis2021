@@ -8,6 +8,7 @@ char
 
 La estructura del programa tiene que ser como la siguiente:
 
+```
 programa ID;
 variables
 declaracion_globales
@@ -17,24 +18,31 @@ declaracion de funciones
 principal(){
 Bloque de codigo
 }
+```
 
 Donde la declaracion de variables es de la siguiente forma:
+```
 tipo_dato : ID;
 tipo_dato : ID, ID;
 *arreglo
 tipo_dato : ID[entero];
+```
 
 La declaracion de funciones es de la siguiente forma:
+```
 funcion tipo ID(parametros)
 variables{
 Bloque de codigo
 regresa(variable);
 }
 *Si la funcion es de tipo void no debe ir el estatuto de regresa
+```
 
 Una asignacion de variables es de la siguiente forma:
+```
 ID = valor;
 ID[entero] = valor;
+```
 
 Se cuentan con los siguientes estatutos:
 - SI (CONDICIONAL)
@@ -47,42 +55,54 @@ Se cuentan con los siguientes estatutos:
 - LLAMADA_FUNCION_ESPECIAL
 
 La asignacion de un valor a una variable es de la siguiente forma:
+```
 variable = valor;
 variable[entero] = valor;
+```
 
 La sintaxis para escribir el valor de una variable o un letrero es la siguiente:
+```
 escribe("Hola Mundo");
 *Escribir multples mensajes
 escribe("hola", variableid, 1+2);
+```
 
 La sintaxis para leer el input del usuario y asignarlo a una variable es la siguiente:
 lee(variableid);
 
 La estructura de como se escribe un condicional es la siguiente:
+```
 si (expresion) entonces {
 Bloque de codigo
 } sino {
 Bloque de codigo
 }
+```
 
 *sino es opcional
 
 La estructura de un ciclo no condicional es la siguiente:
+```
 mientras (expresion) hacer {
 Bloque de codigo
 }
+```
 
 La estructura de un ciclo condicional es la siguiente:
+```
 desde variableID = valor hasta expresion hacer {
 Bloque de codigo
 }
+```
 
 La llamada a una funcion es de la siguiente forma:
+```
 Llamada no void
 variable = funcion(parametros);
 
 llamada void
 funcion(parametros);
+```
 
 La sintaxis de las llamadas especiales es igual que una funcion void, se cuentan con las siguientes funciones y se explican sus parametros:
 - COLOR(semilla); #Recibe un valor o una expresion que tenga como resultado un valor entero o flotante que es utilizado para generar una semilla de numeros aleatorios para - generar un color
