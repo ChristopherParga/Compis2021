@@ -1,0 +1,27 @@
+programa TheOnlyLonely;
+variables
+entero: i[5], cont;
+
+principal(){
+    cont = 0;
+    mientras (cont < 5) hacer {
+        lee(i[cont]);
+        cont = cont + 1;
+    }
+    cont = 0;
+    escribe("Arreglo desordenado");
+    mientras (cont < 5) hacer {
+        escribe(i[cont]);
+        cont = cont + 1;
+    }
+    escribe("Arreglo ordenado");
+    ordena(i);
+    cont = 0;
+    mientras(cont < 5) hacer {
+        escribe(i[cont]);
+        cont = cont + 1;
+    }
+    cont = i[1];
+    escribe(cont);
+    
+}

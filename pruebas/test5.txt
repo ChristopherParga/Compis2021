@@ -3,9 +3,9 @@ variables
 entero: i, j;
 
 funcion void ciclos(entero i, entero j){
-    mientras (i <= 10) hacer {
+    mientras (i <= 5) hacer {
         escribe("i = ", i);
-        mientras (j <= 5) hacer {
+        mientras (j <= 3) hacer {
             escribe("j = ", j);
             j = j + 1;
         }

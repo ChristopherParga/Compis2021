@@ -1,6 +1,9 @@
+from easygraphics.easygraphics import delay_fps, set_color
+from easygraphics.turtle.turtle import close_world
 from memoriaVirtual import *
 from easygraphics import *
 from easygraphics.turtle import *
+import random
 
 '''
 Declaracion de constantes
@@ -12,6 +15,7 @@ CONST_EJECUCION = 'ejecucion'
 CONST_RETORNO_VALOR = 'retorno'
 CONST_FUNCION_RETORNO = 'funcion'
 ESPACIO_MEMORIA = 1000
+output_grafico = False
 
 '''
 Inicializamos las instancias de memoria de defaul
@@ -206,6 +210,7 @@ def getTipo(direccion):
     global pilaCorriendo
     try: 
         if direccion[-1] == '!':
+            #print(direccion[0:-1])
             direccion = getValor(pilaCorriendo, direccion[0:-1], getTipo(direccion[0:-1]))
     except:
         pass
@@ -230,49 +235,70 @@ Funcion operadores, para sacar el signo
 def operadores(signo):
     global cuadruplo
     global pilaCorriendo
-    tipo1 = getTipo(cuadruplo[1])
-    tipo2 = getTipo(cuadruplo[2])
-    valor1 = getValor(pilaCorriendo, cuadruplo[1], tipo1)
-    valor2 = getValor(pilaCorriendo, cuadruplo[2], tipo2)
-
-    if tipo1 == 'entero':
-        valor1 = int(valor1)
-    elif tipo1 == 'flotante':
-        valor1 = float(valor1)
-
-    if tipo2 == 'entero':
-        valor2 = int (valor2)
-    elif tipo2 == 'flotante':
-        valor2 = float(valor2)
-
-    if signo == '+':
+    
+    if cuadruplo[1][0] == '{' and cuadruplo [1][-1] == '}':
+        valor1 = int(cuadruplo[1][1:-1])
+        valor2 = getValor(pilaCorriendo, cuadruplo[2], getTipo(cuadruplo[2]))
+        valor2 = int(valor2)
         res = valor1 + valor2
-    elif signo == '-':
-        res = valor1 - valor2
-    elif signo == '*':
-        res = valor1 * valor2
-    elif signo == '/':
-        res = valor1 / valor2
-    elif signo == '==':
-        res = valor1 == valor2
-    elif signo == '<':
-        res = valor1 < valor2
-    elif signo == '>':
-        res = valor1 > valor2
-    elif signo == '<=':
-        res = valor1 <= valor2
-    elif signo == '>=':
-        res = valor1 >= valor2
-        #print(getTipo(cuadruplo[3]))
-    elif signo == '!=':
-        res = valor1 != valor2
-    elif signo == '|':
-        res = True if valor1 == valor2 and valor1 == False and valor2 == False else False
-    elif signo == '&':
-        res = True if valor1 == valor2 and valor1 == True else False
-        print(getTipo(cuadruplo[3]))
+    else:
+        tipo1 = getTipo(cuadruplo[1])
+        tipo2 = getTipo(cuadruplo[2])
+        valor1 = getValor(pilaCorriendo, cuadruplo[1], tipo1)
+        valor2 = getValor(pilaCorriendo, cuadruplo[2], tipo2)
+
+        if tipo1 == 'entero':
+            valor1 = int(valor1)
+        elif tipo1 == 'flotante':
+            valor1 = float(valor1)
+
+        if tipo2 == 'entero':
+            valor2 = int (valor2)
+        elif tipo2 == 'flotante':
+            valor2 = float(valor2)
+
+        if signo == '+':
+            res = valor1 + valor2
+        elif signo == '-':
+            res = valor1 - valor2
+        elif signo == '*':
+            res = valor1 * valor2
+        elif signo == '/':
+            res = valor1 / valor2
+        elif signo == '==':
+            res = valor1 == valor2
+        elif signo == '<':
+            res = valor1 < valor2
+        elif signo == '>':
+            res = valor1 > valor2
+        elif signo == '<=':
+            res = valor1 <= valor2
+        elif signo == '>=':
+            res = valor1 >= valor2
+            #print(getTipo(cuadruplo[3]))
+        elif signo == '!=':
+            res = valor1 != valor2
+        elif signo == '|':
+            res = True if valor1 == valor2 and valor1 == False and valor2 == False else False
+        elif signo == '&':
+            res = True if valor1 == valor2 and valor1 == True else False
+            print(getTipo(cuadruplo[3]))
 
     llenarValor(pilaCorriendo, cuadruplo[3], getTipo(cuadruplo[3]), res)
+
+'''
+'''
+def verificar(arreglo, de, a):
+    l = len(arreglo) - 1
+    if de < 0 or de > 1:
+        print("Error Maquina Virtual: el inidice {} no esta dentro del rango del dataframe o arreglo 0 a {} ".format(de,l))
+        sys.exit()
+    elif a < 0 or a > 1:
+        print("Error Maquina Virtual: el inidice {} no esta dentro del rango del dataframe o arreglo 0 a {} ".format(a,l))
+        sys.exit()
+    else:
+        return True
+
 
 
 def main():
@@ -285,8 +311,12 @@ def main():
     global pilaRetorno
     global sigCuaIndice
     global pilaCorriendo
-    create_world(400,400)
-    set_speed(1)
+    global output_grafico
+
+    
+    create_world(1000,1000)
+    set_speed(2)
+    delay_fps(15)
 
     # Ciclo que permite guardar todos los constantes antes de correr los demas cuadruplo
     for cons in constLista:
@@ -297,6 +327,7 @@ def main():
         sigCuaIndice = -1 # nos permite llevar control, de que cuadro ejecutar
         pilaCorriendo = top(CONST_EJECUCION) # Saca la instancia de memoria que se este ejecutando
         cuadruplo = cuaLista[cuaIndice] # Saca el cuadruplo a ejecutar
+        #print('ejecutando, ', cuadruplo)
 
         # ASIGNACION
         if cuadruplo[0] == '=':
@@ -357,7 +388,7 @@ def main():
             sigCuaIndice = int(pop(CONST_FUNCION_RETORNO))
         # lee
         elif cuadruplo[0] == 'lee':
-            texto = input("<- ")
+            texto = input(">> ")
             #Verifica que tipo de valor es el que recibe, para guardarlo donde corresponde
             try:
                 int(texto)
@@ -387,7 +418,7 @@ def main():
         elif cuadruplo[0] == 'escribe':
             #Trae el valor y lo imprime
             texto = getValor(pilaCorriendo, cuadruplo[1], getTipo(cuadruplo[1]))
-            print("->",str(texto))
+            print("<< ",str(texto))
         #dibuja linea
         elif cuadruplo[0] == 'linea':
             numero = getValor(pilaCorriendo,cuadruplo[1], getTipo(cuadruplo[1]))
@@ -419,6 +450,15 @@ def main():
             y = get_y()
             r = getValor(pilaCorriendo, cuadruplo[1], getTipo(cuadruplo[1]))
             circle(int(x),int(y),int(r))
+            delay(250)
+        elif cuadruplo[0] == 'color':
+            colornumber = getValor(pilaCorriendo, cuadruplo[1], getTipo(cuadruplo[1]))
+            #print(colornumber)
+            random.seed(int(colornumber))
+            r = random.randrange(0,255)
+            g = random.randrange(0,255)
+            b = random.randrange(0,255)
+            set_color(color_rgb(r,g,b))
         #grosor
         elif cuadruplo[0] == 'grosor':
             grosor = getValor(pilaCorriendo, cuadruplo[1], getTipo(cuadruplo[1]))
@@ -431,6 +471,40 @@ def main():
             start_angle = 0
             end_angle = 180
             draw_arc(x,y,start_angle,end_angle,int(radio_x),int(radio_y))
+        #ARREGLO
+        elif cuadruplo[0] == 'VER':
+            valor = int(getValor(pilaCorriendo, cuadruplo[1], getTipo(cuadruplo[1])))
+            if valor != 0:
+                valor = valor - 1
+            if valor > int(cuadruplo[3]) or valor < int(cuadruplo[2]):
+                print("Error Maquina Virtual: El valor {} no pertence a los indices.".format(valor+1))
+                sys.exit()
+        elif cuadruplo[0] == 'ordena':
+            memInicio = int(cuadruplo[1])
+            tamano = int(cuadruplo[2])
+            tipo = getTipo(cuadruplo[1])
+            arreglo = []
+
+            for i in range (0,tamano):
+                valor = getValor(pilaCorriendo, memInicio + i, tipo)
+                try:
+                    int(valor)
+                    valor = int(valor)
+                except:
+                    try:
+                        float(valor)
+                        valor = float(valor)
+                    except:
+                        try:
+                            str(valor)
+                            tipo = 'char' if len(valor) == 1 else 'string'
+                        except:
+                            print("Error Maquina Virtual: {}".format(sys.exc_info()[0], cuaIndice))
+                arreglo.append(valor)
+                #print('arreglo', arreglo)
+            arreglo.sort()
+            for i in range(0, tamano):
+                llenarValor(pilaCorriendo, memInicio+i,tipo, arreglo[i])
 
         #FINPROGRAMA
         elif cuadruplo[0] == 'FINPROGRAMA':
@@ -467,6 +541,8 @@ for linea in cuadruplos:
     if (cuadruplo[0] == 'CONS'): # Lista de constntes, para guardarlos desde un principio en memoria
         cuadroCONST = (cuadruplo[0], cuadruplo[1], cuadruplo[2], cuadruplo[3])
         constLista.append(cuadroCONST)
+    if(cuadruplo[0] in ['linea','punto','circulo','arco']):
+        output_grafico = True
     cuadruplo = (cuadruplo[0], cuadruplo[1], cuadruplo[2], cuadruplo[3])
     cuaLista.append(cuadruplo)
 print(constLista)

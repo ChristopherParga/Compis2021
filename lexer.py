@@ -50,6 +50,8 @@ keywords = {
     'color' : 'COLOR',
     'grosor' : 'GROSOR',
     'limpiar' : 'LIMPIAR',
+    #funcion ordenar arreglo
+    'ordena' : 'ORDENA',
     #direcciones
     'fd' : 'FORWARD',
     'bk' : 'BACKWARD',
