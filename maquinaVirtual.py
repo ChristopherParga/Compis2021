@@ -286,19 +286,6 @@ def operadores(signo):
 
     llenarValor(pilaCorriendo, cuadruplo[3], getTipo(cuadruplo[3]), res)
 
-'''
-'''
-def verificar(arreglo, de, a):
-    l = len(arreglo) - 1
-    if de < 0 or de > 1:
-        print("Error Maquina Virtual: el inidice {} no esta dentro del rango del dataframe o arreglo 0 a {} ".format(de,l))
-        sys.exit()
-    elif a < 0 or a > 1:
-        print("Error Maquina Virtual: el inidice {} no esta dentro del rango del dataframe o arreglo 0 a {} ".format(a,l))
-        sys.exit()
-    else:
-        return True
-
 
 
 def main():
