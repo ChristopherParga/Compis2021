@@ -482,7 +482,6 @@ d_ints = {}
 d_floats = {}
 d_strs = {}
 d_ch = {}
-d_df = {}
 
 ##Constantes
 GBL = 'global'
@@ -511,7 +510,7 @@ boolDataf = False #Sirve para saber cuando una variable dataframe esta siendo de
 
 #Variables para Arreglos y matrices
 isArray = False
-numRenglones = 0
+numColumnas = 0
 R = 1 #m0
 dirBase = 0 #Direccion base
 currentConstArrays = []
@@ -723,6 +722,7 @@ def p_funcion_especial_void(p):
                               | PENDOWN pn_FuncionEspecial LPAREN RPAREN SEMIC pn_FuncionEspecial2
                               | GROSOR pn_FuncionEspecial LPAREN pn_Expresion6 exp RPAREN pn_Expresion7 SEMIC pn_FuncionEspecial2
                               | LIMPIAR pn_FuncionEspecial LPAREN RPAREN SEMIC pn_FuncionEspecial2
+                              | ORDENA pn_FuncionEspecial LPAREN ID pn_Expresion1 RPAREN SEMIC pn_FuncionEspecial2
     '''
 
 def p_direccion(p):
@@ -736,7 +736,7 @@ def p_direccion(p):
 # ASIGNACION
 def p_asignacion(p):
     '''
-    asignacion : variable ASSIGN pn_Secuencial1 expresion SEMIC pn_Secuencial2
+    asignacion : variable ASSIGN pn_Secuencial1 exp SEMIC pn_Secuencial2
     '''
 
 def p_ctes(p):
@@ -767,7 +767,7 @@ def p_variable(p):
 
 def p_varDim(p):
     '''
-    varDim : LBRACK expresion RBRACK
+    varDim : LBRACK pn_AccederDimension pn_Expresion6 exp pn_VarDim2 pn_AccederArreglo RBRACK pn_Expresion7
            | empty
     '''
 
@@ -795,22 +795,12 @@ def p_loop_no_condicional(p):
     loop_no_condicional : DESDE pn_loop_no_condicional1 variable ASSIGN pn_Secuencial1 exp pn_loop_no_condicional2 HASTA pn_loop_no_condicional3 exp pn_loop_no_condicional4 HACER bloque pn_loop_no_condicional5
     '''
 
-def p_varLectura(p):
-    '''
-    varLectura : ID pn_Expresion1 varLectura2
-    '''
-
-def p_varLectura2(p):
-    '''
-    varLectura2 : COMMA pn_Secuencial4 varLectura
-                | empty pn_Secuencial4
-    '''
-
 # LECTURA
 def p_lectura(p) : 
     '''
-    lectura : LEE pn_Secuencial3 LPAREN varLectura RPAREN SEMIC pn_Secuencial5
+    lectura : LEE pn_Secuencial3 LPAREN variable RPAREN SEMIC pn_Secuencial4 pn_Secuencial5
     '''
+    
 
 # LLAMADA FUNCION
 def p_llamada_param(p):
@@ -1124,6 +1114,16 @@ def p_pn_FuncionEspecial2(p):
             QuadGenerate('punto', parametroMemoria, parametroMemoria2,'')
         else:
             sys.exit('Error funcion punto')
+    elif funName == 'ordena':
+        parametroTipo = popTipos()
+        parametroNombre = popOperandos()
+        parametroMemoria = popMemoria()
+        columnas = directorioFunciones.directorio_funciones[currentFunc]['variables'].tabla_variables[parametroNombre]['columnas']
+        if not columnas:
+            columnas = directorioFunciones.directorio_funciones[GBL]['variables'].tabla_variables[parametroNombre]['columnas']
+        if not columnas:
+            sys.exit("Error en la funcion especial ORDENA. El arreglo no existe")
+        QuadGenerate('ordena', parametroMemoria, columnas, '')
     elif funName == 'circulo':
         parametroTipo = popTipos()
         parametroNombre = popOperandos()
@@ -1313,6 +1313,7 @@ def p_pn_Expresion1(p):
     global currentVarName
     global forBool
     global varFor
+    
 
     id = p[-1]
     tipo = directorioFunciones.func_searchVarType(currentFunc, id)
@@ -1909,17 +1910,6 @@ def p_pn_AddVariable(p):
 ### ARREGLOS Y MATRICES ###
 
 '''
-Guardar la cantidad de renglones que tiene la variable
-'''
-def p_pn_Renglones(p):
-    '''
-    pn_Renglones :
-    '''
-    global numRenglones
-    numRenglones = p[-2]
-
-
-'''
 Actualizar bandera de id como arreglo
 '''
 def p_pn_VarDim2(p):
@@ -1941,7 +1931,9 @@ def p_pn_VarDim3(p):
     global directorioFunciones
     global currentFunc
     global currentVarName
+    global isArray
 
+    isArray = True
     columnas = p[-1]
     if columnas > 0:
         R = R * columnas # R = (LimSup - LimInf + 1) * R
@@ -1975,9 +1967,9 @@ def p_pn_VarDim(p):
     isArray = False
     currentConstArrays = []
 
-def p_pn_DimAccess(p):
+def p_pn_AccederDimension(p):
     '''
-    pn_DimAccess :
+    pn_AccederDimension :
     '''
 
     global isArray
