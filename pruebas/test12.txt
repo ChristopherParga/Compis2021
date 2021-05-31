@@ -1,0 +1,14 @@
+programa TheOnlyLonely;
+variables
+entero: i[1], cont;
+
+funcion void escribir(entero x){
+    escribe(x);
+}
+
+principal(){
+
+    i[0] = 1;
+    escribir(i[0]);
+    
+}

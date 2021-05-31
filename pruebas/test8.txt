@@ -1,0 +1,14 @@
+programa TheOnlyLonely;
+variables
+entero: i[1], cont;
+
+funcion entero escribir(entero x){
+    regresa(x,1);
+}
+
+principal(){
+
+    i[0] = 2;
+    cont = escribir(i[0]);
+    escribe(cont);
+}
