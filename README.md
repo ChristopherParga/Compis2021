@@ -1,4 +1,5 @@
-# Illya
+# Manual de Usuario Illya
+
 
 Para este lenguaje de programacion se tienen los siguientes tipos de datos:
 entero
@@ -36,14 +37,14 @@ ID = valor;
 ID[entero] = valor;
 
 Se cuentan con los siguientes estatutos:
-SI (CONDICIONAL)
-MIENTRAS (CICLO CONDICIONAL)
-DESDE (CICLO NO CONDICIONAL)
-LLAMADA_FUNCION
-ASIGNACION
-ESCRITURA
-LECTURA
-LLAMADA_FUNCION_ESPECIAL
+- SI (CONDICIONAL)
+- MIENTRAS (CICLO CONDICIONAL)
+- DESDE (CICLO NO CONDICIONAL)
+- LLAMADA_FUNCION
+- ASIGNACION
+- ESCRITURA
+- LECTURA
+- LLAMADA_FUNCION_ESPECIAL
 
 La asignacion de un valor a una variable es de la siguiente forma:
 variable = valor;
@@ -84,15 +85,15 @@ llamada void
 funcion(parametros);
 
 La sintaxis de las llamadas especiales es igual que una funcion void, se cuentan con las siguientes funciones y se explican sus parametros:
-COLOR(semilla); #Recibe un valor o una expresion que tenga como resultado un valor entero o flotante que es utilizado para generar una semilla de numeros aleatorios para generar un color
-CIRCULO(radio); #Recibe un valor o expresion que de como resultado un valor entero o flotante que es utilizado como radio para dibujar un circulo
-LINEA(tamano, direccion); #Recibe un valor o expresion que de como resultado un valor entero o flotante que es cuantos pixeles se va a desplazar la tortuga o cuantos grados va a girar y como segundo parametro la direccion hacia donde se va a mover la tortuga o girar: fd para moverla hacia adelante en la direccion que este viendo, bk para moverse hacia atras, rt para girar x grados hacia la derrecha, lt para girar x grados a la izquierda
-PENUP(); #Levanta la pluma, por lo tanto no se hacen dibujos aunque se llamen las funciones;
-PENDOWN(); #Baja la pluma para continuar dibujando, valor por defecto
-ARCO(radio_x, radio_y); #Recibe 2 expresiones o variables que den como resultado enteros o flotantes que son utilizados para dibujar un arco
-GROSOR(tamano); #Cambia el grosor de las lineas
-LIMPIAR(); #Borra todo lo que se haya dibujado
-ORDENA(ID); #Recibe como parametro el id de un arreglo para ordenarlo
+- COLOR(semilla); #Recibe un valor o una expresion que tenga como resultado un valor entero o flotante que es utilizado para generar una semilla de numeros aleatorios para - generar un color
+- CIRCULO(radio); #Recibe un valor o expresion que de como resultado un valor entero o flotante que es utilizado como radio para dibujar un circulo
+- LINEA(tamano, direccion); #Recibe un valor o expresion que de como resultado un valor entero o flotante que es cuantos pixeles se va a desplazar la tortuga o cuantos grados va a girar y como segundo parametro la direccion hacia donde se va a mover la tortuga o girar: fd para moverla hacia adelante en la direccion que este viendo, bk para moverse hacia atras, rt para girar x grados hacia la derrecha, lt para girar x grados a la izquierda
+- PENUP(); #Levanta la pluma, por lo tanto no se hacen dibujos aunque se llamen las funciones;
+- PENDOWN(); #Baja la pluma para continuar dibujando, valor por defecto
+- ARCO(radio_x, radio_y); #Recibe 2 expresiones o variables que den como resultado enteros o flotantes que son utilizados para dibujar un arco
+- GROSOR(tamano); #Cambia el grosor de las lineas
+- LIMPIAR(); #Borra todo lo que se haya dibujado
+- ORDENA(ID); #Recibe como parametro el id de un arreglo para ordenarlo
 
 
 
