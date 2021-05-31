@@ -235,8 +235,9 @@ def getAddConst(constante):
         
             return d_ch[constante]
 
-    else: 
-        sys.exit("Error en getAddConst")
+    else:
+        print("Error al Obtener agregar Constante", constante)
+        sys.exit()
 
 
 #Impresion de lista de cuadruplos
@@ -967,9 +968,6 @@ def p_pn_Principal1(p):
     currentFunc = GBL
     cuadruplos[popSaltos()] = ('GOTO','','',nextQuad())
 
-'''
-Cuadruplos de funciones graficas
-'''
 
 ### FUNCIONES ###
 '''
@@ -1065,6 +1063,7 @@ def p_pn_Funcion3(p):
 
     QuadGenerate('ENDFUNC','','','')
     returnBool = False
+
 def p_pn_SetDireccion(p):
     '''
     pn_SetDireccion :
@@ -1122,7 +1121,7 @@ def p_pn_FuncionEspecial2(p):
         if not columnas:
             columnas = directorioFunciones.directorio_funciones[GBL]['variables'].tabla_variables[parametroNombre]['columnas']
         if not columnas:
-            sys.exit("Error en la funcion especial ORDENA. El arreglo no existe")
+            sys.exit("Error en la funcion especial ordena. El arreglo no existe")
         QuadGenerate('ordena', parametroMemoria, columnas, '')
     elif funName == 'circulo':
         parametroTipo = popTipos()
@@ -1139,7 +1138,7 @@ def p_pn_FuncionEspecial2(p):
         if parametroTipo == 'entero' or parametroTipo == 'float':
             QuadGenerate('color', parametroMemoria,'','')
         else:
-            sys.exit('Error funcion especial circulo')
+            sys.exit('Error funcion especial color')
     elif funName == 'penup':
         QuadGenerate('penup','','','')
     elif funName == 'pendown':
@@ -1189,7 +1188,7 @@ def p_pn_FuncionLlamada1(p):
         sys.exit()
 
 '''
-
+Guarda los parámetros para revisarlos.
 '''
 def p_pn_FuncionLlamada2(p):
     '''
@@ -1216,7 +1215,7 @@ def p_pn_FuncionLlamada2(p):
         if lista[argumentos-1] == TipoArgumento:
             QuadGenerate('PARAMETER',ArgumentoMem,'',parametro)
         else:
-            print("Error: Parametros incorrectos")
+            print("Error: Tipo de Parametros incorrectos")
             sys.exit()
     else:
         print("Error: numero de argumentos incorrecto")
@@ -1225,6 +1224,7 @@ def p_pn_FuncionLlamada2(p):
     pFunciones.append(funcion)
 
 '''
+Genera el cuádruplo GOSUB
 '''
 def p_pn_FuncionLlamada3(p):
     '''
@@ -1300,7 +1300,7 @@ def p_pn_CTEString(p):
 
 ### EXPRESIONES ###
 '''
-Anadir ID y Tipo a pOper y pTipo 
+Anadir ID y Tipo a pOperandos y pTipo 
 '''
 def p_pn_Expresion1(p):
     '''
@@ -1661,7 +1661,7 @@ def p_pn_Regresa(p):
         else:
             errorReturnTipo()
     else:
-        print("Error: esta funcion no debe regresar nada")
+        print("Error: esta funcion no debe regresar nada: ", currentFunc)
         sys.exit()
 
 ### CONDICION ###
@@ -1800,6 +1800,7 @@ def p_pn_loop_no_condicional2(p):
             sys.exit()
 
 '''
+Push de la variable del ciclo DESDE.
 '''
 def p_pn_loop_no_condicional3(p):
     '''
@@ -1823,6 +1824,7 @@ def p_pn_loop_no_condicional3(p):
     pushSaltos(nextQuad())
 
 '''
+Generar GOTOF
 '''
 def p_pn_loop_no_condicional4(p):
     '''
@@ -1862,6 +1864,7 @@ def p_pn_loop_no_condicional4(p):
             pushSaltos(nextQuad()-1)
 
 '''
+Generar GOTO
 '''
 def p_pn_loop_no_condicional5(p):
     '''
