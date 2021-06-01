@@ -21,7 +21,7 @@ principal(){
         linea(50,fd);
         punto(0,0);
         x = x + 1;
-        y = x * y +20;
+        y = x * y + 20;
         punto(x*100,y);
         circulo(x*100);
     } 

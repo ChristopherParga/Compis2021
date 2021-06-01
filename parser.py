@@ -704,6 +704,7 @@ def p_estatuto(p):
              | regresa
              | loop_condicional
              | loop_no_condicional
+             | llamada_funcion SEMIC
              | llamada_funcion
              | escritura
              | lectura
@@ -938,6 +939,7 @@ def p_error(p):
         print("Error en la linea "+ str(p.lineno))
         print()
         parser.errok()
+        sys.exit()
         
         
     else:

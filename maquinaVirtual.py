@@ -301,7 +301,7 @@ def main():
     global output_grafico
 
     
-    create_world(1000,1000)
+    create_world(1900,900)
     set_speed(2)
     delay_fps(15)
 
