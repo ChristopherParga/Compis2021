@@ -1,6 +1,9 @@
 # Manual de Usuario Illya
 
-
+#Requerimeintos:
+- Libreria PLY
+- easygraphics
+## Contexto lenguaje
 Para este lenguaje de programacion se tienen los siguientes tipos de datos:
 entero
 flotante
