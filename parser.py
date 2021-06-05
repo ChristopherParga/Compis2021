@@ -507,7 +507,6 @@ forBool = False
 varFor = ''
 negativo = False
 returnBool = False #sirve para saber si una funcion debe regresar algun valor (si es void o no)
-boolDataf = False #Sirve para saber cuando una variable dataframe esta siendo declarada
 
 #Variables para Arreglos y matrices
 isArray = False
@@ -2062,7 +2061,7 @@ def main():
         f = open(path,'r', encoding='utf-8')
         code = f.read()
         f.close()
-        print(code)
+        #print(code)
         lex_test(code)
         result = parser.parse(code)
     except EOFError:
