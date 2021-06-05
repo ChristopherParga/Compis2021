@@ -1,11 +1,10 @@
 '''
-Para representar el cubo semantico vamos a utilizar un Diccionario que contiene todas las combinaciones posibles entre dos operandos, utilizando todos los tipos que existen en el lenguaje COVID. 
+Para representar el cubo semantico vamos a utilizar un Diccionario que contiene todas las combinaciones posibles entre dos operandos, utilizando todos los tipos que existen en el lenguaje Illya. 
         
-Los tipos de datos que contiene COVID son:
-    - Int
-    - Float
+Los tipos de datos que contiene Illya son:
+    - Entero
+    - Flotante
     - Char
-    - Array
 
 Tambien incluye los resultados cuando se utilizan los estatutos de lectura (lee) y escritura (escribe). 
 
@@ -153,7 +152,6 @@ class CuboSemantico:
             ('char' , 'char' , '!=' ) : 'bool',
             ('char' , 'char' , '|' ) : 'error',
             ('char' , 'char' , '&' ) : 'error',
-
 
             #Lectura
             ('lee', 'entero', '') : 'entero',
